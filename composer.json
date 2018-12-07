@@ -1,0 +1,10 @@
+{
+	"autoload": {
+		"psr-4": {
+			"SwapBoard\\": "app"
+		},
+		"files": [
+			"framework/helpers/helpers.php"
+		]
+	}
+}
