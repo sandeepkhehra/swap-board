@@ -9,4 +9,4 @@
  * License: MIT
  */
 
-require_once 'vendor' . DIRECTORY_SEPARATOR . 'bootstrap.php';
+require_once 'framework' . DIRECTORY_SEPARATOR . 'bootstrap.php';

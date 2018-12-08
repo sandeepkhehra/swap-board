@@ -1,4 +1,5 @@
 <?php
+namespace SwapBoard\Helpers;
 
 defined('ABSPATH') or die('Not permitted!');
 
