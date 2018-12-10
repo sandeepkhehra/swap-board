@@ -3,7 +3,7 @@ namespace SwapBoard\Controllers\Menus;
 
 defined('ABSPATH') or die('Not permitted!');
 
-use SwapBoard\Controllers\Admin\FindOfferController;
+use SwapBoard\Controllers\Admin\Menus\FindOfferController;
 
 class SwapBoardMenuController extends BaseMenuController
 {
@@ -21,5 +21,10 @@ class SwapBoardMenuController extends BaseMenuController
 	protected function controller()
 	{
 		$this->setController(new FindOfferController);
+	}
+
+	public function menuView()
+	{
+		// Don't need a different view here.
 	}
 }

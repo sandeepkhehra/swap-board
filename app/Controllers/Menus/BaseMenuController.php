@@ -3,10 +3,8 @@ namespace SwapBoard\Controllers\Menus;
 
 defined('ABSPATH') or die('Not permitted!');
 
-use SwapBoard\Helpers\SwapBoardConstants;
-use SwapBoard\Controllers\BaseController;
-use SwapBoard\Traits\MenuTrait;
-
+use SwapBoard\Models\BaseModel;
+use SwapBoard\Traits\ViewsTrait;
 
 /**
  * Base functions for WP Admin Dashboard Menu.
@@ -18,7 +16,7 @@ use SwapBoard\Traits\MenuTrait;
  */
 abstract class BaseMenuController
 {
-	use MenuTrait;
+	use ViewsTrait;
 
 	/**
 	 * Access level to the plugin.
@@ -28,18 +26,18 @@ abstract class BaseMenuController
 	protected $accessLevel = 'administrator';
 
 	/**
-	 * Controller for the current class.
+	 * Model of the current menu.
 	 *
-	 * @var object BaseController
+	 * @var object BaseModel
 	 */
-	public $controller;
+	protected $model;
 
 	/**
 	 * Slug for the menu/submenu.
 	 *
 	 * @var string
 	 */
-	public $slug = SwapBoardConstants::PLUGIN_SLUG;
+	public $slug = PLUGIN_SLUG;
 
 	/**
 	 * Type of menu. Can be "main" or "sub".
@@ -49,25 +47,11 @@ abstract class BaseMenuController
 	protected $menuType;
 
 	/**
-	 * Tells weather to use main menu's slug as submenu's slug.
+	 * Tells whether to use main menu's slug as submenu's slug.
 	 *
 	 * @var boolean
 	 */
 	protected $useMainMenu;
-
-	/**
-	 * CSS assets array for the menu/submenu.
-	 *
-	 * @var array
-	 */
-	protected $cssAssets = [];
-
-	/**
-	 * JS assets array for menu/submenu.
-	 *
-	 * @var array
-	 */
-    protected $jsAssets = [];
 
 	/**
 	 *
@@ -81,13 +65,12 @@ abstract class BaseMenuController
 		$this->menuType = $menuType;
 		$this->useMainMenu = $useMainMenu;
 		$this->slug = $this->menuType == 'main' ? $this->slug : (
-			$this->useMainMenu ? $this->slug : $this->menuSlug($this->title)
+			$this->useMainMenu ? $this->slug : menuSlug($this->title)
 		);
-		// $this->slug = $this->menuType == 'main' ? $this->slug : $this->menuSlug($this->title);
 		$this->cssAssets = $assets['css'];
 		$this->jsAssets = $assets['js'];
 
-		method_exists($this, 'controller') ? $this->controller() : false;
+		method_exists($this, 'model') ? $this->model() : false;
 	}
 
 	/**
@@ -96,23 +79,21 @@ abstract class BaseMenuController
 	 * @param object $menuInstance
 	 * @return void
 	 */
-    protected function menuView($menuInstance)
-    {
-        MenuViewGeneratorController::setView($menuInstance)->getAssets($this->menuAssets());
-    }
+	abstract protected function menuView();
 
-	/**
-	 * Gathers menu related assets.
-	 *
-	 * @return void
-	 */
-    protected function menuAssets()
-    {
-        return [
-            'css' => $this->cssAssets,
-            'js' => $this->jsAssets
-        ];
-	}
+
+	// /**
+	//  * Gathers menu related assets.
+	//  *
+	//  * @return void
+	//  */
+    // protected function menuAssets()
+    // {
+    //     return [
+    //         'css' => $this->cssAssets,
+    //         'js' => $this->jsAssets
+    //     ];
+	// }
 
 	/**
 	 * Initializes WP menu page.
@@ -123,7 +104,7 @@ abstract class BaseMenuController
 	{
 		add_menu_page(
 			'',
-			SwapBoardConstants::PLUGIN_LONG_NAME,
+			PLUGIN_LONG_NAME,
 			$this->accessLevel,
 			$this->slug,
 			[$this, 'menuFunction'],
@@ -139,8 +120,8 @@ abstract class BaseMenuController
 	protected function subMenu()
 	{
 		add_submenu_page(
-			SwapBoardConstants::PLUGIN_SLUG,
-			$this->menuTitle($this->title),
+			PLUGIN_SLUG,
+			menuTitle($this->title),
 			$this->title,
 			$this->accessLevel,
 			$this->slug,
@@ -149,14 +130,14 @@ abstract class BaseMenuController
 	}
 
 	/**
-	 * Set the controller for current class.
+	 * Set the model for current menu.
 	 *
-	 * @param BaseController $controller
+	 * @param BaseModel $model
 	 * @return void
 	 */
-	protected function setController(BaseController $controller)
+	protected function setModel(BaseModel $model)
 	{
-		$this->controller = $controller;
+		$this->model = $model;
 	}
 
 	/**

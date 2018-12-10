@@ -6,7 +6,7 @@ defined('ABSPATH') or die('Not permitted!');
 use SwapBoard\Helpers\HookrInterface;
 use SwapBoard\Controllers\BaseController;
 
-class AdminMenusController extends BaseController implements HookrInterface
+class DashMenusController extends BaseController implements HookrInterface
 {
 	protected $menus = [
 		SwapBoardMenuController::class,
@@ -19,23 +19,21 @@ class AdminMenusController extends BaseController implements HookrInterface
 	 *
 	 * @return void
 	 */
-	public function prepareMenus()
+	public function initMenus()
 	{
 		foreach ($this->menus as $menu) :
-			$this->initMenu(new $menu);
+			if (new $menu instanceof BaseMenuController) (new $menu)->menu();
 		endforeach;
 	}
 
-	/**
-	 * Registers menu/submenu for WP Admin Dashboard.
-	 *
-	 * @param BaseMenuController $menu
-	 * @return void
-	 */
-    public function initMenu(BaseMenuController $menu)
-    {
-		$menu->menu();
-	}
+	// public function initMenusAssets()
+	// {
+	// 	foreach ($this->menus as $menu) :
+	// 		if (new $menu instanceof BaseMenuController && method_exists($menu, 'menuAssets')) {
+	// 			(new $menu)->menuAssets()->enqueue();
+	// 		}
+	// 	endforeach;
+	// }
 
 	/**
 	 * Hooks registered menus to WP Admin Dashboard.
@@ -44,16 +42,6 @@ class AdminMenusController extends BaseController implements HookrInterface
 	 */
 	public function hook()
 	{
-		add_action('admin_menu', [$this, 'prepareMenus']);
-	}
-
-	/**
-	 * Don't know yet.
-	 *
-	 * @return void
-	 */
-	public static function talk()
-	{
-		static::listen(new self);
+		add_action('admin_menu', [$this, 'initMenus']);
 	}
 }

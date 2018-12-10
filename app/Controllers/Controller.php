@@ -12,7 +12,10 @@ class Controller
 	public static function register()
 	{
 		self::$providers = [
-			Menus\AdminMenusController::class,
+			SwapBoardInstaller::class,
+			SwapBoardRouter::class,
+			Menus\DashMenusController::class,
+			Admin\AdminPanelController::class,
 		];
 
 		return new self;
@@ -26,9 +29,7 @@ class Controller
 	public function trigger()
 	{
 		foreach (self::$providers as $provider) :
-			if (class_exists($provider) && new $provider instanceof HookrInterface) :
-				$provider::talk();
-			endif;
+			if (class_exists($provider) && new $provider instanceof HookrInterface) (new $provider)->hook();
 		endforeach;
 	}
 }

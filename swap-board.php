@@ -9,4 +9,5 @@
  * License: MIT
  */
 
+define('SB_ROOT_FILE', __FILE__);
 require_once 'framework' . DIRECTORY_SEPARATOR . 'bootstrap.php';

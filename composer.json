@@ -2,6 +2,10 @@
 	"autoload": {
 		"psr-4": {
 			"SwapBoard\\": "app"
-		}
+		},
+		"files": [
+			"framework/helpers/constants.php",
+			"framework/helpers/helpers.php"
+		]
 	}
 }

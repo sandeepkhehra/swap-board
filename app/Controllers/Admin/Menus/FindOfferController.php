@@ -1,5 +1,5 @@
 <?php
-namespace SwapBoard\Controllers\Admin;
+namespace SwapBoard\Controllers\Admin\Menus;
 
 defined('ABSPATH') or die('Not permitted!');
 

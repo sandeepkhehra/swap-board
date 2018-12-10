@@ -22,11 +22,24 @@ abstract class BaseModel
 		echo "</pre>";
 	}
 
-	protected function read($id)
+	protected function read($value, string $column = 'id')
 	{
-		echo "<pre>";
-		print_r($id);
-		echo "</pre>";
+		return $this->dbDriver->get_row("SELECT * FROM {$this->table} WHERE {$column}={$value} LIMIT 1");
+	}
+
+	protected function readMulti($values, string $column = 'id')
+	{
+		return $this->dbDriver->get_results("SELECT * FROM {$this->table} WHERE {$column} IN ({$id})");
+	}
+
+	protected function readAll()
+	{
+		return $this->dbDriver->get_results("SELECT * FROM {$this->table}");
+	}
+
+	protected function readOptionsTable(string $key)
+	{
+		return get_option($key);
 	}
 
 	protected function update($id)
