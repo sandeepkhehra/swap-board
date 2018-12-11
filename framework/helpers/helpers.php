@@ -1,7 +1,7 @@
 <?php
 
-if (!function_exists('getPostData')) {
-	function getPostData(string $type = 'post')
+if (!function_exists('sboardGetPostData')) {
+	function sboardGetPostData(string $type = 'post')
 	{
 		$postData = new WP_Query([
 			'post_type' => $type,
@@ -12,29 +12,29 @@ if (!function_exists('getPostData')) {
 	}
 }
 
-if (!function_exists('getSlug')) {
-	function getSlug(string $string)
+if (!function_exists('sboardGetSlug')) {
+	function sboardGetSlug(string $string)
 	{
-		return str_replace([' ', '_'], '-', strtolower($string));
+		return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
 	}
 }
 
-if (!function_exists('menuSlug')) {
-	function menuSlug(string $string)
+if (!function_exists('sboardMenuSlug')) {
+	function sboardMenuSlug(string $string)
 	{
-		return PLUGIN_SLUG . '-' . getSlug($string);
+		return PLUGIN_SLUG . '-' . sboardGetSlug($string);
 	}
 }
 
-if (!function_exists('menuTitle')) {
-	function menuTitle(string $title)
+if (!function_exists('sboardMenuTitle')) {
+	function sboardMenuTitle(string $title)
 	{
 		return PLUGIN_PAGE_TITLE . $title;
 	}
 }
 
-if (!function_exists('pathResolver')) {
-	function pathResolver(string $path, string $type = 'view', $ext = SB_VIEWS_EXT)
+if (!function_exists('sboardPathResolver')) {
+	function sboardPathResolver(string $path, string $type = 'view', $ext = SB_VIEWS_EXT)
 	{
 		$dir = SB_VIEWS_DIR;
 		$pathData = explode('.', $path);
@@ -50,5 +50,67 @@ if (!function_exists('pathResolver')) {
 		$resolvedPath = str_replace(['.', end($pathData)], ['/', $fileName], $path);
 
 		return $filePath = $dir . $resolvedPath;
+	}
+}
+
+if (!function_exists('sboardDefineFormAction')) {
+	/**
+	 * Outputs fields for "POST" action with WP NONCE data.
+	 *
+	 * @param string $action
+	 * @param object $controller
+	 * @return void
+	 */
+	function sboardDefineFormAction($action, $controller)
+	{
+		if (method_exists($controller, $action)) :
+			$reflection = new \ReflectionClass($controller);
+			wp_nonce_field($action, SB_FORM_NONCE);
+			$fields = "<input type='hidden' value='{$action}' name='sbAction'>
+			<input type='hidden' value='sboardPOST' name='action'>
+			<input type='hidden' value='". str_replace('\\', ':', get_class($controller)) ."' name='sbController'>";
+
+			echo $fields;
+		endif;
+	}
+}
+
+if (!function_exists('sboardFilterPostData')) {
+	/**
+	 * Unsets useless indexes/variables from the data array.
+	 *
+	 * @param array $array
+	 * @return void
+	 */
+	function sboardFilterPostData($array)
+	{
+		unset(
+			$array[SB_NONCE],
+			$array['action'],
+			$array['sbAction'],
+			$array['sbController'],
+			$array['_wp_http_referer']
+		);
+
+		return $array;
+	}
+}
+
+if (!function_exists('sboardRedirect')) {
+	/**
+	 * Performs a redirect back to the referer source.
+	 *
+	 * @return void
+	 */
+	function sboardRedirect()
+	{
+		if (wp_get_referer()) {
+			$redirect = wp_get_referer();
+		} else {
+			$redirect = $_SERVER['HTTP_REFERER'];
+		}
+
+		header("Location: {$redirect}");
+		exit;
 	}
 }

@@ -8,7 +8,7 @@ use SwapBoard\Models\Admin\FindOfferModel;
 use SwapBoard\Helpers\HookrInterface;
 use SwapBoard\Traits\ViewsTrait;
 
-class AdminPanelController extends BaseController implements HookrInterface
+class AdminPanelController extends BaseController
 {
 	use ViewsTrait;
 
@@ -29,16 +29,16 @@ class AdminPanelController extends BaseController implements HookrInterface
 		$this->getView('admin.index');
 	}
 
-	public function hook()
-	{
-		add_action('init', [$this, 'urlRewrite']);
-	}
+	// public function hook()
+	// {
+	// 	add_action('init', [$this, 'urlRewrite']);
+	// }
 
-	public function urlRewrite()
-	{
-		if (isset($_GET['sboardAdmin']) && $_GET['sboardAdmin'] === 'admin') :
-			$this->view();
-			exit;
-		endif;
-	}
+	// public function urlRewrite()
+	// {
+	// 	if (isset($_GET['sboardAdmin']) && $_GET['sboardAdmin'] === 'admin') :
+	// 		$this->view();
+	// 		exit;
+	// 	endif;
+	// }
 }

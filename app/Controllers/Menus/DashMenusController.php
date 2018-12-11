@@ -10,6 +10,8 @@ class DashMenusController extends BaseController implements HookrInterface
 {
 	protected $menus = [
 		SwapBoardMenuController::class,
+		UsersMenuController::class,
+		PlansMenuController::class,
 		SettingsMenuController::class,
 	];
 
@@ -25,15 +27,6 @@ class DashMenusController extends BaseController implements HookrInterface
 			if (new $menu instanceof BaseMenuController) (new $menu)->menu();
 		endforeach;
 	}
-
-	// public function initMenusAssets()
-	// {
-	// 	foreach ($this->menus as $menu) :
-	// 		if (new $menu instanceof BaseMenuController && method_exists($menu, 'menuAssets')) {
-	// 			(new $menu)->menuAssets()->enqueue();
-	// 		}
-	// 	endforeach;
-	// }
 
 	/**
 	 * Hooks registered menus to WP Admin Dashboard.

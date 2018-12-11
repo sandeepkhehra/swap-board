@@ -17,9 +17,7 @@ abstract class BaseModel
 
 	protected function create($data)
 	{
-		echo "<pre>";
-		print_r($data);
-		echo "</pre>";
+		// $this->dbDriver->insert($data);
 	}
 
 	protected function read($value, string $column = 'id')

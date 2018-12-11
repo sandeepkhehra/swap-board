@@ -3,9 +3,9 @@ namespace SwapBoard\Models;
 
 defined('ABSPATH') or die('Not permitted!');
 
-class SettingsModel extends BaseModel
+class UsersModel extends BaseModel
 {
-	protected $table = 'options';
+	protected $table = 'sboard_users';
 
 	public function getAllData()
 	{

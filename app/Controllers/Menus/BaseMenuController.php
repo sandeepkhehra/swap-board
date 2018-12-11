@@ -65,7 +65,7 @@ abstract class BaseMenuController
 		$this->menuType = $menuType;
 		$this->useMainMenu = $useMainMenu;
 		$this->slug = $this->menuType == 'main' ? $this->slug : (
-			$this->useMainMenu ? $this->slug : menuSlug($this->title)
+			$this->useMainMenu ? $this->slug : sboardMenuSlug($this->title)
 		);
 		$this->cssAssets = $assets['css'];
 		$this->jsAssets = $assets['js'];
@@ -81,20 +81,6 @@ abstract class BaseMenuController
 	 */
 	abstract protected function menuView();
 
-
-	// /**
-	//  * Gathers menu related assets.
-	//  *
-	//  * @return void
-	//  */
-    // protected function menuAssets()
-    // {
-    //     return [
-    //         'css' => $this->cssAssets,
-    //         'js' => $this->jsAssets
-    //     ];
-	// }
-
 	/**
 	 * Initializes WP menu page.
 	 *
@@ -103,7 +89,7 @@ abstract class BaseMenuController
 	protected function mainMenu()
 	{
 		add_menu_page(
-			'',
+			$this->title,
 			PLUGIN_LONG_NAME,
 			$this->accessLevel,
 			$this->slug,
@@ -121,7 +107,7 @@ abstract class BaseMenuController
 	{
 		add_submenu_page(
 			PLUGIN_SLUG,
-			menuTitle($this->title),
+			sboardMenuTitle($this->title),
 			$this->title,
 			$this->accessLevel,
 			$this->slug,

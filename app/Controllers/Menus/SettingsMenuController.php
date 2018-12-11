@@ -3,7 +3,6 @@ namespace SwapBoard\Controllers\Menus;
 
 defined('ABSPATH') or die('Not permitted!');
 
-use SwapBoard\Controllers\SettingsController;
 use SwapBoard\Models\SettingsModel;
 
 class SettingsMenuController extends BaseMenuController
@@ -16,7 +15,7 @@ class SettingsMenuController extends BaseMenuController
 
 	public function __construct()
 	{
-		parent::__construct(['css' => $this->cssAssets, 'js' => $this->jsAssets], 'sub', true);
+		parent::__construct(['css' => $this->cssAssets, 'js' => $this->jsAssets]);
 	}
 
 	public function menuView()
@@ -24,30 +23,26 @@ class SettingsMenuController extends BaseMenuController
 		$this->getView('dash.settings.index');
 	}
 
-	// public function menuAssets() {
-	// 	$this->getAssets('dash.settings.assets');
-
-	// 	return $this;
-	// }
-
-	public function model()
+	public function updateData()
 	{
-		$this->setModel(new SettingsModel);
+		$postData = $_POST;
+
+		if (!isset($postData[SB_FORM_NONCE])
+			|| !wp_verify_nonce($postData[SB_FORM_NONCE], $postData['sbAction'] )) {
+
+		   echo 'Sorry, your nonce did not verify.';
+		   exit;
+		}
+
+		$redirectTo = $postData['_wp_http_referer'];
+		$postData = sboardFilterPostData($postData);
+		update_option(PLUGIN_SETTINGS_KEY, $postData);
+
+		return sboardRedirect();
 	}
 
-	// public function getAllData()
-	// {
-	// 	$data = $this->model->getAllData();
-
-	// 	echo "<pre>";
-	// 	print_r($data);
-	// 	echo "</pre>";
-	// }
-
-	public function save()
+	public function getData()
 	{
-		$data = $_POST;
-
-		$this->model->create($data);
+		return get_option(PLUGIN_SETTINGS_KEY);
 	}
 }

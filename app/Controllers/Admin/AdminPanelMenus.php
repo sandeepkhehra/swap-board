@@ -17,10 +17,10 @@ class AdminPanelMenus
 			print_r($menu);
 			echo "</pre>";
 
-			// $menusData[$menuSlug] = [
+			// $menusData[$sboardMenuSlug] = [
 			// 	'title' => $menu,
 			// 	'controller' => $menuController,
-			// ]; 
+			// ];
 		endforeach;
 	}
 }

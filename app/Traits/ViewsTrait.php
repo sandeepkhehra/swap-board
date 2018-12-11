@@ -34,7 +34,7 @@ trait ViewsTrait
 
 	public function resolveViewPath(string $viewPath)
 	{
-		$filePath = pathResolver($viewPath);
+		$filePath = sboardPathResolver($viewPath);
 
 		try {
 			if (!file_exists($filePath)) :
@@ -52,7 +52,7 @@ trait ViewsTrait
 		$allAssets = array_combine(['css', 'js'], [$this->cssAssets, $this->jsAssets]);
 		foreach ($allAssets as $assetType => $assets) :
 			if (!empty($assets)) :
-				$assetsPath = pathResolver($viewPath, 'asset', ".{$assetType}");
+				$assetsPath = sboardPathResolver($viewPath, 'asset', ".{$assetType}");
 				$this->resolveAssetsPath($assetsPath, $assetType, $assets);
 			endif;
 		endforeach;

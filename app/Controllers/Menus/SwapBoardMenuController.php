@@ -7,7 +7,7 @@ use SwapBoard\Controllers\Admin\Menus\FindOfferController;
 
 class SwapBoardMenuController extends BaseMenuController
 {
-    public $title = '';
+    protected $title = PLUGIN_LONG_NAME;
 
     protected $cssAssets = [];
 
