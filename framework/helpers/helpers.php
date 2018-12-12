@@ -77,7 +77,7 @@ if (!function_exists('sboardDefineFormAction')) {
 
 if (!function_exists('sboardFilterPostData')) {
 	/**
-	 * Unsets useless indexes/variables from the data array.
+	 * Unsets unwanted indexes/variables from the data array.
 	 *
 	 * @param array $array
 	 * @return void
@@ -112,5 +112,72 @@ if (!function_exists('sboardRedirect')) {
 
 		header("Location: {$redirect}");
 		exit;
+	}
+}
+
+if (!function_exists('sboardInclude')) {
+	function sboardInclude($filePath)
+	{
+		$filePath = sboardPathResolver($filePath, 'view', SB_INCL_EXT);
+
+		if (file_exists($filePath)):
+			include_once $filePath;
+		endif;
+		// Do the error handling.
+	}
+}
+
+if (!function_exists('sboardGetImage')) {
+	function sboardGetImage($imagePath)
+	{
+		echo SB_VIEWS_URL . $imagePath;
+	}
+}
+
+if (!function_exists('sboardCoreAssets')) {
+	/**
+	 * Need a lot of reworking!
+	 *
+	 * @param string $assetType
+	 * @param array $assets
+	 * @return void
+	 * @todo Fix the whole goddamn thing.
+	 */
+	function sboardCoreAssets($assetType, array $assets)
+	{
+		$weird = func_get_args()[2];
+
+		if (!empty($weird)) :
+			$newPath = "$weird/assets/$assetType/$assets[0]";
+			sboardGetImage($newPath);
+		endif;
+
+		if (in_array($assetType, ['css', 'js', 'images', 'fonts'])) :
+
+			foreach ($assets as $asset) :
+				$dirPath = SB_ASSETS_DIR . $assetType . DS . $asset;
+
+				if (file_exists($dirPath)):
+					$assetPath = str_replace(SB_ASSETS_DIR, SB_ASSETS_URL, $dirPath);
+
+					switch ($assetType) :
+						case 'css':
+						$embed = "<link rel='stylesheet' href='{$assetPath}'>";
+						break;
+
+						case 'js':
+						$embed = "<script src='{$assetPath}'></script>";
+						break;
+
+						case 'images':
+						$embed = "<img src='{$assetPath}'>";
+						break;
+					endswitch;
+
+					echo $embed;
+				endif;
+			endforeach;
+
+		endif;
 	}
 }

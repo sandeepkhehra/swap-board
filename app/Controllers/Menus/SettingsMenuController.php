@@ -34,7 +34,6 @@ class SettingsMenuController extends BaseMenuController
 		   exit;
 		}
 
-		$redirectTo = $postData['_wp_http_referer'];
 		$postData = sboardFilterPostData($postData);
 		update_option(PLUGIN_SETTINGS_KEY, $postData);
 

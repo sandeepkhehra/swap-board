@@ -24,10 +24,16 @@ trait ViewsTrait
 
 	public function getView(string $viewPath)
 	{
+		$viewType = '';
+
 		if (null !== $this->resolveViewPath($viewPath)) {
 			$this->viewPath = $viewPath;
 
-			$this->getAssets($viewPath)->enqueue();
+			if (strpos($this->viewPath, 'dash') === false) {
+				$viewType = 'template';
+			}
+
+			$this->getAssets($viewPath)->enqueue($viewType);
 			include_once $this->resolveViewPath($viewPath);
 		}
 	}
@@ -60,26 +66,57 @@ trait ViewsTrait
 		return $this;
 	}
 
-	public function enqueue()
+	public function enqueue($viewType)
 	{
 		add_action('admin_enquque_scripts', [$this, 'loadAssets']);
+
+		if ($viewType === 'template') :
+			add_action('wp_enquque_scripts', [$this, 'loadAssets']);
+			add_action('wp_enqueue_scripts', [$this, 'removeWPViewAssets'], 100);
+		endif;
 	}
 
 	public function resolveAssetsPath($assetPath, $assetType, $assets)
 	{
 		foreach ($assets as $asset) :
-			$assetPath = $assetPath . "/{$assetType}/$asset";
-			$this->loadAssets($assetPath, $assetType);
+			$fullAssetPath = $assetPath . "/{$assetType}/$asset";
+			$this->loadAssets($fullAssetPath, $assetType);
 		endforeach;
 	}
 
 	public function loadAssets(string $assetPath, string $assetType)
 	{
-		$rand = uniqid();
+		$handle = uniqid();
 		if ($assetType == 'css') :
-			wp_enqueue_style('yc-' .$rand, $assetPath);
+			wp_enqueue_style(PLUGIN_SLUG .'-'. $handle, $assetPath);
 		elseif ($assetType == 'js'):
-			wp_enqueue_script('yc-' . $rand, $assetPath, null, false, true);
+			wp_enqueue_script(PLUGIN_SLUG .'-'.  $handle, $assetPath, null, false, true);
 		endif;
+	}
+
+	/**
+	 * Get rid of unwanted WP styles and scripts.
+	 *
+	 * @return void
+	 */
+	public function removeWPViewAssets() {
+		global $wp_scripts, $wp_styles;
+
+		foreach($wp_scripts->registered as $handle => $registered):
+			if (strpos($registered->src, '/wp-admin/') === false
+				&& strpos($handle, PLUGIN_SLUG) === false
+				&& strpos($handle, 'jquery') === false
+			) :
+				wp_deregister_script($registered->handle);
+			endif;
+		endforeach;
+
+		foreach($wp_styles->registered as $handle => $registered):
+			if (strpos($registered->src, '/wp-admin/') === false
+				&& strpos($handle, PLUGIN_SLUG) === false
+			) :
+				wp_deregister_style($registered->handle);
+			endif;
+		endforeach;
 	}
 }

@@ -15,7 +15,7 @@ class Controller
 			SwapBoardInstaller::class,
 			SwapBoardRouter::class,
 			Menus\DashMenusController::class,
-			Admin\AdminPanelController::class,
+			ViewTemplatesController::class,
 		];
 
 		return new self;

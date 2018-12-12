@@ -21,7 +21,7 @@ class DashMenusController extends BaseController implements HookrInterface
 	 *
 	 * @return void
 	 */
-	public function initMenus()
+	public function init()
 	{
 		foreach ($this->menus as $menu) :
 			if (new $menu instanceof BaseMenuController) (new $menu)->menu();
@@ -35,6 +35,6 @@ class DashMenusController extends BaseController implements HookrInterface
 	 */
 	public function hook()
 	{
-		add_action('admin_menu', [$this, 'initMenus']);
+		add_action('admin_menu', [$this, 'init']);
 	}
 }

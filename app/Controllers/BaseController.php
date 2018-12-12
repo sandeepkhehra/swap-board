@@ -13,4 +13,6 @@ abstract class BaseController
 	{
 		$this->model = $model;
 	}
+
+	abstract function init();
 }

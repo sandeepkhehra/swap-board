@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Root related.
  *
@@ -10,7 +9,12 @@ define('DS', DIRECTORY_SEPARATOR);
 define('SB_VIEWS_URL', SB_URL . 'resources/views/');
 define('SB_VIEWS_DIR', SB_DIR . 'resources' . DS . 'views' . DS);
 define('SB_VIEWS_EXT', '.view.php');
-define('SB_DB_DIR', SB_DIR . 'framework' . DS . 'db' . DS);
+define('SB_INCL_EXT', '.inc.php');
+define('SB_FW_DIR', SB_DIR . 'framework' . DS);
+define('SB_FW_URL', SB_URL . 'framework' . DS);
+define('SB_ASSETS_DIR', SB_FW_DIR . 'assets' . DS);
+define('SB_ASSETS_URL', SB_FW_URL . 'assets' . DS);
+define('SB_DB_DIR', SB_FW_DIR . 'db' . DS);
 
 /**
  * Plugin related.
@@ -29,3 +33,7 @@ define('PLUGIN_ADMIN_DASH_PAGE', !empty(get_option(PLUGIN_SETTINGS_KEY)) ? get_o
  *
  */
 define('SB_FORM_NONCE', PLUGIN_SLUG . '_nonce');
+
+global $swapBoardConfigs;
+
+$swapBoardConfigs = (object) get_option(PLUGIN_SETTINGS_KEY);
