@@ -3,33 +3,31 @@ namespace SwapBoard\Controllers;
 
 defined('ABSPATH') or die('Not permitted!');
 
-class LandingTemplateController
+use SwapBoard\Helpers\ViewTemplateInterface;
+
+class LandingTemplateController implements ViewTemplateInterface
 {
 	public $title = 'SwapBoard';
 
-	public static $css = [
-		'bootstrap.min.css',
-		'animate.css',
+	public $css = [
 		'style.css',
 	];
 
-	public static $js = [
-		'bootstrap.min.js',
-		'wow.js',
+	public $js = [
 		'app.js',
 	];
 
-	public static function id()
+	public function id()
 	{
-		return self::getID();
+		return $this->getID();
 	}
 
-	public static function viewPath()
+	public function viewPath()
 	{
 		return 'landing.index';
 	}
 
-	public static function getID()
+	public function getID()
 	{
 		global $swapBoardConfigs;
 		return $swapBoardConfigs->landing;

@@ -1,28 +1,16 @@
+function triggerPopup(e, method)
+{
+	e.preventDefault()
+	const popClass = 'popup'
+
+	if (method == 'open') {
+		jQuery('[data-popup=' + popClass + ']').fadeIn(350)
+	} else {
+		jQuery('[data-popup=' + popClass + ']').fadeOut(350)
+	}
+}
+
 jQuery(function($) {
-	$("button[data-swap-next]").on("click", function() {
-		$(this)
-			.parents(".dash-pop")
-			.addClass("is-hidden")
-			.siblings(".dash-pop:first")
-			.removeClass("is-hidden")
-	})
-
-	$("button[data-swap-back]").on("click", function() {
-		$(this)
-			.parents(".dash-pop")
-			.addClass("is-hidden")
-			.siblings(".dash-pop:first")
-			.removeClass("is-hidden")
-	})
-
-	$("button[data-swap-finish]").on("click", function() {
-		$(this)
-			.parents(".dash-pop")
-			.addClass("is-hidden")
-			.next(".dash-pop")
-			.removeClass("is-hidden")
-	})
-
 	$(".drop_dn").dropdown()
 	$(".dropdown-menu").click(function(event) {
 		event.stopPropagation()

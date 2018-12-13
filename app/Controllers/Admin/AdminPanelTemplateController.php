@@ -3,31 +3,33 @@ namespace SwapBoard\Controllers\Admin;
 
 defined('ABSPATH') or die('Not permitted!');
 
-class AdminPanelTemplateController
+use SwapBoard\Helpers\ViewTemplateInterface;
+
+class AdminPanelTemplateController implements ViewTemplateInterface
 {
 	public $title = 'User Dashboard';
 
-	public static $css = [
+	public $css = [
 		'style.css',
 	];
 
-	public static $js = [
+	public $js = [
 		'app.js',
 	];
 
-	public static function id()
+	public function id()
 	{
-		return self::getID();
+		return $this->getID();
 	}
 
-	public static function viewPath()
+	public function viewPath()
 	{
 		return 'admin.index';
 	}
 
-	public static function getID()
+	public function getID()
 	{
 		global $swapBoardConfigs;
-		return $swapBoardConfigs->userDash;
+		return  $swapBoardConfigs->userDash;
 	}
 }

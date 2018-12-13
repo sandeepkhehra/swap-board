@@ -1,4 +1,4 @@
-<?php sboardInclude('landing._header'); ?>
+<?php sboardInclude('landing._header', $this); ?>
 
 	<section class="board-indx">
 		<div class="board-content">
@@ -21,11 +21,11 @@
 								<div class="input-group">
 									<input
 										class="form-control emailfield"
-										type="text"
+										type="email"
 										placeholder="Email address"
 									/>
 								</div>
-								<a class="btn btn-default" data-popup-open="popup" href="#">Add Company</a>
+								<button class="btn btn-default" data-swap-button="popup-open">Add Company</button>
 							</form>
 						</div>
 					</div>

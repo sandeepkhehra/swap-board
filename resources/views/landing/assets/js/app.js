@@ -1,14 +1,55 @@
 jQuery(function($) {
-	//----- OPEN
-	$("[data-popup-open]").on("click", function(e) {
-		var targeted_popup_class = jQuery(this).attr("data-popup-open")
-		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350)
-		e.preventDefault()
-	})
-	//----- CLOSE
-	$("[data-popup-close]").on("click", function(e) {
-		var targeted_popup_class = jQuery(this).attr("data-popup-close")
-		$('[data-popup="' + targeted_popup_class + '"]').fadeOut(350)
-		e.preventDefault()
+	$('[data-swap-button]').on('click', function(e) {
+		const type = $(this).data('swap-button')
+
+		switch (type) {
+			case 'popup-open':
+			triggerPopup(e, 'open');
+			break;
+
+			case 'popup-close':
+			triggerPopup(e, 'close');
+			break;
+
+			case 'next':
+			$(this)
+				.parents('.dash-pop')
+				.addClass('is-hidden')
+				.siblings('.dash-pop:first')
+				.removeClass('is-hidden')
+
+				const formData = $(this).parents('form').serializeArray()
+
+				processMultiStep(formData)
+			break;
+
+			case 'back':
+			$(this)
+				.parents('.dash-pop')
+				.addClass('is-hidden')
+				.siblings('.dash-pop:first')
+				.removeClass('is-hidden')
+			break;
+
+			case 'finish':
+			$(this)
+				.parents('.dash-pop')
+				.addClass('is-hidden')
+				.next('.dash-pop')
+				.removeClass('is-hidden')
+			break;
+		}
 	})
 })
+
+/**
+ * Not sure about it.
+ *
+ * @param {object} formData
+ */
+function processMultiStep(formData)
+{
+	jQuery(formData).each(function(i, v) {
+		jQuery('p[data-form-field="'+ v.name +'"]').html(v.value)
+	})
+}

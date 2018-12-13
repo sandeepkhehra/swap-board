@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Swapboard</title>
+		<title><?php echo $context->template->title; ?></title>
+		<?php sboardCoreAssets('css', ['reset.css', 'bootstrap.min.css', 'animate.css', 'font-awesome.min.css', 'easy-responsive-tabs.css']); ?>
 		<?php wp_head(); ?>
 	</head>
 	<body>
@@ -11,7 +12,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<a href="#home" class="logo"> <img src="image/logo-2.png" class="img-responsive" alt="" /> </a>
+						<a href="#home" class="logo"> <img src="<?php sboardCoreAssets('images', ['logo.png'], 'landing'); ?>" class="img-responsive" alt="" /> </a>
 						<a id="configure" class="visible-xs text-right"></a>
 						<div class="navmenu hidden-xs" id="configurator-wrap">
 

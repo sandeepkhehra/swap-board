@@ -64,7 +64,6 @@ if (!function_exists('sboardDefineFormAction')) {
 	function sboardDefineFormAction($action, $controller)
 	{
 		if (method_exists($controller, $action)) :
-			$reflection = new \ReflectionClass($controller);
 			wp_nonce_field($action, SB_FORM_NONCE);
 			$fields = "<input type='hidden' value='{$action}' name='sbAction'>
 			<input type='hidden' value='sboardPOST' name='action'>
@@ -116,7 +115,7 @@ if (!function_exists('sboardRedirect')) {
 }
 
 if (!function_exists('sboardInclude')) {
-	function sboardInclude($filePath)
+	function sboardInclude($filePath, $context = null)
 	{
 		$filePath = sboardPathResolver($filePath, 'view', SB_INCL_EXT);
 
@@ -170,7 +169,7 @@ if (!function_exists('sboardCoreAssets')) {
 						break;
 
 						case 'images':
-						$embed = "<img src='{$assetPath}'>";
+						$embed = $assetPath;
 						break;
 					endswitch;
 

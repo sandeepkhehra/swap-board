@@ -4,38 +4,38 @@ namespace SwapBoard\Controllers;
 defined('ABSPATH') or die('Not permitted!');
 
 use SwapBoard\Helpers\HookrInterface;
+use SwapBoard\Helpers\ViewTemplateInterface;
 use SwapBoard\Traits\ViewsTrait;
 
 class ViewTemplatesController implements HookrInterface
 {
 	use  ViewsTrait;
 
-	protected $templateID;
+	public $template;
 
-	protected $templates = [
+	private $templates = [
 		LandingTemplateController::class,
 		Admin\AdminPanelTemplateController::class,
 	];
 
-	public function loadTemplates($template)
+	public function loadTemplates($templatePath)
 	{
 		global $post;
 
 		foreach ($this->templates as $template) :
-			if (class_exists($template)) {
+			if (class_exists($template) && new $template instanceof ViewTemplateInterface) {
+				$this->template = new $template;
+				$this->cssAssets = $this->template->css;
+				$this->jsAssets = $this->template->js;
 
-				$this->templateID = $template::id();
-				$this->cssAssets = $template::$css;
-				$this->jsAssets = $template::$js;
-
-				if ($post->ID == $this->templateID) :
-					$this->getView($template::viewPath());
+				if ($post->ID == $this->template->id()) :
+					$this->getView($this->template->viewPath());
 					exit;
 				endif;
 			}
 		endforeach;
 
-		return $template;
+		return $templatePath;
 	}
 
 	public function hook()
