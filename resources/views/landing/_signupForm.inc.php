@@ -1,12 +1,11 @@
 <div class="popup" data-popup="popup">
 	<div class="popup-inner">
-		<div class="dash-pop clearfix">
+		<div class="dash-pop clearfix" data-swap-step-id="1">
 			<div class="pop-aprt">
-				<p>Create a company</p>
+				<p>Create a Company</p>
 				<h2>Step #1</h2>
-				<!-- create-form -->
 				<div class="create-form">
-					<form name="htmlform" method="post" action="toyousender.php">
+					<form data-swap-form="company">
 						<div class="form-group">
 							<label for="companyName">Company Name</label> <input type="text" name="companyName" id="companyName" required />
 						</div>
@@ -21,18 +20,45 @@
 						<div class="form-group">
 							<label for="tel">Phone Number</label> <input type="tel" name="companyPhone" id="tel" required />
 						</div>
-						<div class="form-group"><button type="button" class="submit" data-swap-button="next">Next</button></div>
+						<div class="form-group"><button type="button" class="submit" data-swap-button="next" data-swap-step="2">Next</button></div>
 					</form>
 				</div>
 			</div>
 		</div>
-		<div class="dash-pop is-hidden clearfix">
+		<div class="dash-pop is-hidden clearfix" data-swap-step-id="2">
 			<div class="pop-aprt">
-				<p>Create a company</p>
+				<p>Create a Company</p>
 				<h2>Step #2</h2>
+				<div class="retun-step">
+					<div class="form-fild">
+						<p>Create a company</p>
+						<h2>Step #1</h2>
+						<div class="fild-recrd">
+							<aside>
+								<h6>Company Name:</h6>
+								<span data-form-field="companyName">Delta Airlines</span>
+							</aside>
+							<aside>
+								<h6>Swapboard Address:</h6>
+								<span data-form-field="companyUrl">delta</span>
+							</aside>
+							<aside>
+								<h6>Administrator Email:</h6>
+								<span data-form-field="companyEmail">deltamaster@gmil.com</span>
+							</aside>
+							<aside>
+								<h6>Phone Number:</h6>
+								<span data-form-field="companyPhone">(123) 555-6666</span>
+							</aside>
+							<aside class="form-group">
+								<button type="button" data-swap-button="back" class="submit" data-swap-step="1">Return to Step 1</button>
+							</aside>
+						</div>
+					</div>
+				</div>
 
 				<div class="create-form">
-					<form method="post">
+					<form data-swap-form="user">
 						<div class="form-group">
 							<label for="name">Your First Name</label> <input type="text" name="firstName" required />
 						</div>
@@ -53,45 +79,16 @@
 							<label for="term"> I agree with the <a href="#">Term of use</a></label>
 						</div>
 						<div class="form-group">
-							<button type="button" class="submit" data-swap-button="finish">Finish</button>
+							<button type="button" class="submit" data-swap-button="next" data-swap-step="3">Finish</button>
 						</div>
 					</form>
 				</div>
 			</div>
-			<div class="retun-step">
-				<div class="form-fild">
-					<p>Create a company</p>
-					<h2>Step #1</h2>
-					<div class="fild-recrd">
-						<aside>
-							<h6>Company Name:</h6>
-							<p data-form-field="companyName">Delta Airlines</p>
-						</aside>
-						<aside>
-							<h6>Swapboard Address:</h6>
-							<p data-form-field="companyUrl">delta.swapboard.com</p>
-						</aside>
-						<aside>
-							<h6>Administrator Email:</h6>
-							<p data-form-field="companyEmail">deltamaster@gmil.com</p>
-						</aside>
-						<aside>
-							<h6>Phone Number:</h6>
-							<p data-form-field="companyPhone">(123) 555-6666</p>
-						</aside>
-						<aside class="form-group">
-							<button type="button" data-swap-button="back" class="submit">Return to Step 1</button>
-						</aside>
-					</div>
-				</div>
-			</div>
 		</div>
-		<!-- ----third-popup-- -->
-		<div class="dash-pop is-hidden clearfix">
+		<div class="dash-pop is-hidden clearfix" data-swap-step-id="3">
 			<div class="pop-aprt">
-				<!-- create-form -->
 				<div class="create-form joingroup">
-					<form name="htmlform" method="post" action="toyousender.php">
+					<form data-swap-form="userMeta">
 						<div class="row">
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">
@@ -154,7 +151,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group"><button type="button" class="submit">Join</button></div>
+						<div class="form-group">
+							<button type="button" data-swap-button="finish" class="submit">Join</button>
+						</div>
 					</form>
 				</div>
 			</div>

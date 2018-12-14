@@ -17,6 +17,11 @@ class SwapBoardRouter implements HookrInterface
 
 	public function sboardAJAX()
 	{
+		echo "<pre>";
+		print_r($_POST);
+		echo "</pre>";
+
+		wp_die();
 	}
 
 	public function sboardPOST()

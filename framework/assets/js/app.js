@@ -1,15 +1,3 @@
-function triggerPopup(e, method)
-{
-	e.preventDefault()
-	const popClass = 'popup'
-
-	if (method == 'open') {
-		jQuery('[data-popup=' + popClass + ']').fadeIn(350)
-	} else {
-		jQuery('[data-popup=' + popClass + ']').fadeOut(350)
-	}
-}
-
 jQuery(function($) {
 	$(".drop_dn").dropdown()
 	$(".dropdown-menu").click(function(event) {

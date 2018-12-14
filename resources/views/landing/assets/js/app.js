@@ -1,55 +1,42 @@
+const SwapBoard = new SwapBoardEnvironment();
+
+window.sBoard = SwapBoard
+
 jQuery(function($) {
 	$('[data-swap-button]').on('click', function(e) {
+		const form = $(this).parents('form')
+		const formData = new URLSearchParams()
+		const formScope = form.data('swap-form')
 		const type = $(this).data('swap-button')
+		const step = $(this).data('swap-step')
+
+		for (const data of new FormData(form[0])) {
+			formData.append(data[0], data[1]);
+		}
 
 		switch (type) {
 			case 'popup-open':
-			triggerPopup(e, 'open');
+			SwapBoard.triggerPopup(e, 'open');
 			break;
 
 			case 'popup-close':
-			triggerPopup(e, 'close');
+			SwapBoard.triggerPopup(e, 'close');
 			break;
 
-			case 'next':
+			case 'next': case 'back':
 			$(this)
-				.parents('.dash-pop')
-				.addClass('is-hidden')
-				.siblings('.dash-pop:first')
-				.removeClass('is-hidden')
+			.parents('.dash-pop')
+			.addClass('is-hidden')
+			.siblings('.dash-pop[data-swap-step-id='+ step +']')
+			.removeClass('is-hidden')
 
-				const formData = $(this).parents('form').serializeArray()
-
-				processMultiStep(formData)
-			break;
-
-			case 'back':
-			$(this)
-				.parents('.dash-pop')
-				.addClass('is-hidden')
-				.siblings('.dash-pop:first')
-				.removeClass('is-hidden')
+			SwapBoard.processMultiStep(formScope, formData)
 			break;
 
 			case 'finish':
-			$(this)
-				.parents('.dash-pop')
-				.addClass('is-hidden')
-				.next('.dash-pop')
-				.removeClass('is-hidden')
+			SwapBoard.processMultiStep(formScope, formData)
+			SwapBoard.processFormData()
 			break;
 		}
 	})
 })
-
-/**
- * Not sure about it.
- *
- * @param {object} formData
- */
-function processMultiStep(formData)
-{
-	jQuery(formData).each(function(i, v) {
-		jQuery('p[data-form-field="'+ v.name +'"]').html(v.value)
-	})
-}
