@@ -1,12 +1,45 @@
-class UsersModel {
+class UsersJSModel {
 	process(data) {
-		sBoardServer.send(data)
+		return (new sBoardServer).send(data)
+		.then(resp => {
+			console.log('sadsad', resp)
+			if (resp.type === 'error') {
+				alert('Error: ' + resp.msg)
+				return false
+			} else {
+				return true
+			}
+		})
 	}
 }
 
-class CompanyModel {
+class UsersMetaJSModel {
 	process(data) {
-		console.log('nake it comp', data)
+		return (new sBoardServer).send(data)
+		.then(resp => {
+			console.log('sadsad', resp)
+			if (resp.type === 'error') {
+				alert('Error: ' + resp.msg)
+				return false
+			} else {
+				return true
+			}
+		})
+	}
+}
+
+class CompaniesJSModel {
+	process(data) {
+		return (new sBoardServer).send(data)
+		.then(resp => {
+			console.log('sadsad', resp)
+			if (resp.type === 'error') {
+				alert('Error: ' + resp.msg)
+				return false
+			} else {
+				return true
+			}
+		})
 	}
 }
 
@@ -14,24 +47,11 @@ class SwapBoardEnvironment {
 	constructor() {
 		this.name = 'Swap Board'
 		this.formData = []
-		this.formKeys = [
-			'user',
-			'company',
-			'userMeta',
-		],
 		this.models = {
-			user: new UsersModel,
-			company: new CompanyModel,
-			userMeta: new UsersModel,
+			user: new UsersJSModel,
+			company: new CompaniesJSModel,
+			userMeta: new UsersMetaJSModel,
 		}
-	}
-
-	get formData() {
-		return this._formData
-	}
-
-	set formData(formData) {
-		this._formData = formData
 	}
 
 	triggerPopup(e, method) {
@@ -46,11 +66,29 @@ class SwapBoardEnvironment {
 	}
 
 	processMultiStep(key, data) {
-		jQuery(data).each(function(i, v) {
-			jQuery('[data-form-field="'+ v.name +'"]').html(v.value)
-		})
-
-		this.models[key].process(data)
 		this.formData[key] = data
+
+		if ( key == 'userMeta' ) {
+			return this.processFormData()
+		} else {
+
+			return (new sBoardServer).send(data)
+			.then(resp => {
+				if (resp.type === 'error') {
+					alert('Error: ' + resp.msg)
+					return false
+				} else {
+					return true
+				}
+			})
+		}
+
+	}
+
+	processFormData() {
+		Object.keys(this.formData).map(k => {
+			this.formData[k].set('sbAction', 'create')
+			this.models[k].process(this.formData[k])
+		})
 	}
 }

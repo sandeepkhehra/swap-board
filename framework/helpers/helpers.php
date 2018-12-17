@@ -61,13 +61,16 @@ if (!function_exists('sboardDefineFormAction')) {
 	 * @param object $controller
 	 * @return void
 	 */
-	function sboardDefineFormAction($action, $controller)
+	function sboardDefineFormAction($callType, $action, $controller)
 	{
+		$controllerName = is_string( $controller ) ? $controller : get_class($controller);
+		$formMethod = $callType === 'ajax' ? 'sboardAJAX' : 'sboardPOST';
+
 		if (method_exists($controller, $action)) :
 			wp_nonce_field($action, SB_FORM_NONCE);
 			$fields = "<input type='hidden' value='{$action}' name='sbAction'>
-			<input type='hidden' value='sboardPOST' name='action'>
-			<input type='hidden' value='". str_replace('\\', ':', get_class($controller)) ."' name='sbController'>";
+			<input type='hidden' value='{$formMethod}' name='action'>
+			<input type='hidden' value='". str_replace( '\\', ':', $controllerName ) ."' name='sbController'>";
 
 			echo $fields;
 		endif;
@@ -85,11 +88,20 @@ if (!function_exists('sboardFilterPostData')) {
 	{
 		unset(
 			$array[SB_NONCE],
+			$array[SB_FORM_NONCE],
 			$array['action'],
 			$array['sbAction'],
 			$array['sbController'],
 			$array['_wp_http_referer']
 		);
+
+		$array = array_map( function( $array ) {
+			if ( $array === false && $array === '' ) {
+				$array = null;
+			}
+
+			return $array;
+		}, $array );
 
 		return $array;
 	}

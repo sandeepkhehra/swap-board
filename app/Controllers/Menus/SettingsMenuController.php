@@ -27,21 +27,18 @@ class SettingsMenuController extends BaseMenuController
 	{
 		$postData = $_POST;
 
-		if (!isset($postData[SB_FORM_NONCE])
-			|| !wp_verify_nonce($postData[SB_FORM_NONCE], $postData['sbAction'] )) {
+		if (isset( $postData[ SB_FORM_NONCE ] )
+			&& wp_verify_nonce( $postData[ SB_FORM_NONCE ], $postData['sbAction'] ) ) {
 
-		   echo 'Sorry, your nonce did not verify.';
-		   exit;
+			$postData = sboardFilterPostData( $postData );
+			update_option( PLUGIN_SETTINGS_KEY, $postData );
 		}
-
-		$postData = sboardFilterPostData($postData);
-		update_option(PLUGIN_SETTINGS_KEY, $postData);
 
 		return sboardRedirect();
 	}
 
 	public function getData()
 	{
-		return get_option(PLUGIN_SETTINGS_KEY);
+		return get_option( PLUGIN_SETTINGS_KEY );
 	}
 }

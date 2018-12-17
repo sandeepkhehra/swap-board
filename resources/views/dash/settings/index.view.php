@@ -10,7 +10,7 @@ $pages = sboardGetPostData('page');
 	<hr>
 
 	<form action="<?php echo admin_url('admin-post.php'); ?>" method="POST">
-		<?php sboardDefineFormAction('updateData', $this); ?>
+		<?php sboardDefineFormAction('post', 'updateData', $this); ?>
 
 		<table class="widefat striped">
 			<tbody>

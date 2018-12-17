@@ -7,6 +7,8 @@ abstract class BaseModel
 {
 	protected $dbDriver;
 
+	public $errorsBag = [];
+
 	public function __construct()
 	{
 		global $wpdb;
@@ -15,14 +17,14 @@ abstract class BaseModel
 		$this->table = $this->dbDriver->prefix . $this->table;
 	}
 
-	protected function create($data)
+	protected function create( $data )
 	{
-		// $this->dbDriver->insert($data);
+		return $this->dbDriver->insert( $this->table, $data );
 	}
 
 	protected function read($value, string $column = 'id')
 	{
-		return $this->dbDriver->get_row("SELECT * FROM {$this->table} WHERE {$column}={$value} LIMIT 1");
+		return $this->dbDriver->get_row("SELECT * FROM {$this->table} WHERE {$column}='{$value}' LIMIT 1");
 	}
 
 	protected function readMulti($values, string $column = 'id')
@@ -51,5 +53,12 @@ abstract class BaseModel
 		echo "<pre>";
 		print_r($id);
 		echo "</pre>";
+	}
+
+	public function tblCols()
+	{
+		$tblCols = $this->dbDriver->get_col("DESC {$this->table}");
+
+		return $tblCols;
 	}
 }

@@ -6,7 +6,7 @@ defined('ABSPATH') or die('Not permitted!');
 use SwapBoard\Helpers\HookrInterface;
 use SwapBoard\Controllers\BaseController;
 
-class DashMenusController extends BaseController implements HookrInterface
+class DashMenusController implements HookrInterface
 {
 	protected $menus = [
 		SwapBoardMenuController::class,

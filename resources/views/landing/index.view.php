@@ -55,4 +55,4 @@
 		</div>
 	</section>
 
-<?php sboardInclude('landing._footer'); ?>
+<?php sboardInclude('landing._footer', $this); ?>

@@ -6,25 +6,29 @@
 				<h2>Step #1</h2>
 				<div class="create-form">
 					<form data-swap-form="company">
+
+						<?php sboardDefineFormAction('ajax', 'check', SwapBoard\Controllers\CompaniesController::class); ?>
+
 						<div class="form-group">
-							<label for="companyName">Company Name</label> <input type="text" name="companyName" id="companyName" required />
+							<label for="companyName">Company Name</label> <input type="text" name="name" id="companyName" required />
 						</div>
 						<div class="form-group swap-addre">
-							<label for="companyUrl">Swapboard Address</label> <input type="text" name="companyUrl" id="companyUrl" required />
+							<label for="companyUrl">Swapboard Address</label> <input type="url" name="url" id="companyUrl" required />
 							<span>swapboard.com</span>
 						</div>
 						<div class="form-group">
 							<label for="email">Administrator Email</label>
-							<input type="text" name="companyEmail" id="adminEmail" required />
+							<input type="email" name="details[email]" id="adminEmail" required />
 						</div>
 						<div class="form-group">
-							<label for="tel">Phone Number</label> <input type="tel" name="companyPhone" id="tel" required />
+							<label for="tel">Phone Number</label> <input type="tel" name="details[phone]" id="tel" required />
 						</div>
 						<div class="form-group"><button type="button" class="submit" data-swap-button="next" data-swap-step="2">Next</button></div>
 					</form>
 				</div>
 			</div>
 		</div>
+
 		<div class="dash-pop is-hidden clearfix" data-swap-step-id="2">
 			<div class="pop-aprt">
 				<p>Create a Company</p>
@@ -59,6 +63,9 @@
 
 				<div class="create-form">
 					<form data-swap-form="user">
+
+						<?php sboardDefineFormAction('ajax', 'check', SwapBoard\Controllers\UsersController::class); ?>
+
 						<div class="form-group">
 							<label for="name">Your First Name</label> <input type="text" name="firstName" required />
 						</div>
@@ -85,10 +92,14 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="dash-pop is-hidden clearfix" data-swap-step-id="3">
 			<div class="pop-aprt">
 				<div class="create-form joingroup">
 					<form data-swap-form="userMeta">
+
+					<?php sboardDefineFormAction('ajax', 'check', SwapBoard\Controllers\UserMetaController::class); ?>
+
 						<div class="row">
 							<div class="col-md-6 col-sm-12">
 								<div class="form-group">

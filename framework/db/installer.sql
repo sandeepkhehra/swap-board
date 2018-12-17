@@ -3,7 +3,7 @@
 CREATE TABLE IF NOT EXISTS `###sboard_users`
 (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
-	`fullName` VARCHAR(191) NOT NULL UNIQUE,
+	`fullName` VARCHAR(191),
 	`email` VARCHAR(191) NOT NULL UNIQUE,
 	`position` VARCHAR(191),
 	`location` VARCHAR(191),
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `###sboard_users_meta`
 
 -- Company table.
 
-CREATE TABLE IF NOT EXISTS `###sboard_company`
+CREATE TABLE IF NOT EXISTS `###sboard_companies`
 (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(191) NOT NULL,
@@ -59,16 +59,5 @@ CREATE TABLE IF NOT EXISTS `###sboard_chat_messages`
 	`content` TEXT,
 	`status` TINYINT,
 	`ts` DATETIME DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY (`id`)
-) ~~~COLLATE;
-
--- Probably not required.
-
-CREATE TABLE IF NOT EXISTS `###sboard_settings`
-(
-	`id` INT(10) NOT NULL AUTO_INCREMENT,
-	`templatePageIDs` LONGTEXT NULL,
-	`products` LONGTEXT NULL,
-	`discounts` LONGTEXT NUll,
 	PRIMARY KEY (`id`)
 ) ~~~COLLATE;

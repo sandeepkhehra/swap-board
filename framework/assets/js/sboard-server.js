@@ -1,16 +1,16 @@
 window.sBoardServer = class SwapBoardServer {
 	constructor() {
 		this.action = 'sboardAJAX'
-		this.url = window.top.ajaxurl + '?action=' + this.action
+		this.url = '/swap/wp-admin/admin-ajax.php?action=' + this.action
 	}
 
-	static async send(data) {
-		const res = await fetch(this.url, {
+	async send(data) {
+		return await fetch(this.url, {
 			method: 'POST',
 			credentials: 'same-origin',
 			body: data
-		});
-
-		return res
+		})
+		.then(r => r.json())
+		.catch(err => alert('Something went wrong: ' + err))
 	}
 }

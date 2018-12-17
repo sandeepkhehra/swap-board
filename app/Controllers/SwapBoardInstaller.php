@@ -47,21 +47,10 @@ class SwapBoardInstaller implements HookrInterface
 	public function installDB()
 	{
 		$this->resolveSQLPath(SB_DB_DIR . 'installer.sql');
-		$this->enqueueCoreAssets();
 	}
 
 	public function uninstallDB()
 	{
 		$this->resolveSQLPath(SB_DB_DIR . 'uninstaller.sql');
-	}
-
-	public function enqueueCoreAssets()
-	{
-		add_action('admin_enquque_scripts', [$this, 'coreAssets']);
-	}
-
-	public function coreAssets()
-	{
-		wp_enqueue_script(PLUGIN_SLUG .'-core-', SB_ASSETS_URL.'js'.DS.'sboard-server.js', null, false, true);
 	}
 }

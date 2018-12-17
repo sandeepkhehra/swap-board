@@ -7,29 +7,13 @@ class UsersModel extends BaseModel
 {
 	protected $table = 'sboard_users';
 
-	public function getAllData()
+	public function getBy( $value, $type = 'id' )
 	{
-		return $this->readAll();
+		return $this->read( $value, $type );
 	}
 
-	public function getData()
+	public function insert( $data )
 	{
-		# code...
-	}
-
-	public function findInOptionsTbl()
-	{
-		$ll = $this->readOptionsTable('sboard_settings');
-
-		echo "<pre>";
-		print_r($ll);
-		echo "</pre>";
-	}
-
-	public function create($data)
-	{
-		echo "<pre>";
-		print_r($data);
-		echo "</pre>";
+		return $this->create( $data );
 	}
 }
