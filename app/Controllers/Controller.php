@@ -13,6 +13,7 @@ class Controller
 	{
 		self::$providers = [
 			SwapBoardInstaller::class,
+			SwapBoardAuthenticator::class,
 			SwapBoardRouter::class,
 			Menus\DashMenusController::class,
 			ViewTemplatesController::class,

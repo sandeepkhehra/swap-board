@@ -18,11 +18,21 @@ class UsersController extends BaseController
 		$userDataArr = $this->extractUserMeta( $postData );
 		$userData = $userDataArr['rest'];
 		$userMeta = $userDataArr['meta'];
+		$userData['password'] = password_hash( $userDataArr['rest']['password'], PASSWORD_BCRYPT );
 		$userData['fullName'] = $userDataArr['meta']['firstName'] .' '. $userDataArr['meta']['lastName'];
 		$userData['position'] = $userData['location'] = 'empty'; /** @todo fix this shit */
 
 		if ( $this->validateData( $userData ) && ! $this->dataExists( $userData['email'], 'email' ) ) :
-			return $this->model->insert( $userData ); /** @todo work on error handling */
+			$this->model->insert( $userData ); /** @todo work on error handling */
+
+			if ( ! empty( $this->hasErrors() ) ) {
+				$return['type'] = 'error';
+				$return['msg'] = $this->hasErrors();
+			} else {
+				$return['type'] = 'success';
+				$return['data'] = $this->getInsertID();
+			}
+
 		else:
 			$return['type'] = 'error';
 		endif;

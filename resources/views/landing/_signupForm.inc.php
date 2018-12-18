@@ -1,4 +1,4 @@
-<div class="popup" data-popup="popup">
+<div class="popup" data-popup="register">
 	<div class="popup-inner">
 		<div class="dash-pop clearfix" data-swap-step-id="1">
 			<div class="pop-aprt">

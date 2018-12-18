@@ -2,12 +2,11 @@ class UsersJSModel {
 	process(data) {
 		return (new sBoardServer).send(data)
 		.then(resp => {
-			console.log('sadsad', resp)
 			if (resp.type === 'error') {
 				alert('Error: ' + resp.msg)
 				return false
 			} else {
-				return true
+				return resp.data
 			}
 		})
 	}
@@ -17,7 +16,6 @@ class UsersMetaJSModel {
 	process(data) {
 		return (new sBoardServer).send(data)
 		.then(resp => {
-			console.log('sadsad', resp)
 			if (resp.type === 'error') {
 				alert('Error: ' + resp.msg)
 				return false
@@ -32,7 +30,6 @@ class CompaniesJSModel {
 	process(data) {
 		return (new sBoardServer).send(data)
 		.then(resp => {
-			console.log('sadsad', resp)
 			if (resp.type === 'error') {
 				alert('Error: ' + resp.msg)
 				return false
@@ -54,14 +51,14 @@ class SwapBoardEnvironment {
 		}
 	}
 
-	triggerPopup(e, method) {
+	triggerPopup(e, method, type) {
 		e.preventDefault()
-		const popClass = 'popup'
+		const popClass = type
 
 		if (method == 'open') {
 			jQuery('[data-popup=' + popClass + ']').fadeIn(350)
 		} else {
-			jQuery('[data-popup=' + popClass + ']').fadeOut(350)
+			jQuery(e.target).parents('[data-popup]').fadeOut(350)
 		}
 	}
 
@@ -88,7 +85,18 @@ class SwapBoardEnvironment {
 	processFormData() {
 		Object.keys(this.formData).map(k => {
 			this.formData[k].set('sbAction', 'create')
-			this.models[k].process(this.formData[k])
+		})
+
+		const promise = this.models.user.process(this.formData.user)
+
+		promise.then(id => {
+			if ( id ) {
+				this.formData.company.append('userID', id)
+				this.formData.userMeta.append('userID', id)
+
+				this.models.company.process(this.formData.company)
+				this.models.userMeta.process(this.formData.userMeta)
+			}
 		})
 	}
 }

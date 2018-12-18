@@ -18,6 +18,8 @@ class CompaniesModel extends BaseModel
 
 		if ( $this->dbDriver->last_error !== '' ) :
 			$this->errorsBag[] = $this->dbDriver->last_error;
+		else:
+			$this->insertID = $this->dbDriver->insert_id;
 		endif;
 	}
 }

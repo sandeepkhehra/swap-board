@@ -26,6 +26,13 @@ if (!function_exists('sboardMenuSlug')) {
 	}
 }
 
+if (!function_exists('sboardClassName')) {
+	function sboardClassName(string $string, $replacer, $deli = '_')
+	{
+		return str_replace( $replacer, '', ucwords( $string, $deli ) );
+	}
+}
+
 if (!function_exists('sboardMenuTitle')) {
 	function sboardMenuTitle(string $title)
 	{
@@ -67,9 +74,11 @@ if (!function_exists('sboardDefineFormAction')) {
 		$formMethod = $callType === 'ajax' ? 'sboardAJAX' : 'sboardPOST';
 
 		if (method_exists($controller, $action)) :
-			wp_nonce_field($action, SB_FORM_NONCE);
-			$fields = "<input type='hidden' value='{$action}' name='sbAction'>
-			<input type='hidden' value='{$formMethod}' name='action'>
+			$nonce = wp_create_nonce( $action );
+			$fields = "
+			<input type='hidden' value='$nonce' name='". SB_FORM_NONCE ."'>
+			<input type='hidden' value='$action' name='sbAction'>
+			<input type='hidden' value='$formMethod' name='action'>
 			<input type='hidden' value='". str_replace( '\\', ':', $controllerName ) ."' name='sbController'>";
 
 			echo $fields;
@@ -87,7 +96,6 @@ if (!function_exists('sboardFilterPostData')) {
 	function sboardFilterPostData($array)
 	{
 		unset(
-			$array[SB_NONCE],
 			$array[SB_FORM_NONCE],
 			$array['action'],
 			$array['sbAction'],
@@ -134,7 +142,7 @@ if (!function_exists('sboardInclude')) {
 		if (file_exists($filePath)):
 			include_once $filePath;
 		endif;
-		// Do the error handling.
+		/** @todo error handling */
 	}
 }
 
@@ -190,5 +198,12 @@ if (!function_exists('sboardCoreAssets')) {
 			endforeach;
 
 		endif;
+	}
+}
+
+if ( ! function_exists( 'sboardSetSession' ) ) {
+	function sboardSetSession( $key, $data )
+	{
+		$_SESSION[ SB_SESS_KEY ][ $key ] = $data;
 	}
 }

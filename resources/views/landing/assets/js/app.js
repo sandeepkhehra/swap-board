@@ -9,14 +9,15 @@ jQuery(function($) {
 		const formScope = form.data('swap-form')
 		const type = $(this).data('swap-button')
 		const step = $(this).data('swap-step')
+		const popType = $(this).data('swap-pop-type')
 
 		switch (type) {
 			case 'popup-open':
-			SwapBoard.triggerPopup(e, 'open');
-			break;
+				SwapBoard.triggerPopup(e, 'open', popType);
+				break;
 
 			case 'popup-close':
-				SwapBoard.triggerPopup(e, 'close');
+				SwapBoard.triggerPopup(e, 'close', popType);
 				break;
 
 			case 'next': case 'back':
@@ -39,11 +40,11 @@ jQuery(function($) {
 						})
 					}
 				})
-			break;
+				break;
 
 			case 'finish':
 				SwapBoard.processMultiStep(formScope, formData)
-			break;
+				break;
 		}
 	})
 })

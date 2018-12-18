@@ -10,4 +10,6 @@ interface ViewTemplateInterface
 	public function getID();
 
 	public function viewPath();
+
+	public function authenticate();
 }

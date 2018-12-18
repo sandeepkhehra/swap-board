@@ -9,6 +9,8 @@ abstract class BaseModel
 
 	public $errorsBag = [];
 
+	public $insertID;
+
 	public function __construct()
 	{
 		global $wpdb;
@@ -29,7 +31,7 @@ abstract class BaseModel
 
 	protected function readMulti($values, string $column = 'id')
 	{
-		return $this->dbDriver->get_results("SELECT * FROM {$this->table} WHERE {$column} IN ({$id})");
+		return $this->dbDriver->get_results("SELECT * FROM {$this->table} WHERE {$column} IN ({$values})");
 	}
 
 	protected function readAll()

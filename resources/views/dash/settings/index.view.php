@@ -49,8 +49,8 @@ $pages = sboardGetPostData('page');
 
 						</select>
 
-						<?php if (isset($generalData['landing'])): ?>
-							<a href="<?php echo get_page_link(PLUGIN_ADMIN_DASH_PAGE); ?>" target="_blank" class="button button-secondary">Preview</a>
+						<?php if (isset($generalData['userDash'])): ?>
+							<a href="<?php echo get_page_link(PLUGIN_ADMIN_DASH_PAGE) . '?viewMode=admin'; ?>" target="_blank" class="button button-secondary">Preview</a>
 						<?php endif; ?>
 					</td>
 				</tr>

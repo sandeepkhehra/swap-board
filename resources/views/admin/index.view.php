@@ -1,4 +1,19 @@
-<?php sboardInclude('admin._header', $this); ?>
+<?php
+global $swapUser;
+
+$viewData = $this->template->eagerLoadData();
+
+if ( ! empty( $viewData ) ) :
+	foreach ( $viewData as $dataClass ) :
+		echo "<pre>";
+		print_r($dataClass);
+		echo "</pre>";
+		$pol = $dataClass->title();
+	endforeach;
+endif;
+
+sboardInclude('admin._header', $this);
+?>
     <section>
         <div class="container">
             <div class="row">
@@ -8,7 +23,7 @@
                         <div class="sidebar">
 
 							<div class="specier-name">
-								<h5>Spencer White</h5>
+								<h5><?php echo $swapUser->fullName; ?></h5>
 							</div>
 							<div class="close-btn sidebarCollapse"></div>
 
@@ -28,7 +43,9 @@
 													<div class="col-md-12">
 														<div class="form-group">
 															<label for="name">Company Name</label>
-															<input type="text" id="name" required="">
+															<?php
+															?>
+															<input type="text" id="name" required="" value="<?php echo $this->viewData->company->name ;?>">
 														</div>
 													</div>
 													<div class="col-md-6">

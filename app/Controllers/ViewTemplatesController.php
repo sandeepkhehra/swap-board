@@ -3,9 +3,10 @@ namespace SwapBoard\Controllers;
 
 defined('ABSPATH') or die('Not permitted!');
 
-use SwapBoard\Helpers\HookrInterface;
-use SwapBoard\Helpers\ViewTemplateInterface;
 use SwapBoard\Traits\ViewsTrait;
+use SwapBoard\Helpers\HookrInterface;
+// use SwapBoard\Helpers\AuthMiddleware;
+use SwapBoard\Helpers\ViewTemplateInterface;
 
 class ViewTemplatesController implements HookrInterface
 {
@@ -28,7 +29,7 @@ class ViewTemplatesController implements HookrInterface
 				$this->cssAssets = $this->template->css;
 				$this->jsAssets = $this->template->js;
 
-				if ($post->ID == $this->template->id()) :
+				if ( $this->template->authenticate() && $post->ID == $this->template->id() ) :
 					$this->getView($this->template->viewPath());
 					exit;
 				endif;

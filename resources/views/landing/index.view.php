@@ -25,7 +25,7 @@
 										placeholder="Email address"
 									/>
 								</div>
-								<button class="btn btn-default" data-swap-button="popup-open">Add Company</button>
+								<button class="btn btn-default" data-swap-button="popup-open" data-swap-pop-type="register">Add Company</button>
 							</form>
 						</div>
 					</div>

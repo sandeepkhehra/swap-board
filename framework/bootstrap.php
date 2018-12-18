@@ -6,6 +6,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use SwapBoard\Controllers\Controller as ServiceProvider;
 
+$swapUser;
+$swapBoardConfigs = (object) get_option(PLUGIN_SETTINGS_KEY);
+
 final class SwapBoard
 {
 	private static $_instance;

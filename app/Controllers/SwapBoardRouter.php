@@ -39,11 +39,6 @@ class SwapBoardRouter implements HookrInterface
 
 	public function resolveFormAction( $actionData )
 	{
-		// echo "<pre>";
-		// echo ';sadsa';
-		// print_r($actionData);
-		// echo "</pre>";
-
 		$controller = str_replace( ':', '\\', $actionData['sbController'] );
 		$method = $actionData['sbAction'];
 

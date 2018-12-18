@@ -32,4 +32,9 @@ class LandingTemplateController implements ViewTemplateInterface
 		global $swapBoardConfigs;
 		return $swapBoardConfigs->landing;
 	}
+
+	public function authenticate()
+	{
+		return true;
+	}
 }

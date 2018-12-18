@@ -14,7 +14,7 @@ abstract class BaseController
 		$this->model = $model;
 	}
 
-	protected function dataExists( $value, $column = 'id' )
+	public function dataExists( $value, $column = 'id' )
 	{
 		return $this->model->getBy( $value, $column );
 	}
@@ -22,6 +22,11 @@ abstract class BaseController
 	protected function hasErrors()
 	{
 		return $this->model->errorsBag;
+	}
+
+	protected function getInsertID()
+	{
+		return $this->model->insertID;
 	}
 
 	protected function validateData( $data )
@@ -41,5 +46,10 @@ abstract class BaseController
 		endif;
 
 		return true;
+	}
+
+	public function eagerLoadData()
+	{
+		return $this->model->eagerLoad();
 	}
 }

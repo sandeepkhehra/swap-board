@@ -33,7 +33,4 @@ define('PLUGIN_ADMIN_DASH_PAGE', !empty(get_option(PLUGIN_SETTINGS_KEY)) ? get_o
  *
  */
 define('SB_FORM_NONCE', PLUGIN_SLUG . '_nonce');
-
-global $swapBoardConfigs;
-
-$swapBoardConfigs = (object) get_option(PLUGIN_SETTINGS_KEY);
+define( 'SB_SESS_KEY', 'swapBoardSess' );
