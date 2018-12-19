@@ -48,8 +48,8 @@ abstract class BaseController
 		return true;
 	}
 
-	public function eagerLoadData()
-	{
-		return $this->model->eagerLoad();
-	}
+	// public function eagerLoadData( array $tableNames )
+	// {
+	// 	return $this->model->eagerLoad( $tableNames );
+	// }
 }

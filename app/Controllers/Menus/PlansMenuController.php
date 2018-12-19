@@ -3,6 +3,8 @@ namespace SwapBoard\Controllers\Menus;
 
 defined('ABSPATH') or die('Not permitted!');
 
+use SwapBoard\Models\PlansModel;
+
 class PlansMenuController extends BaseMenuController
 {
     protected $title = 'Plans & Pricings';
@@ -19,5 +21,22 @@ class PlansMenuController extends BaseMenuController
 	public function menuView()
 	{
 		$this->getView('dash.plans.index');
+	}
+
+	public function model()
+	{
+		$this->setModel(new PlansModel);
+	}
+
+	public function all()
+	{
+		return $this->model->readAll();
+	}
+
+	public function create()
+	{
+		$postData = sboardFilterPostData( $_POST );
+
+		return $this->model->insert( $postData );
 	}
 }

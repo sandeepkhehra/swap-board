@@ -19,9 +19,15 @@ abstract class BaseModel
 		$this->table = $this->dbDriver->prefix . $this->table;
 	}
 
-	protected function create( $data )
+	protected function create( array $data )
 	{
-		return $this->dbDriver->insert( $this->table, $data );
+		$this->dbDriver->insert( self::$tableName, $data );
+
+		if ( $this->dbDriver->last_error !== '' ) :
+			$this->errorsBag[] = $this->dbDriver->last_error;
+		else:
+			$this->insertID = $this->dbDriver->insert_id;
+		endif;
 	}
 
 	protected function read($value, string $column = 'id')
@@ -34,27 +40,23 @@ abstract class BaseModel
 		return $this->dbDriver->get_results("SELECT * FROM {$this->table} WHERE {$column} IN ({$values})");
 	}
 
-	protected function readAll()
+	public function readAll()
 	{
 		return $this->dbDriver->get_results("SELECT * FROM {$this->table}");
 	}
 
-	protected function readOptionsTable(string $key)
+	protected function readOptionsTable( string $key )
 	{
-		return get_option($key);
+		return get_option( $key );
 	}
 
-	protected function update($id)
+	protected function update( $id )
 	{
-		echo "<pre>";
-		print_r($id);
-		echo "</pre>";
+		// action
 	}
-	protected function delete($id)
+	protected function delete( $id )
 	{
-		echo "<pre>";
-		print_r($id);
-		echo "</pre>";
+		// action
 	}
 
 	public function tblCols()
@@ -62,5 +64,51 @@ abstract class BaseModel
 		$tblCols = $this->dbDriver->get_col("DESC {$this->table}");
 
 		return $tblCols;
+	}
+
+	public function with( $table, $colName, $value )
+	{
+		$tblData = [];
+		if ( is_array( $table ) ) :
+			foreach ( $table as $tbl ) :
+				$tblData[$tbl] = $this->processEagerLoadData( $tbl, $colName, $value );
+			endforeach;
+		else:
+
+			$tblData[$table] = $this->processEagerLoadData( $table, $colName, $value );
+
+		endif;
+
+		return (object) $tblData;
+	}
+
+	public function withOne( $table, $colName, $value )
+	{
+		$tblData = [];
+		if ( is_array( $table ) ) :
+			foreach ( $table as $tbl ) :
+				$tblData[$tbl] = $this->processSingleEagerLoadData( $tbl, $colName, $value );
+			endforeach;
+		else:
+
+			$tblData[$table] = $this->processSingleEagerLoadData( $table, $colName, $value );
+
+		endif;
+
+		return (object) $tblData;
+	}
+
+	private function processEagerLoadData( $table, $colName, $value )
+	{
+		$tableName = $this->dbDriver->prefix . $table;
+
+		return $this->dbDriver->get_results("SELECT * FROM {$tableName} WHERE {$colName} IN ({$value})");
+	}
+
+	private function processSingleEagerLoadData( $table, $colName, $value )
+	{
+		$tableName = $this->dbDriver->prefix . $table;
+
+		return $this->dbDriver->get_row("SELECT * FROM {$tableName} WHERE {$colName} IN ({$value})");
 	}
 }

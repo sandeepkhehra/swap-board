@@ -4,10 +4,11 @@ namespace SwapBoard\Controllers\Admin;
 defined('ABSPATH') or die('Not permitted!');
 
 use SwapBoard\Models\UsersModel;
-use SwapBoard\Controllers\BaseController;
+use SwapBoard\Controllers\UsersController;
+// use SwapBoard\Controllers\BaseController;
 use SwapBoard\Helpers\ViewTemplateInterface;
 
-class AdminPanelTemplateController extends BaseController implements ViewTemplateInterface
+class AdminPanelTemplateController implements ViewTemplateInterface
 {
 	public $title = 'User Dashboard';
 
@@ -19,9 +20,15 @@ class AdminPanelTemplateController extends BaseController implements ViewTemplat
 		'app.js',
 	];
 
+	public $model;
+
+	public $controller;
+
 	public function __construct()
 	{
-		parent::__construct(new UsersModel);
+		$this->model = new UsersModel;
+		// $this->controller = new UsersController;
+		// parent::__construct(new UsersModel);
 	}
 
 	public function id()
@@ -42,9 +49,9 @@ class AdminPanelTemplateController extends BaseController implements ViewTemplat
 
 	public function authenticate()
 	{
-		global $swapUser;
+		global $user_ID;
 
-		if ( null === $swapUser && isset( $_GET['viewMode'] )
+		if ( 0 == $user_ID && isset( $_GET['viewMode'] )
 			&& $_GET['viewMode'] == 'admin' ) {
 
 			$currentUser = wp_get_current_user();
@@ -53,12 +60,12 @@ class AdminPanelTemplateController extends BaseController implements ViewTemplat
 			if ( $currentUser->ID > 0 && array_key_exists( 'administrator', $caps ) ) return true;
 
 		} else {
-			$checkUser = $this->dataExists( $swapUser->id );
+			// $checkUser = $this->dataExists( $swapUser->id );
 
-			if ( ! $checkUser ) {
-				unset( $_SESSION[ SB_SESS_KEY ]['user'] );
-				return false;
-			}
+			// if ( ! $checkUser ) {
+			// 	unset( $_SESSION[ SB_SESS_KEY ]['user'] );
+			// 	return false;
+			// }
 
 			return true;
 		}

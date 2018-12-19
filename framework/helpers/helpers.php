@@ -207,3 +207,10 @@ if ( ! function_exists( 'sboardSetSession' ) ) {
 		$_SESSION[ SB_SESS_KEY ][ $key ] = $data;
 	}
 }
+
+if ( ! function_exists( 'sboardTruncStr' ) ) {
+	function sboardTruncStr( string $string, int $length )
+	{
+		return strlen( $string ) >= $length ? substr( $string, 0, $length ) . '&hellip;' : $string;
+	}
+}

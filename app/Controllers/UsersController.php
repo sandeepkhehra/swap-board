@@ -76,4 +76,14 @@ class UsersController extends BaseController
 
 		return $userData;
 	}
+
+	public function getCompany()
+	{
+		// $lol = new CompaniesController;
+		// echo "<pre>";
+		// print_r($lol->model->read());
+		// echo "</pre>";
+	}
+
+
 }

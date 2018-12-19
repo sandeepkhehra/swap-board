@@ -1,3 +1,13 @@
+/* General Styling */
+.sb-input-field {
+	width: 100%;
+	padding: 0 15px;
+	height: 40px;
+	border: 1px solid #ced1da;
+	border-radius: 4px;
+	background: transparent;
+}
+
 .topheader {
 	padding: 15px 0;
 }
@@ -428,14 +438,6 @@ tab-section
 	color: #b9b9c1;
 	display: block;
 }
-.company-profile input {
-	width: 100%;
-	padding: 0 15px;
-	height: 40px;
-	border: 1px solid #ced1da;
-	border-radius: 4px;
-	background: transparent;
-}
 .job-decrpt {
 	padding: 35px 0 0 0;
 }
@@ -448,33 +450,22 @@ tab-section
 }
 
 .selt-pots .form-group {
-	display: inline-block;
-	width: 90%;
+	display: flex;
+	align-items: center;
 	margin-bottom: 10px;
 }
-.selt-pots .form-group select {
-	width: 100%;
-	padding: 0 15px;
-	height: 40px;
-	border: 1px solid #ced1da;
-	border-radius: 4px;
-	background: transparent;
-}
-.selt-pots .trash-fild i {
+.selt-pots .sb-delete-row {
 	color: #00b4cb;
 	padding-left: 10px;
 	font-size: 15px;
+	cursor: pointer;
 }
-.select-job a.add-mort {
-	text-decoration: underline;
+.select-job .sb-add-more {
 	color: #00b4cb;
 	font-size: 18px;
 	font-family: "Lato", sans-serif;
 	font-weight: 400;
-}
-.select-job a.add-mort i {
-	font-size: 16px;
-	padding-right: 10px;
+	cursor: pointer;
 }
 .save-profl {
 	padding: 35px 0 0 0;
@@ -510,9 +501,6 @@ tab-section
 /*==========================
 member-list
 ============================= */
-
-.table-sec {
-}
 
 .table-data-provider {
 	font-size: 15px;
@@ -732,13 +720,7 @@ invition-form
 	color: #b9b9c1;
 	display: block;
 }
-.invition-form .form-group input {
-	width: 100%;
-	padding: 0 15px;
-	height: 40px;
-	border: 1px solid #ced1da;
-	border-radius: 4px;
-}
+
 .invition-form a.add-mort {
 	text-decoration: underline;
 	color: #00b4cb;
@@ -1150,52 +1132,43 @@ invition-form
 	float: left;
 	padding: 0 6px;
 }
-/*=====plans & prices========*/
-.plans-offers .offer-detl {
+
+/* Plans & Pricing */
+.sb-plans-wrap .sb-plan {
 	background: #fff;
 	padding: 30px;
+	margin: 20px 0;
 }
-.emal-deft {
+.sb-plan-details-wrap {
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+	justify-content: space-between;
 }
-.emal-deft .emal-blast {
-	-ms-flex-pack: center;
-	justify-content: center;
-	-ms-flex: 0 0 70%;
-	flex: 0 0 70%;
-	max-width: 70%;
+.sb-plan-details-wrap .sb-plan-price {
+	min-width: 120px
 }
-.emal-deft .blast-rate {
-	flex: 0 0 30%;
-	max-width: 30%;
-	align-items: center;
-	display: flex;
-	width: 100%;
-}
-.emal-deft .emal-blast h4 {
+.sb-plan-details-wrap .sb-plan-details .sb-plan-title {
 	font-size: 18px;
 	color: #000;
 	font-weight: 700;
 	padding-bottom: 10px;
 	width: 100%;
 }
-.emal-deft .emal-blast p {
+.sb-plan-details-wrap .sb-plan-details .sb-plan-desc {
 	font-size: 16px;
 	font-weight: 400;
 	font-family: "Lato", sans-serif;
 	color: #1d1d1d;
 	padding: 0;
+	margin-right: 20px;
 }
-.emal-deft .blast-rate h3 {
+.sb-plan-details-wrap .sb-plan-price h3 {
 	font-size: 50px;
 	color: #000;
 	font-weight: 700;
 	line-height: 55px;
 	flex: 1;
 }
-.emal-deft .blast-rate a {
+.sb-plan-details-wrap .sb-plan-price .sb-plan-button {
 	padding: 10px 16px;
 	border: 1px solid #cc0057;
 	border-radius: 4px;
@@ -1204,12 +1177,11 @@ invition-form
 	color: #fff;
 	font-size: 18px;
 	font-weight: 700;
-	place-self: center;
 	text-align: center;
 	flex: 1;
 	display: block;
 }
-.plans-offers p {
+.sb-plans-wrap p {
 	font-size: 16px;
 	font-weight: 400;
 	font-family: "Lato", sans-serif;
@@ -1278,7 +1250,6 @@ invition-form
 	color: #fff;
 	font-size: 18px;
 	font-weight: 700;
-	place-self: center;
 	float: left;
 	display: block;
 }
@@ -1381,7 +1352,7 @@ invition-form
 	margin-right: 20px;
 	border: 1px solid #00b4cb;
 }
-.create-form.submit.save: hover {
+.create-form.submit.save:hover {
 	border: 1px solid #00b4cb;
 	color: #00b4cb;
 }
@@ -1627,7 +1598,6 @@ invition-form
 }
 .container-left .right .write .write-link.attach:before {
 	display: inline-block;
-	float: left;
 	width: 20px;
 	height: 42px;
 	content: "";
@@ -1637,7 +1607,6 @@ invition-form
 }
 .container-left .right .write .write-link.smiley:before {
 	display: inline-block;
-	float: left;
 	width: 20px;
 	height: 42px;
 	content: "";
@@ -1647,7 +1616,6 @@ invition-form
 }
 .container-left .right .write .write-link.send:before {
 	display: inline-block;
-	float: left;
 	width: 20px;
 	height: 42px;
 	margin-left: 11px;
@@ -1775,7 +1743,7 @@ invition-form
 	}
 }
 /*=======Faq=========*/
-.plans-offers .faq-sec p {
+.sb-plans-wrap .faq-sec p {
 	font-size: 16px;
 	font-weight: 400;
 	font-family: "Lato", sans-serif;

@@ -30,6 +30,6 @@ class UsersMenuController extends BaseMenuController
 
 	public function getAllUsers()
 	{
-		return $this->model->getAllData();
+		return $this->model->readAll();
 	}
 }

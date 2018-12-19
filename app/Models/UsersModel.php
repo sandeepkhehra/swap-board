@@ -5,7 +5,7 @@ defined('ABSPATH') or die('Not permitted!');
 
 class UsersModel extends BaseModel
 {
-	protected $table = 'sboard_users';
+	protected $table = 'users';
 
 	public function getBy( $value, $type = 'id' )
 	{
@@ -15,33 +15,33 @@ class UsersModel extends BaseModel
 	public function insert( $data )
 	{
 		$this->create( $data );
-
-		if ( $this->dbDriver->last_error !== '' ) :
-			$this->errorsBag[] = $this->dbDriver->last_error;
-		else:
-			$this->insertID = $this->dbDriver->insert_id;
-		endif;
 	}
 
-	public function eagerLoad()
-	{
-		$relatedTables = $this->dbDriver->get_results("SELECT DISTINCT TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE REFERENCED_TABLE_NAME = '{$this->table}' AND REFERENCED_COLUMN_NAME = 'id'");
-		$classes = [];
+	// public function eagerLoad(array $tableNames)
+	// {
+	// 	echo "SELECT DISTINCT TABLE_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE REFERENCED_TABLE_NAME = '" . self::$tableName ."' AND REFERENCED_COLUMN_NAME = 'id'";
+	// 	$relatedTables = $this->dbDriver->get_results("SELECT DISTINCT TABLE_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE REFERENCED_TABLE_NAME = '" . self::getTableName() ."' AND REFERENCED_COLUMN_NAME = 'id'");
 
-		if ( ! empty( $relatedTables ) ) {
-			foreach ( $relatedTables as $table ) :
-				$res[] = $this->dbDriver->get_results("SELECT * FROM {$table->TABLE_NAME} WHERE userID='12'");
-				$replacer = [ucwords( $this->dbDriver->prefix . 'sboard_', '_' ), '_']; /** @todo maybe improve this shit */
+	// 	if ( ! empty( $relatedTables ) ) {
+	// 		foreach ( $relatedTables as $key => $table ) :
+	// 			if ( in_array($table->TABLE_NAME, $tableNames) ) :
 
-				$class = 'SwapBoard\\Models\\' . sboardClassName( $table->TABLE_NAME, $replacer, '_' ) . 'Model';
+	// 				$joins[] = "LEFT JOIN {$table->TABLE_NAME} as b_{$key} ON b_{$key}.userID = a.id";
+	// 				$where[] = "b_{$key}.userID IS NOT NULL";
 
-				if ( class_exists( $class ) ) :
-					$classes[] = new $class;
-				endif;
+	// 			endif;
+	// 		endforeach;
 
-			endforeach;
-		}
+	// 		$joins = implode( ' ', $joins);
+	// 		$where = implode( ' OR ', $where);
+	// 		echo $sql = "SELECT * FROM wp_sboard_users as a {$innerJoins} WHERE {$where}";
+	// 		$res = $this->dbDriver->get_results($sql);
 
-		return $classes;
-	}
+	// 		echo "<pre>";
+	// 		print_r($res);
+	// 		echo "</pre>";
+	// 	}
+
+	// 	return $classes;
+	// }
 }

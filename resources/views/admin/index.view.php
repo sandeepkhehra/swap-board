@@ -1,25 +1,9 @@
-<?php
-global $swapUser;
-
-$viewData = $this->template->eagerLoadData();
-
-if ( ! empty( $viewData ) ) :
-	foreach ( $viewData as $dataClass ) :
-		echo "<pre>";
-		print_r($dataClass);
-		echo "</pre>";
-		$pol = $dataClass->title();
-	endforeach;
-endif;
-
-sboardInclude('admin._header', $this);
-?>
-    <section>
+<?php sboardInclude('admin._header', $this); ?>
+    <section class="sb-user-admin">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="wrapper">
-                        <!-- Sidebar Holder -->
                         <div class="sidebar">
 
 							<div class="specier-name">
@@ -32,164 +16,7 @@ sboardInclude('admin._header', $this);
                         </div>
                         <!-- Page Content Holder -->
                         <div id="content">
-                            <!-- company-profile -->
-							<div class="profile-detail dashboard-tabwrp " id="profile">
-								<div class="company-profile ">
-									<h2>Company Profile</h2>
-									<div class="company-detail">
-										<div class="filed-company">
-											<div class="row">
-												<form name="htmlform" method="post" action="toyousender.php">
-													<div class="col-md-12">
-														<div class="form-group">
-															<label for="name">Company Name</label>
-															<?php
-															?>
-															<input type="text" id="name" required="" value="<?php echo $this->viewData->company->name ;?>">
-														</div>
-													</div>
-													<div class="col-md-6">
-														<div class="form-group">
-															<label for="email">Admin Email</label>
-															<input type="text" id="email" required="">
-
-														</div>
-													</div>
-													<div class="col-md-6">
-														<div class="form-group">
-															<label for="telphone">Phone Number</label>
-															<input type="tel" id="telphone" required="">
-														</div>
-													</div>
-												</form>
-											</div>
-
-										</div>
-										<div class="company-logo">
-											<form>
-												<div class="col-md-12 col-sm-12 col-xs-12">
-													<label>Company Logo</label>
-													<div class="file-upload">
-														<div class="file-select textfield pass">
-															<div class="file-select-button" id="fileName"><i class="fa fa-camera"></i></div>
-															<div class="file-select-name" id="noFile">No file chosen...</div>
-															<input type="file" name="chooseFile" id="chooseFile">
-														</div>
-													</div>
-												</div>
-											</form>
-										</div>
-									</div>
-
-								</div>
-								<div class="job-decrpt">
-									<div class="row">
-										<div class="col-md-6">
-											<div class="job-postn">
-												<h6>Job Positions</h6>
-												<div class="select-job">
-													<div class="selt-pots">
-														<div class="form-group">
-															<select>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-															</select>
-														</div>
-														<a href="#" class="trash-fild"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-													</div>
-													<div class="selt-pots">
-														<div class="form-group">
-															<select>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-															</select>
-														</div>
-														<a href="#" class="trash-fild"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-													</div>
-													<div class="selt-pots">
-														<div class="form-group">
-															<select>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-															</select>
-														</div>
-														<a href="#" class="trash-fild"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-													</div>
-													<div class="selt-pots">
-														<div class="form-group">
-															<select>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-															</select>
-														</div>
-														<a href="#" class="trash-fild"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-													</div>
-													<div class="selt-pots">
-														<div class="form-group">
-															<select>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-															</select>
-														</div>
-														<a href="#" class="trash-fild"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-													</div>
-													<div class="selt-pots">
-														<div class="form-group">
-															<select>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-																<option>Licensed Engineers</option>
-															</select>
-														</div>
-														<a href="#" class="trash-fild"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-													</div>
-													<a href="#" class="add-mort"><i class="fa fa-plus"></i>Add more</a>
-												</div>
-											</div>
-										</div>
-											<div class="col-md-6">
-											<div class="job-postn">
-												<h6>Locations</h6>
-												<div class="select-job">
-													<div class="selt-pots">
-														<div class="form-group">
-															<select>
-																<option>Boston-Logan international Airport</option>
-																<option>Boston-Logan international Airport</option>
-																<option>Boston-Logan international Airport</option>
-															</select>
-														</div>
-														<a href="#" class="trash-fild"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-													</div>
-													<div class="selt-pots">
-														<div class="form-group">
-															<select>
-																<option>Boston-Logan international Airport</option>
-																<option>Boston-Logan international Airport</option>
-																<option>Boston-Logan international Airport</option>
-															</select>
-														</div>
-														<a href="#" class="trash-fild"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-													</div>
-
-
-													<a href="#" class="add-mort"><i class="fa fa-plus"></i>Add more</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="save-profl">
-									<a href="#" class="sav-btn">Save</a>
-									<a href="#" class="canl-btn">Cancel</a>
-								</div>
-
-							</div>
+							<?php sboardInclude('admin._companyProfile', $this); ?>
 							<!-- member-list -->
 							<div class="show-div hidden" id="member-list">
 								<div class="member-list table-sec ">
@@ -1114,7 +941,6 @@ sboardInclude('admin._header', $this);
 									</div>
 								</div>
                      		</div>
-							<!-- plans and price -->
 							<div class="show-div hidden" id="archive-offer">
 								<div class="find-offer archive">
 									<h2>Archive Offers</h2>
@@ -1196,37 +1022,9 @@ sboardInclude('admin._header', $this);
 								</div>
 							</div>
                      		</div>
-							<!-- archive-offer -->
-							<div class="show-div hidden" id="plans-price">
-								<div class="plans-offers">
-									<h2>Plans & Prices</h2>
-									<div class="offer-detl">
-										<div class="row">
-											<div class="col-md-12 col-sm-12 col-xs-12 ">
-												<div class="emal-deft">
-													<div class="emal-blast">
-														<h4>Email Blast</h4>
-														<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera.
-														Viris decore cu eum, mea id modus petentium voluptatum. Amet abhorreant mei ad, eum</p>
-													</div>
-													<div class="blast-rate">
-														<h3>$5</h3>
-														<a href="#" data-popup-open="email-blast" class="buy-blst">Buy Now</a>
-													</div>
-												</div>
 
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera.
-													Viris decore cu eum, mea id modus petentium voluptatum. Amet abhorreant mei ad, eum</p>
-										</div>
-									</div>
+							 <?php sboardInclude('admin._plansPrice', $this); ?>
 
-								</div>
-                     		</div>
 							<!-- Faq -->
 							<div class="show-div hidden" id="term-use">
 								<div class="plans-offers">

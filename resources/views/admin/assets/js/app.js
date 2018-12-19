@@ -1,14 +1,13 @@
 jQuery(function($) {
-	//----- OPEN
-	$("[data-popup-open]").on("click", function(e) {
-		var targeted_popup_class = jQuery(this).attr("data-popup-open")
-		$('[data-popup="' + targeted_popup_class + '"]').fadeIn(350)
-		e.preventDefault()
-	})
-	//----- CLOSE
-	$("[data-popup-close]").on("click", function(e) {
-		var targeted_popup_class = jQuery(this).attr("data-popup-close")
-		$('[data-popup="' + targeted_popup_class + '"]').fadeOut(350)
-		e.preventDefault()
+	$('[data-swap-add-row]').on('click', function() {
+		if ($('[data-swap-row]').length <= 0) {
+			const elm = '<div class="form-group" data-swap-row><input type="text" name="positions[]" class="sb-input-field" placeholder="Licensed Engineers" /></div>'
+			$('[data-swap-row-wrap]').append(elm)
+		} else {
+			const clone = $('[data-swap-row]:first').clone()
+			$('[data-swap-row-wrap]').append(clone)
+
+			console.log('sdas', clone)
+		}
 	})
 })
