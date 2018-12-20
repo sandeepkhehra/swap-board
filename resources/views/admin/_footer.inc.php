@@ -25,7 +25,7 @@
 			</div>
 
 		</footer>
-		<?php sboardCoreAssets('js', ['bootstrap.min.js', 'wow.min.css', 'app.js']); ?>
+		<?php sboardCoreAssets('js', ['bootstrap.min.js', 'wow.min.css', 'sboard-server.js', 'global.js', 'app.js']); ?>
 		<?php wp_footer(); ?>
 	</body>
 </html>

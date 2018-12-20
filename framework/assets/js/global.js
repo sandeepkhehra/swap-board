@@ -40,7 +40,7 @@ class CompaniesJSModel {
 	}
 }
 
-class SwapBoardEnvironment {
+window.sBoard = class SwapBoardEnvironment {
 	constructor() {
 		this.name = 'Swap Board'
 		this.formData = []

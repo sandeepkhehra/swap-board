@@ -1,4 +1,13 @@
-<?php sboardInclude('admin._header', $this); ?>
+<?php
+global $user_ID;
+
+$title = $this->template->title;
+$companyData = $this->template->model->withOne('sboard_companies', 'userID', $user_ID);
+$positions = unserialize($companyData->positions);
+$locations = unserialize($companyData->locations);
+$offers = $this->template->model->with('sboard_offers', 'companyID', $companyData->id)->sboard_offers;
+
+sboardInclude('admin._header', compact('title')); ?>
     <section class="sb-user-admin">
         <div class="container">
             <div class="row">
@@ -7,7 +16,7 @@
                         <div class="sidebar">
 
 							<div class="specier-name">
-								<h5><?php echo $swapUser->fullName; ?></h5>
+								<h5><?php echo get_userdata( $user_ID )->display_name; ?></h5>
 							</div>
 							<div class="close-btn sidebarCollapse"></div>
 
@@ -16,7 +25,7 @@
                         </div>
                         <!-- Page Content Holder -->
                         <div id="content">
-							<?php sboardInclude('admin._companyProfile', $this); ?>
+							<?php sboardInclude('admin._companyProfile', compact('companyData')); ?>
 							<!-- member-list -->
 							<div class="show-div hidden" id="member-list">
 								<div class="member-list table-sec ">
@@ -171,418 +180,11 @@
 
 							<?php sboardInclude('admin._findOffer'); ?>
 
-							<!-- MAKE-offer -->
-							<div class="show-div hidden" id="make-offer">
-								<div class="find-offer">
-									<h2>Make Offer</h2>
-									<div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12 ">
-                                           <div class="invition-form offer makoffer">
-										    <div class="col-md-12 col-sm-12 col-xs-12 ">
-												<div class="make-ofdes">
-													<span>
-														<h6>Position</h6>
-														<p>Airport Customer Service Agent</p>
-													</span>
-													<span>
-														<h6>Location</h6>
-														<p>Dallas-Fort Worth Airport (DWF)</p>
-													</span>
-													<div class="make-fuldespt">
-														<h6>Description</h6>
-														<p>As a Customer Service Agent, you will be an important part of our customers' travel experience. You 'll assist customer with check-in, boarding/de-boarding our bus to/from Houston, and addressing questions related to checked baggages.
-														In this role, it's vital to create a welcoming environment for our customers.</p>
-													</div>
-												</div>
-												<div class="row">
-												<form name="htmlform" method="post" action="toyousender.php">
-													<div class="col-md-12">
-														<div class="make-timdate">
-															<div class="scted clearfix">
-																<label for="dateofbirth">Date</label>
-																<input type="date" name="dateofbirth" id="dateofbirth">
-															</div>
-															<div class="time clearfix">
-																<label>Day of week</label>
-																<div class="checkbox-group" style="display: none;">
-																  <ul>
-																	<li>
-																		<input type="checkbox" id="mon"/>
-																		<label for="mon">Mo</label>
-																	</li>
-																	<li>
-																		<input type="checkbox" id="tue"/>
-																		<label for="tue">Tu</label>
-																	</li>
-																	<li>
-																		<input type="checkbox" id="wed"/>
-																		<label for="wed">We</label>
-																	</li>
-																	<li>
-																		<input type="checkbox" id="thur"/>
-																		<label for="thur">Th</label>
-																	</li>
-																	<li>
-																		<input type="checkbox" id="fri"/>
-																		<label for="fri">Fr</label>
-																	</li>
-																	<li>
-																		<input type="checkbox" id="sat"/>
-																		<label for="sat">Sa</label>
-																	</li>
-																	<li>
-																		<input type="checkbox" id="sun"/>
-																		<label for="sun">Su</label>
-																	</li>
-																  </ul>
-																</div>
+							<?php sboardInclude('admin._makeOffer', compact('companyData')); ?>
 
-															</div>
-															<div class="set-time clearfix">
-																<label for="Time">Time</label>
-																<input type="time"/>
-																<div class="specer">-</div>
-																<input type="time"/>
-															</div>
-															<div class="offer-type clearfix">
-																<h6>Offer Type</h6>
-																<div class="radio">
-																	<input id="radio-1" name="radio" type="radio" checked>
-																	<label for="radio-1" class="radio-label">Post a shift</label>
-																</div>
+							<?php sboardInclude('admin._myOffers', compact('companyData', 'offers')); ?>
 
-																<div class="radio">
-																	<input id="radio-2" name="radio" type="radio">
-																	<label  for="radio-2" class="radio-label">shift swap</label>
-																</div>
-
-																<div class="radio">
-																	<input id="radio-3" name="radio" type="radio">
-																	<label for="radio-3" class="radio-label">permanent shift swap</label>
-																</div>
-															</div>
-														</div>
-
-
-
-
-
-														<div class="add-order">
-															<button type="submit">Add Order</button>
-														</div>
-													</div>
-
-												</form>
-												</div>
-												</div>
-											</div>
-                                        </div>
-								</div>
-								<div class="activt-sebsert">To activate offers you need to<a href="#"> buy the subscription</a></div>
-							</div>
-                     		</div>
-							<!-- My-offer -->
-							<div class="show-div hidden" id="my-offer">
-								<div class="find-offer">
-									<h2>My Offers</h2>
-
-									<div class="member-list table-sec offer ">
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
-                                            <table class="table-data-provider" id="table-id">
-
-												<thead>
-													<tr>
-														<th scope="col"><a href="#" class="sort-by">Date</a></th>
-														<th scope="col"><a href="#" class="sort-by">Time</a></th>
-														<th scope="col"><a href="#" class="sort-by">Type</a></th>
-														<th></th>
-														<th></th>
-														<th></th>
-														<th></th>
-													</tr>
-												</thead>
-                                                <tbody>
-                                                    <tr>
-														<td class="accept">May29, 2016
-															<div class="tooltiptext">
-																<h5>1 person wants to work your shift!</h5>
-																<aside>Comment:</aside>
-																<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera. Viris decore cu eum,
-																	mea id modus petentium voluptatum. Amet abhorreant mei ad, eum</p>
-																	<div class="verificatio">
-																		<div class="save-profl">
-																			<a href="#">Accept and hide</a>
-																		</div>
-																		<div class="save-profl">
-																			<a href="#" class="yellow">Accept and Keep active</a>
-																		</div>
-																		<div class="save-profl">
-																			<a href="#" class="canl-btn">Decline</a>
-																		</div>
-																	</div>
-															</div>
-														</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td class="inviton edit" data-href="url://"><i class="fa fa-pencil"></i>Edit</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-trash-o"></i>Delete</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-eye-slash"></i>Hide</td>
-														<td></td>
-													</tr>
-                                                    <tr class="expired">
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td class="inviton edit" data-href="url://"><i class="fa fa-pencil"></i>Edit</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-trash-o"></i>Delete</td>
-														<td class="inviton show" data-href="url://"><i class="fa fa-eye"></i>Show</td>
-														<td></td>
-													</tr>
-													<tr>
-														<td class="accept">May29, 2016
-															<div class="tooltiptext">
-																<h5>1 person wants to work your shift!</h5>
-																<div class="content-hide">
-																	<span class="comment">
-																		<aside>Comment:</aside>
-																		<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera. Viris decore cu eum,
-																		mea id modus petentium voluptatum. Amet abhorreant mei ad, eum</p>
-																		<div class="verificatio">
-																			<div class="save-profl">
-																				<a href="#">Accept and hide</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="yellow">Accept and Keep active</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="canl-btn">Decline</a>
-																			</div>
-																		</div>
-																	</span>
-																</div>
-															</div>
-														</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td class="inviton edit" data-href="url://"><i class="fa fa-pencil"></i>Edit</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-trash-o"></i>Delete</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-eye-slash"></i>Hide</td>
-														<td></td>
-													</tr>
-													<tr>
-														<td class="accept">May29, 2016
-															<div class="tooltiptext">
-																<h5>1 person wants to work your shift!</h5>
-																<div class="content-hide">
-																	<span class="comment">
-																		<aside>Comment:</aside>
-																		<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera. Viris decore cu eum,
-																		mea id modus petentium voluptatum. Amet abhorreant mei ad, eum</p>
-																		<div class="verificatio">
-																			<div class="save-profl">
-																				<a href="#">Accept and hide</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="yellow">Accept and Keep active</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="canl-btn">Decline</a>
-																			</div>
-																		</div>
-																	</span>
-																</div>
-															</div>
-														</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td class="inviton edit" data-href="url://"><i class="fa fa-pencil"></i>Edit</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-trash-o"></i>Delete</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-eye-slash"></i>Hide</td>
-														<td></td>
-													</tr>
-                                                    <tr>
-														<td class="accept">May29, 2016
-															<div class="tooltiptext">
-																<h5>2 person wants to work your shift!</h5>
-																<div class="content-hide">
-																	<span class="comment">
-																		<aside>Comment:</aside>
-																		<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera. Viris decore cu eum,
-																		mea id modus petentium voluptatum. Amet abhorreant mei ad, eum</p>
-																		<div class="verificatio">
-																			<div class="save-profl">
-																				<a href="#">Accept and hide</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="yellow">Accept and Keep active</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="canl-btn">Decline</a>
-																			</div>
-																		</div>
-																	</span>
-																	<span class="comment">
-																		<aside>Comment:</aside>
-																		<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera. Viris decore cu eum,
-																		mea id modus petentium voluptatum. Amet abhorreant mei ad, eum</p>
-																		<div class="verificatio">
-																			<div class="save-profl">
-																				<a href="#">Accept and hide</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="yellow">Accept and Keep active</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="canl-btn">Decline</a>
-																			</div>
-																		</div>
-																	</span>
-																</div>
-															</div>
-														</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td class="inviton edit" data-href="url://"><i class="fa fa-pencil"></i>Edit</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-trash-o"></i>Delete</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-eye-slash"></i>Hide</td>
-														<td></td>
-													</tr>
-													<tr>
-														<td class="accept">May29, 2016
-															<div class="tooltiptext">
-																<h5>1 person wants to work your shift!</h5>
-																<div class="content-hide">
-																	<span class="comment">
-																		<aside>Comment:</aside>
-																		<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera. Viris decore cu eum,
-																		mea id modus petentium voluptatum. Amet abhorreant mei ad, eum</p>
-																		<div class="verificatio">
-																			<div class="save-profl">
-																				<a href="#">Accept and hide</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="yellow">Accept and Keep active</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="canl-btn">Decline</a>
-																			</div>
-																		</div>
-																	</span>
-																</div>
-															</div>
-														</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td class="inviton edit" data-href="url://"><i class="fa fa-pencil"></i>Edit</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-trash-o"></i>Delete</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-eye-slash"></i>Hide</td>
-														<td></td>
-													</tr>
-                                                    <tr>
-														<td class="accept">May29, 2016
-															<div class="tooltiptext">
-																<h5>2 person wants to work your shift!</h5>
-																<div class="content-hide">
-																	<span class="comment">
-																		<aside>Comment:</aside>
-																		<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera. Viris decore cu eum,
-																		mea id modus petentium voluptatum. Amet abhorreant mei ad, eum</p>
-																		<div class="verificatio">
-																			<div class="save-profl">
-																				<a href="#">Accept and hide</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="yellow">Accept and Keep active</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="canl-btn">Decline</a>
-																			</div>
-																		</div>
-																	</span>
-																	<span class="comment">
-																		<aside>Comment:</aside>
-																		<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera. Viris decore cu eum,
-																		mea id modus petentium voluptatum. Amet abhorreant mei ad, eum</p>
-																		<div class="verificatio">
-																			<div class="save-profl">
-																				<a href="#">Accept and hide</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="yellow">Accept and Keep active</a>
-																			</div>
-																			<div class="save-profl">
-																				<a href="#" class="canl-btn">Decline</a>
-																			</div>
-																		</div>
-																	</span>
-																</div>
-															</div>
-														</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td class="inviton edit" data-href="url://"><i class="fa fa-pencil"></i>Edit</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-trash-o"></i>Delete</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-eye-slash"></i>Hide</td>
-														<td></td>
-													</tr>
-													<tr class="expired">
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td class="inviton edit" data-href="url://"><i class="fa fa-pencil"></i>Edit</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-trash-o"></i>Delete</td>
-														<td class="inviton show" data-href="url://"><i class="fa fa-eye"></i>Show</td>
-														<td>Expired</td>
-													</tr>
-													<tr data-popup-open="find-offer" class="expired">
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td class="inviton edit" data-href="url://"><i class="fa fa-pencil"></i>Edit</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-trash-o"></i>Delete</td>
-														<td class="inviton show" data-href="url://"><i class="fa fa-eye"></i>Show</td>
-														<td>Expired</td>
-													</tr>
-													<tr data-popup-open="find-offer" class="expired">
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td class="inviton edit" data-href="url://"><i class="fa fa-pencil"></i>Edit</td>
-														<td class="inviton thrsh" data-href="url://"><i class="fa fa-trash-o"></i>Delete</td>
-														<td class="inviton show" data-href="url://"><i class="fa fa-eye"></i>Show</td>
-														<td>Expired</td>
-													</tr>
-                                                </tbody>
-                                            </table>
-										<!--Start Pagination -->
-
-												<div class="pagination">
-													  <a href="#" class="prev"><i class="fa fa-long-arrow-left" ></i> Previous</a>
-													  <span>
-														  <a href="#">1</a>
-														  <a class="active" href="#">2</a>
-														  <a href="#">3</a>
-														  <a href="#">4</a>
-														  <a href="#">5</a>
-														  <a href="#">6</a>
-													  </span>
-													  <a href="#" class="next">Next<i class="fa fa-long-arrow-right" ></i></a>
-												</div>
-
-
-
-
-
-
-                                        </div>
-                                    </div>
-								</div>
-								</div>
-                   		</div>
-						<!-- Private-message -->
-						<!-- plans and price -->
-							<div class="show-div hidden" id="private-mesage">
+							<!-- <div class="show-div hidden" id="private-mesage">
 								<div class="find-offer archive">
 									<h2>Private Messages</h2>
 									<div class="wrapper-chat">
@@ -940,90 +542,11 @@
 										</div>
 									</div>
 								</div>
-                     		</div>
-							<div class="show-div hidden" id="archive-offer">
-								<div class="find-offer archive">
-									<h2>Archive Offers</h2>
-									<div class="member-list table-sec ">
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
-                                            <table class="table-data-provider">
-												<thead>
-													<tr>
-														<th scope="col"><a href="#" class="sort-by">Date</a></th>
-														<th scope="col"><a href="#" class="sort-by">Time</a></th>
-														<th scope="col"><a href="#" class="sort-by">Type</a></th>
-														<th scope="col"><a href="#" class="sort-by">Accepted By</a></th>
-														<th></th>
-													</tr>
-												</thead>
-                                                <tbody>
-                                                    <tr>
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td>King Crimson</td>
-														<td class="inviton" data-href="url://"><i class="fa fa-repeat"></i>Repeat</td>
-                                                    </tr>
-													<tr>
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td>King Crimson</td>
-														<td class="inviton" data-href="url://"><i class="fa fa-repeat"></i>Repeat</td>
-                                                    </tr>
-													<tr>
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td>King Crimson</td>
-														<td class="inviton" data-href="url://"><i class="fa fa-repeat"></i>Repeat</td>
-                                                    </tr>
-													<tr>
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td>King Crimson</td>
-														<td class="inviton" data-href="url://"><i class="fa fa-repeat"></i>Repeat</td>
-                                                    </tr>
-                                                    <tr>
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td>King Crimson</td>
-														<td class="inviton" data-href="url://"><i class="fa fa-repeat"></i>Repeat</td>
-                                                    </tr>
-													<tr>
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td>King Crimson</td>
-														<td class="inviton" data-href="url://"><i class="fa fa-repeat"></i>Repeat</td>
-                                                    </tr>
-													<tr>
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td>King Crimson</td>
-														<td class="inviton" data-href="url://"><i class="fa fa-repeat"></i>Repeat</td>
-                                                    </tr>
-                                                    <tr>
-														<td>May29, 2016</td>
-														<td>7am-12am</td>
-														<td>Shift swap</td>
-														<td>King Crimson</td>
-														<td class="inviton" data-href="url://"><i class="fa fa-repeat"></i>Repeat</td>
-                                                    </tr>
+                     		</div> -->
 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-								</div>
-							</div>
-                     		</div>
+							<?php sboardInclude('admin._archiveOffers', compact('offers')); ?>
 
-							 <?php sboardInclude('admin._plansPrice', $this); ?>
+							<?php sboardInclude('admin._plansPrice'); ?>
 
 							<!-- Faq -->
 							<div class="show-div hidden" id="term-use">
@@ -1259,7 +782,7 @@
 			</div>
 		</div>
 		<!-- ----profle-popup-- -->
-		<div class="popup" data-popup="sign-popup">
+		<div class="popup" data-popup="sign-popup" style="display: none">
 			<div class="popup-inner">
 				<div class="dash-pop clearfix">
 					<div class="pop-aprt">

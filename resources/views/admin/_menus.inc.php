@@ -17,12 +17,12 @@
 			<dd>My Offer</dd>
 		</a>
 	</li>
-	<li class="tabs_div">
+	<!-- <li class="tabs_div">
 		<a href="#private-mesage">
 			<span><i class="fa fa-comments"></i></span>
 			<dd>Private Messages</dd>
 		</a>
-	</li>
+	</li> -->
 	<li class="tabs_div">
 		<a href="#plans-price">
 			<span><i class="fa fa-usd"></i></span>

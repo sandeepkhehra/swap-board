@@ -21,7 +21,7 @@ abstract class BaseModel
 
 	protected function create( array $data )
 	{
-		$this->dbDriver->insert( self::$tableName, $data );
+		$this->dbDriver->insert( $this->table, $data );
 
 		if ( $this->dbDriver->last_error !== '' ) :
 			$this->errorsBag[] = $this->dbDriver->last_error;
@@ -50,10 +50,11 @@ abstract class BaseModel
 		return get_option( $key );
 	}
 
-	protected function update( $id )
+	public function update( $data )
 	{
-		// action
+		return $this->dbDriver->update( $this->table, $data, ['id' => $data['id']] );
 	}
+
 	protected function delete( $id )
 	{
 		// action
@@ -95,7 +96,7 @@ abstract class BaseModel
 
 		endif;
 
-		return (object) $tblData;
+		return (object) $tblData[ $table ];
 	}
 
 	private function processEagerLoadData( $table, $colName, $value )

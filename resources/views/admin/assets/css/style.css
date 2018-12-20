@@ -425,12 +425,12 @@ tab-section
 	opacity: 0;
 	filter: alpha(opacity=0);
 }
-.company-profile .form-group {
+.form-group {
 	display: inline-block;
 	width: 100%;
 	margin-bottom: 10px;
 }
-.company-profile label {
+.form-label {
 	font-family: "Lato", sans-serif;
 	font-weight: 400;
 	font-size: 15px;
@@ -438,10 +438,7 @@ tab-section
 	color: #b9b9c1;
 	display: block;
 }
-.job-decrpt {
-	padding: 35px 0 0 0;
-}
-.job-decrpt .job-postn h6 {
+.heading-medium {
 	color: #000;
 	font-weight: 700;
 	font-size: 18px;
@@ -449,28 +446,25 @@ tab-section
 	padding-bottom: 20px;
 }
 
-.selt-pots .form-group {
+[data-swap-row-wrap] .form-group {
 	display: flex;
 	align-items: center;
 	margin-bottom: 10px;
 }
-.selt-pots .sb-delete-row {
+[data-swap-row-wrap] .sb-delete-row {
 	color: #00b4cb;
 	padding-left: 10px;
 	font-size: 15px;
 	cursor: pointer;
 }
-.select-job .sb-add-more {
+.sb-add-row {
 	color: #00b4cb;
 	font-size: 18px;
 	font-family: "Lato", sans-serif;
 	font-weight: 400;
 	cursor: pointer;
 }
-.save-profl {
-	padding: 35px 0 0 0;
-}
-.save-profl a {
+.sb-form-button {
 	background: #00b4cb;
 	color: #fff;
 	border: 0;
@@ -479,22 +473,10 @@ tab-section
 	padding: 8px 22px;
 	display: inline-block;
 	border-radius: 4px;
-	vertical-align: middle;
-	-webkit-transform: translateZ(0);
-	transform: translateZ(0);
-	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	-moz-osx-font-smoothing: grayscale;
-	position: relative;
-	-webkit-transition-property: color;
-	transition-property: color;
-	-webkit-transition-duration: 0.3s;
-	transition-duration: 0.3s;
 	font-family: "Lato", sans-serif;
 	margin-right: 18px;
 }
-.save-profl a.canl-btn {
+.sb-form-button--danger {
 	background: #cc0057;
 }
 
@@ -1005,30 +987,6 @@ invition-form
 	opacity: 1;
 }
 
-/*-----make-offer-------*/
-.make-ofdes {
-	padding-bottom: 35px;
-}
-.make-ofdes span {
-	float: left;
-	width: 50%;
-}
-.make-ofdes h6 {
-	font-size: 18px;
-	color: #000;
-	font-weight: 700;
-	padding-bottom: 10px;
-}
-.make-ofdes p {
-	font-size: 16px;
-	font-weight: 400;
-	font-family: "Lato", sans-serif;
-	color: #1d1d1d;
-}
-.make-ofdes .make-fuldespt {
-	padding: 25px 0 0 0;
-	display: inline-block;
-}
 .make-timdate {
 	display: flex;
 	flex-direction: row;
@@ -1099,22 +1057,6 @@ invition-form
 .radio input {
 	width: 15px;
 	height: 15px;
-}
-.invition-form.offer .add-order {
-	float: left;
-	width: 100%;
-}
-.invition-form.offer .add-order button {
-	width: 180px;
-	height: 40px;
-	border: 1px solid #cc0057;
-	border-radius: 4px;
-	max-width: 200px;
-	background: #cc0057;
-	color: #fff;
-	font-size: 18px;
-	font-weight: 700;
-	margin-top: 31px;
 }
 .activt-sebsert {
 	font-size: 18px;

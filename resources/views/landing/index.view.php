@@ -1,4 +1,7 @@
-<?php sboardInclude('landing._header', $this); ?>
+<?php
+$title = $this->template->title;
+
+sboardInclude('landing._header', compact('title')); ?>
 
 	<section class="board-indx">
 		<div class="board-content">
@@ -55,4 +58,4 @@
 		</div>
 	</section>
 
-<?php sboardInclude('landing._footer', $this); ?>
+<?php sboardInclude('landing._footer'); ?>

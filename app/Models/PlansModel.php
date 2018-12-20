@@ -5,7 +5,7 @@ defined('ABSPATH') or die('Not permitted!');
 
 class PlansModel extends BaseModel
 {
-	public static $tableName = 'sboard_plans';
+	public $table = 'sboard_plans';
 
 	public function getBy( $value, $type = 'id' )
 	{

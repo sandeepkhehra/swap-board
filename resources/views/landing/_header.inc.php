@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title><?php echo $context->template->title; ?></title>
+		<title><?php echo $title; ?></title>
 		<?php sboardCoreAssets('css', ['reset.css', 'bootstrap.min.css', 'animate.css', 'font-awesome.min.css', 'easy-responsive-tabs.css']); ?>
 		<?php wp_head(); ?>
 	</head>

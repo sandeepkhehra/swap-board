@@ -129,3 +129,17 @@ pre {
 .container {
 	width: 1170px;
 }
+
+/* Dyna Styling */
+.padding--35t {
+	padding-top: 35px;
+}
+.padding--35b {
+	padding-bottom: 35px;
+}
+.margin--35t {
+	margin-top: 35px;
+}
+.margin--35b {
+	margin-bottom: 35px;
+}

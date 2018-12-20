@@ -135,8 +135,10 @@ if (!function_exists('sboardRedirect')) {
 }
 
 if (!function_exists('sboardInclude')) {
-	function sboardInclude($filePath, $context = null)
+	function sboardInclude($filePath, $vars = null)
 	{
+		if ( $vars ) extract( $vars );
+
 		$filePath = sboardPathResolver($filePath, 'view', SB_INCL_EXT);
 
 		if (file_exists($filePath)):
@@ -164,7 +166,7 @@ if (!function_exists('sboardCoreAssets')) {
 	 */
 	function sboardCoreAssets($assetType, array $assets)
 	{
-		$weird = func_get_args()[2];
+		$weird = isset(func_get_args()[2]) ? func_get_args()[2] : '';
 
 		if (!empty($weird)) :
 			$newPath = "$weird/assets/$assetType/$assets[0]";

@@ -4,11 +4,10 @@ namespace SwapBoard\Controllers\Admin;
 defined('ABSPATH') or die('Not permitted!');
 
 use SwapBoard\Models\UsersModel;
-use SwapBoard\Controllers\UsersController;
-// use SwapBoard\Controllers\BaseController;
+use SwapBoard\Controllers\BaseController;
 use SwapBoard\Helpers\ViewTemplateInterface;
 
-class AdminPanelTemplateController implements ViewTemplateInterface
+class AdminPanelTemplateController extends BaseController implements ViewTemplateInterface
 {
 	public $title = 'User Dashboard';
 
@@ -26,9 +25,9 @@ class AdminPanelTemplateController implements ViewTemplateInterface
 
 	public function __construct()
 	{
-		$this->model = new UsersModel;
+		// $this->model = new UsersModel;
 		// $this->controller = new UsersController;
-		// parent::__construct(new UsersModel);
+		parent::__construct(new UsersModel);
 	}
 
 	public function id()
@@ -71,5 +70,10 @@ class AdminPanelTemplateController implements ViewTemplateInterface
 		}
 
 		return false;
+	}
+
+	public function getOffers()
+	{
+		$ll = $this->model->getCustomTableData();
 	}
 }

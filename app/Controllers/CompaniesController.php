@@ -52,4 +52,23 @@ class CompaniesController extends BaseController
 		echo json_encode( $return );
 	}
 
+	public function update()
+	{
+		$postData = sboardFilterPostData( $_POST );
+
+		if ( isset( $postData['id'] ) ) :
+			$postData['details'] = serialize( $postData['details'] );
+			$postData['positions'] = serialize( $postData['positions'] );
+			$postData['locations'] = serialize( $postData['locations'] );
+
+			$this->model->update( $postData );
+
+			$return['type'] = 'success';
+		else:
+			$return['type'] = 'error';
+		endif;
+
+		echo json_encode( $return );
+	}
+
 }

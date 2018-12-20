@@ -15,7 +15,7 @@ class PlansMenuController extends BaseMenuController
 
 	public function __construct()
 	{
-		parent::__construct(['css' => $this->cssAssets, 'js' => $this->jsAssets]);
+		parent::__construct(['css' => $this->cssAssets, 'js' => $this->jsAssets], 'sub', true);
 	}
 
 	public function menuView()

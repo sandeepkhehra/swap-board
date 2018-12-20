@@ -10,7 +10,7 @@ class DashMenusController implements HookrInterface
 {
 	protected $menus = [
 		SwapBoardMenuController::class,
-		UsersMenuController::class,
+		// UsersMenuController::class,
 		PlansMenuController::class,
 		SettingsMenuController::class,
 	];

@@ -1,6 +1,4 @@
-const SwapBoard = new SwapBoardEnvironment();
-
-window.sBoard = SwapBoard
+const SwapBoard = new window.sBoard;
 
 jQuery(function($) {
 	$('[data-swap-button]').on('click', function(e) {
