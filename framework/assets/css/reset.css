@@ -130,16 +130,53 @@ pre {
 	width: 1170px;
 }
 
-/* Dyna Styling */
+/**
+ * Dyna Styling
+ *
+ */
+
+/* Sizings */
+.w100 {
+	width: 100%;
+}
+
+
+/* Paddings and Margins */
+.padding--5l {
+	padding-left: 5px;
+}
+.padding--5r {
+	padding-right: 5px;
+}
 .padding--35t {
 	padding-top: 35px;
 }
 .padding--35b {
 	padding-bottom: 35px;
 }
+.margin--10r {
+	margin-right: 10px;
+}
+.margin--20r {
+	margin-right: 20px;
+}
 .margin--35t {
 	margin-top: 35px;
 }
 .margin--35b {
 	margin-bottom: 35px;
+}
+
+/* Display properties */
+.flex {
+	display: flex;
+}
+.flex.flex-d-c {
+	flex-direction: column;
+}
+.flex.flex-ai-center {
+	align-items: center;
+}
+.flex.flex-jc-sb {
+	justify-content: space-between;
 }

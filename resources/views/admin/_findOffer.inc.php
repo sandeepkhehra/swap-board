@@ -5,58 +5,88 @@
 			<div class="col-md-12 col-sm-12 col-xs-12 ">
 				<div class="invition-form offer">
 					<form name="htmlform" method="post" action="toyousender.php">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="Position">Position</label>
-								<select class="fa-map-marker">
-									<option>Flight Safety Manager</option>
-									<option>Flight Safety Manager</option>
-									<option>Flight Safety Manager</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label for="Location">Location</label>
-								<select>
-									<option>Boston-Logan International Airport</option>
-									<option>Boston-Logan International Airport</option>
-									<option>Boston-Logan International Airport</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-12 offer-res">
-							<div class="date">
-								<label for="Date">Date</label>
-								<aside>Day of week</aside>
-								<div class="checkbox-group">
-									<ul>
-										<li><input type="checkbox" id="mon" /> <label for="mon">Mo</label></li>
-										<li><input type="checkbox" id="tue" /> <label for="tue">Tu</label></li>
-										<li><input type="checkbox" id="wed" /> <label for="wed">We</label></li>
-										<li><input type="checkbox" id="thur" /> <label for="thur">Th</label></li>
-										<li><input type="checkbox" id="fri" /> <label for="fri">Fr</label></li>
-										<li><input type="checkbox" id="sat" /> <label for="sat">Sa</label></li>
-										<li><input type="checkbox" id="sun" /> <label for="sun">Su</label></li>
-									</ul>
-								</div>
-							</div>
-							<div class="time-change">
-								<div class="time">
-									<label for="Time">Time</label> <input type="time" />
-									<div class="specer">-</div>
-									<input type="time" />
-								</div>
-								<div class="time shift">
-									<label for="shift-type">Shift Type</label>
-									<select>
-										<option>Shift Swap</option>
-										<option>Shift Swap</option>
-										<option>Shift Swap</option>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="Position">Position</label>
+									<select class="sb-input-field">
+										<option>Flight Safety Manager</option>
+										<option>Flight Safety Manager</option>
+										<option>Flight Safety Manager</option>
 									</select>
 								</div>
 							</div>
-							<div class="search"><button type="submit">Search</button></div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="Location">Location</label>
+									<select class="sb-input-field">
+										<option>Boston-Logan International Airport</option>
+										<option>Boston-Logan International Airport</option>
+										<option>Boston-Logan International Airport</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="flex flex-jc-sb">
+
+									<div class="margin--20r">
+										<label class="sb-form-label sb-form-label--active" for="offerDate">Date</label>
+										<input type="date" class="sb-input-field sb-input-field--datetime" name="datetime[date]" id="offerDate" />
+									</div>
+
+									<div class="margin--20r">
+										<label class="sb-form-label">Day of week</label>
+										<div class="weekDays-selector">
+											<input type="checkbox" id="findOffer-mon" value="mon" class="weekday" />
+											<label for="findOffer-mon">M</label>
+											<input type="checkbox" id="findOffer-tue" value="tue" class="weekday" />
+											<label for="findOffer-tue">T</label>
+											<input type="checkbox" id="findOffer-wed" value="wed" class="weekday" />
+											<label for="findOffer-wed">W</label>
+											<input type="checkbox" id="findOffer-thu" value="thu" class="weekday" />
+											<label for="findOffer-thu">T</label>
+											<input type="checkbox" id="findOffer-fri" value="fri" class="weekday" />
+											<label for="findOffer-fri">F</label>
+											<input type="checkbox" id="findOffer-sat" value="sat" class="weekday" />
+											<label for="findOffer-sat">S</label>
+											<input type="checkbox" id="findOffer-sun" value="sun" class="weekday" />
+											<label for="weekday-sun">S</label>
+										</div>
+									</div>
+
+									<div class="set-time margin--20r">
+										<label class="sb-form-label sb-form-label--active">Time</label>
+										<div class="flex flex-ai-center">
+											<input type="time" class="sb-input-field sb-input-field--datetime" name="datetime[time][start]">
+											<span class="padding--5l padding--5r">&mdash;</span>
+											<input type="time" class="sb-input-field sb-input-field--datetime" name="datetime[time][end]">
+										</div>
+									</div>
+
+									<div class="offer-type margin--20r">
+										<label class="sb-form-label sb-form-label--active">Offer Type</label>
+										<ul>
+											<li>
+												<input id="postShift" name="type" type="radio" value="1" checked>
+												<label for="postShift" class="radio-label">Post a shift</label>
+											</li>
+											<li>
+												<input id="swapShift" name="type" type="radio" value="2" />
+												<label for="swapShift" class="radio-label">Shift Swap</label>
+											</li>
+											<li>
+												<input id="permaSwapShift" name="type" type="radio" value="3" />
+												<label for="permaSwapShift" class="radio-label">Permanent Shift Swap</label>
+											</li>
+										</ul>
+									</div>
+								</div>
+
+								<button type="button" class="sb-form-button margin--35t sb-form-button--danger" data-swap-button="create-offer">Find Offer</button>
+							</div>
 						</div>
 					</form>
 				</div>
@@ -77,55 +107,6 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr data-popup-open="find-offer">
-								<td>Licensed Engineer</td>
-								<td>Boston-Logan International Airport</td>
-								<td>May29, 2016</td>
-								<td>7am-12am</td>
-								<td>Shift swap</td>
-							</tr>
-							<tr data-popup-open="find-offer">
-								<td>Licensed Engineer</td>
-								<td>Boston-Logan International Airport</td>
-								<td>May29, 2016</td>
-								<td>7am-12am</td>
-								<td>Shift</td>
-							</tr>
-							<tr data-popup-open="find-offer">
-								<td>Licensed Engineer</td>
-								<td>Boston-Logan International Airport</td>
-								<td>May29, 2016</td>
-								<td>7am-12am</td>
-								<td>Shift swap</td>
-							</tr>
-							<tr data-popup-open="find-offer">
-								<td>Licensed Engineer</td>
-								<td>Boston-Logan International Airport</td>
-								<td>May29, 2016</td>
-								<td>7am-12am</td>
-								<td>Shift swap</td>
-							</tr>
-							<tr data-popup-open="find-offer">
-								<td>Licensed Engineer</td>
-								<td>Boston-Logan International Airport</td>
-								<td>May29, 2016</td>
-								<td>7am-12am</td>
-								<td>Shift swap</td>
-							</tr>
-							<tr data-popup-open="find-offer">
-								<td>Licensed Engineer</td>
-								<td>Boston-Logan International Airport</td>
-								<td>May29, 2016</td>
-								<td>7am-12am</td>
-								<td>Shift swap</td>
-							</tr>
-							<tr data-popup-open="find-offer">
-								<td>Licensed Engineer</td>
-								<td>Boston-Logan International Airport</td>
-								<td>May29, 2016</td>
-								<td>7am-12am</td>
-								<td>Shift swap</td>
-							</tr>
 							<tr data-popup-open="find-offer">
 								<td>Licensed Engineer</td>
 								<td>Boston-Logan International Airport</td>

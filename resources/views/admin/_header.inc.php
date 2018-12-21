@@ -9,54 +9,52 @@
 	</head>
 	<body>
     <!-- header -->
-    <div class="main-section">
-        <div class="topheader">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <em> <a href="#">Delta Airlines</a></em>
-                        <aside>
-							<a id="dashbrd-clck" class="visible-xs text-right"></a>
-                            <ul class="listing-navigtion hidden-xs" id="configurator-wrap"">
-								<li><a href="#invite-people" class="tbntabs">Invite People</a></li>
-								<li><a href="#member-list" class="tbntabs">Member List</a></li>
-								<li class="active"><a href="#profile" class="tbntabs">Company Profile</a></li>
-							</ul>
-							<div class="icons-slide">
-								<span class="messahe-des">
-									<a href="javascript:void(0)" title="message" class="message-chat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-envelope-o"></i></a>
-									<div class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-										<div class="shw-messge">
-											<span><img src="<?php sboardCoreAssets('images', ['chat-message.png'], 'admin'); ?>" alt=""/></span>
-											<p>You have <a href="#">5 private messages</a>and<a href="#">2 accepted offer</a></p>
-										</div>
+	<div class="topheader">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12 flex flex-jc-sb">
+					<a href="#" class="sb-logo-title">Delta Airlines</a>
+					<aside class="flex">
+						<a id="dashbrd-clck" class="visible-xs text-right"></a>
+						<ul class="listing-navigtion hidden-xs" id="configurator-wrap"">
+							<li><a href="#invite-people" class="tbntabs">Invite People</a></li>
+							<li><a href="#member-list" class="tbntabs">Member List</a></li>
+							<li class="active"><a href="#profile" class="tbntabs">Company Profile</a></li>
+						</ul>
+						<div class="icons-slide">
+							<span class="messahe-des">
+								<a href="javascript:void(0)" title="message" class="message-chat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-envelope-o"></i></a>
+								<div class="dropdown-menu " role="menu" aria-labelledby="dLabel">
+									<div class="shw-messge">
+										<span><img src="<?php sboardCoreAssets('images', ['chat-message.png'], 'admin'); ?>" alt=""/></span>
+										<p>You have <a href="#">5 private messages</a>and<a href="#">2 accepted offer</a></p>
 									</div>
-								</span>
-								<span class="chats">
-									<a href="javascript:void(0)" title="bell" class="chat-notc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell-o"></i></a>
-									<div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-										<div class="shw-messge">
-											<span><img src="<?php sboardCoreAssets('images', ['bell-notice.png'], 'admin'); ?>" alt=""/></span>
-											<h5>Rosy Brown</h5>
-											<p>Hi! I'm with you.</p>
-										</div>
+								</div>
+							</span>
+							<span class="chats">
+								<a href="javascript:void(0)" title="bell" class="chat-notc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell-o"></i></a>
+								<div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									<div class="shw-messge">
+										<span><img src="<?php sboardCoreAssets('images', ['bell-notice.png'], 'admin'); ?>" alt=""/></span>
+										<h5>Rosy Brown</h5>
+										<p>Hi! I'm with you.</p>
 									</div>
-								</span>
-								<span class="profile">
-									<a href="javascript:void(0)" title="EUR" class="drop_dn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sign-out"></i></a>
-									<div class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-									<ul>
-										<li><a href="#"><i class="fa fa-cog"></i> <span>Setting</span></a></li>
-										<li><a data-popup-open="sign-popup" href="#"><i class="fa fa-user"></i><span>Profile</span></a></li>
-										<li><a href="#"><i class="fa fa-envelope-o"></i> <span>Messages</span></a></li>
-										<li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i><span>Logout</span></a></li>
-									</ul>
-								</span>
-							</div>
-                            </div>
-                        </aside>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+								</div>
+							</span>
+							<span class="profile">
+								<a href="javascript:void(0)" title="EUR" class="drop_dn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sign-out"></i></a>
+								<div class="dropdown-menu " role="menu" aria-labelledby="dLabel">
+								<ul>
+									<li><a href="#"><i class="fa fa-cog"></i> <span>Setting</span></a></li>
+									<li><a data-popup-open="sign-popup" href="#"><i class="fa fa-user"></i><span>Profile</span></a></li>
+									<li><a href="#"><i class="fa fa-envelope-o"></i> <span>Messages</span></a></li>
+									<li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i><span>Logout</span></a></li>
+								</ul>
+							</span>
+						</div>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</div>

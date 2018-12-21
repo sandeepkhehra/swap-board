@@ -11,8 +11,8 @@ $locations = unserialize($companyData->locations);
 					<?php sboardDefineFormAction('ajax', 'create', SwapBoard\Controllers\OffersController::class); ?>
 					<input type="hidden" name="companyID" value="<?php echo $companyData->id ?>">
 					<div class="invition-form offer">
-						<div class="padding--35b">
-							<div>
+						<div class="padding--35b flex">
+							<div class="flex flex-d-c margin--10r w100">
 								<h6 class="heading-medium">Position</h6>
 								<?php if ( ! empty( $positions ) ) : ?>
 								<select class="sb-input-field" name="position">
@@ -24,7 +24,7 @@ $locations = unserialize($companyData->locations);
 								<p>No position exist.</p>
 								<?php endif; ?>
 							</div>
-							<div>
+							<div class="flex flex-d-c w100">
 								<h6 class="heading-medium">Location</h6>
 								<?php if ( ! empty( $locations ) ) : ?>
 								<select class="sb-input-field" name="location">
@@ -36,68 +36,65 @@ $locations = unserialize($companyData->locations);
 								<p>No location exist.</p>
 								<?php endif; ?>
 							</div>
-							<div class="make-fuldespt">
-								<h6 class="heading-medium">Description</h6>
-								<textarea class="form-field" name="description" id="">As a Customer Service Agent, you will be an important part of our customers' travel experience. You 'll assist customer with check-in, boarding/de-boarding our bus to/from Houston, and addressing questions related to checked baggages. In this role, it's vital to create a welcoming environment for our customers.</textarea>
-							</div>
+						</div>
+						<div class="padding--35b">
+							<h6 class="heading-medium">Description</h6>
+							<textarea class="sb-input-field sb-input-field--textarea" name="description" id="">As a Customer Service Agent, you will be an important part of our customers' travel experience. You 'll assist customer with check-in, boarding/de-boarding our bus to/from Houston, and addressing questions related to checked baggages. In this role, it's vital to create a welcoming environment for our customers.</textarea>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<div class="make-timdate">
-									<div class="scted clearfix">
-										<label for="offerDate">Date</label>
-										<input type="date" name="datetime[date]" id="offerDate" />
-									</div>
-									<div class="time clearfix">
-										<label>Day of week</label>
-										<div class="checkbox-group" style="display: none;">
-											<ul>
-												<li>
-													<input type="checkbox" id="mon" /> <label for="mon">Mo</label>
-												</li>
-												<li>
-													<input type="checkbox" id="tue" /> <label for="tue">Tu</label>
-												</li>
-												<li>
-													<input type="checkbox" id="wed" /> <label for="wed">We</label>
-												</li>
-												<li>
-													<input type="checkbox" id="thur" /> <label for="thur">Th</label>
-												</li>
-												<li>
-													<input type="checkbox" id="fri" /> <label for="fri">Fr</label>
-												</li>
-												<li>
-													<input type="checkbox" id="sat" /> <label for="sat">Sa</label>
-												</li>
-												<li>
-													<input type="checkbox" id="sun" /> <label for="sun">Su</label>
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="set-time clearfix">
-										<label>Time</label>
-										<input type="time" name="datetime[time][start]">
-										<div class="specer">-</div>
-										<input type="time" name="datetime[time][end]">
-									</div>
-									<div class="offer-type clearfix">
-										<h6>Offer Type</h6>
-										<div class="radio">
-											<input id="postShift" name="type" type="radio" value="1" checked>
-											<label for="postShift" class="radio-label">Post a shift</label>
-										</div>
+								<div class="flex flex-jc-sb">
 
-										<div class="radio">
-											<input id="swapShift" name="type" type="radio" value="2" />
-											<label for="swapShift" class="radio-label">Shift Swap</label>
-										</div>
+									<div class="margin--20r">
+										<label class="sb-form-label sb-form-label--active" for="offerDate">Date</label>
+										<input type="date" class="sb-input-field sb-input-field--datetime" name="datetime[date]" id="offerDate" />
+									</div>
 
-										<div class="radio">
-											<input id="permaSwapShift" name="type" type="radio" value="3" />
-											<label for="permaSwapShift" class="radio-label">Permanent Shift Swap</label>
+									<div class="margin--20r">
+										<label class="sb-form-label">Day of week</label>
+										<div class="weekDays-selector">
+											<input type="checkbox" id="weekday-mon" value="mon" name="offerDay[]" class="weekday" />
+											<label for="weekday-mon">M</label>
+											<input type="checkbox" id="weekday-tue" value="tue" name="offerDay[]" class="weekday" />
+											<label for="weekday-tue">T</label>
+											<input type="checkbox" id="weekday-wed" value="wed" name="offerDay[]" class="weekday" />
+											<label for="weekday-wed">W</label>
+											<input type="checkbox" id="weekday-thu" value="thu" name="offerDay[]" class="weekday" />
+											<label for="weekday-thu">T</label>
+											<input type="checkbox" id="weekday-fri" value="fri" name="offerDay[]" class="weekday" />
+											<label for="weekday-fri">F</label>
+											<input type="checkbox" id="weekday-sat" value="sat" name="offerDay[]" class="weekday" />
+											<label for="weekday-sat">S</label>
+											<input type="checkbox" id="weekday-sun" value="sun" name="offerDay[]" class="weekday" />
+											<label for="weekday-sun">S</label>
 										</div>
+									</div>
+
+									<div class="set-time margin--20r">
+										<label class="sb-form-label sb-form-label--active">Time</label>
+										<div class="flex flex-ai-center">
+											<input type="time" class="sb-input-field sb-input-field--datetime" name="datetime[time][start]">
+											<span class="padding--5l padding--5r">&mdash;</span>
+											<input type="time" class="sb-input-field sb-input-field--datetime" name="datetime[time][end]">
+										</div>
+									</div>
+
+									<div class="offer-type margin--20r">
+										<label class="sb-form-label sb-form-label--active">Offer Type</label>
+										<ul>
+											<li>
+												<input id="postShift" name="type" type="radio" value="1" checked>
+												<label for="postShift" class="radio-label">Post a shift</label>
+											</li>
+											<li>
+												<input id="swapShift" name="type" type="radio" value="2" />
+												<label for="swapShift" class="radio-label">Shift Swap</label>
+											</li>
+											<li>
+												<input id="permaSwapShift" name="type" type="radio" value="3" />
+												<label for="permaSwapShift" class="radio-label">Permanent Shift Swap</label>
+											</li>
+										</ul>
 									</div>
 								</div>
 
