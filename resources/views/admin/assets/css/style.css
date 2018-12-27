@@ -491,12 +491,15 @@ tab-section
 	font-size: 15px;
 	cursor: pointer;
 }
-.sb-add-row {
+.sb-row-action {
 	color: #00b4cb;
 	font-size: 18px;
 	font-family: "Lato", sans-serif;
 	font-weight: 400;
 	cursor: pointer;
+}
+.sb-row-action.sb-row-action--small {
+	font-size: 15px;
 }
 .sb-form-button {
 	background: #00b4cb;
@@ -576,21 +579,14 @@ a.sort-by:after {
 	border-top-color: #666;
 	margin-top: 1px;
 }
-td.inviton {
-	cursor: pointer;
-	color: #00b4cb;
-	text-decoration: underline;
-}
-td.inviton i {
-	padding-right: 10px;
-}
+
 .table-data-provider > tbody > tr:nth-child(odd) > td,
 .table-data-provider > tbody > tr:nth-child(odd) > th {
 	background-color: transparent;
 }
 
 /*========invition popup=======*/
-.invention {
+.invitation {
 	width: 100%;
 	height: 100%;
 	display: none;
@@ -600,7 +596,7 @@ td.inviton i {
 	background: rgba(0, 0, 0, 0.75);
 	z-index: 99999;
 }
-.popup-strutre {
+.popup-structure {
 	max-width: 700px;
 	width: 90%;
 	padding: 35px;
@@ -612,6 +608,18 @@ td.inviton i {
 	box-shadow: 0px 2px 6px rgba(0, 0, 0, 1);
 	background: #fff;
 	height: auto;
+}
+.popup-structure .popup-close {
+	position: absolute;
+    top: -90px;
+    right: -10px;
+    font-size: 60px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #949494;;
+}
+.popup-structure .popup-close:hover {
+	color: #CCC;
 }
 .john-whit .left-cont {
 	float: left;
@@ -688,27 +696,7 @@ td.inviton i {
 .verificatio .save-profl a.canl-btn {
 	background: #cc0057;
 }
-.john-close {
-	width: 30px;
-	height: 30px;
-	padding-top: 4px;
-	display: inline-block;
-	position: absolute;
-	top: -25px;
-	right: -25px;
-	transition: ease 0.25s all;
-	-webkit-transform: translate(50%, -50%);
-	transform: translate(50%, -50%);
-	font-family: Arial, Sans-Serif;
-	font-size: 32px;
-	text-align: center;
-	line-height: 100%;
-	color: #c0c3c8;
-	text-decoration: none;
-}
-/*==========================
-invition-form
-============================= */
+
 .invite-peop p {
 	font-size: 16px;
 	line-height: 24px;
@@ -722,17 +710,6 @@ invition-form
 	display: inline-block;
 	width: 100%;
 	margin-top: 30px;
-}
-.invition-form a.add-mort {
-	text-decoration: underline;
-	color: #00b4cb;
-	font-size: 18px;
-	font-family: "Lato", sans-serif;
-	font-weight: 400;
-}
-.invition-form a.add-mort i {
-	font-size: 16px;
-	padding-right: 10px;
 }
 /*=========find-offer======*/
 .invition-form.offer {
@@ -812,42 +789,42 @@ invition-form
 	margin-left: 15px;
 }
 /*---------find-offer popup-----*/
-.invention.offer .popup-strutre {
+.invitation.offer .popup-structure {
 	max-width: 850px;
 }
-.invention.offer .offer-swswp span {
+.invitation.offer .offer-swswp span {
 	float: left;
 	padding-right: 10px;
 }
-.invention.offer .offer-swswp strong {
+.invitation.offer .offer-swswp strong {
 	font-size: 16px;
 	display: block;
 	padding-bottom: 10px;
 }
-.invention.offer .offer-swswp {
+.invitation.offer .offer-swswp {
 	padding-bottom: 15px;
 }
-.invention.offer .offer-swswp p {
+.invitation.offer .offer-swswp p {
 	width: auto;
 	padding: 0;
 }
-.invention.offer .form-group.offertxt {
+.invitation.offer .form-group.offertxt {
 	display: block;
 	width: 100%;
 	float: left;
 	padding: 10px 0 10px 0;
 }
-.invention.offer .offertxt label {
+.invitation.offer .offertxt label {
 	display: block;
 	width: 100%;
 }
-.invention.offer .offertxt textarea {
+.invitation.offer .offertxt textarea {
 	width: 100%;
 	height: 124px;
 	border-radius: 2px;
 	border: 1px solid #ccc;
 }
-.invention.offer .search button {
+.invitation.offer .search button {
 	width: 130px;
 	height: 40px;
 	border: 1px solid #cc0057;

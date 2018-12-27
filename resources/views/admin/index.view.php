@@ -6,6 +6,13 @@ $companyData = $this->template->model->withOne('sboard_companies', 'userID', $us
 $positions = unserialize($companyData->positions);
 $locations = unserialize($companyData->locations);
 $offers = $this->template->model->with('sboard_offers', 'companyID', $companyData->id)->sboard_offers;
+$membersData = $this->template->model->with('sboard_members', 'companyID', $companyData->id)->sboard_members;
+
+// $allPositions = $this->template->model->dbDriver;
+
+// echo "<pre>";
+// print_r($allPositions);
+// echo "</pre>";
 
 sboardInclude('admin._header', compact('title')); ?>
     <section class="sb-user-admin">
@@ -26,159 +33,12 @@ sboardInclude('admin._header', compact('title')); ?>
                         <!-- Page Content Holder -->
                         <div id="content">
 							<?php sboardInclude('admin._companyProfile', compact('companyData')); ?>
-							<!-- member-list -->
-							<div class="show-div hidden" id="member-list">
-								<div class="member-list table-sec ">
-									<h2>Member List</h2>
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
-                                            <table class="table-data-provider">
-												<thead>
-													<tr>
-														<th scope="col"><a href="#" class="sort-by">First Name</a></th>
-														<th scope="col"><a href="#" class="sort-by">Last Name</a></th>
-														<th scope="col"><a href="#" class="sort-by">Invitation Date</a></th>
-														<th scope="col"><a href="#" class="sort-by">Administrator</a></th>
-														<th></th>
-														<th></th>
-													</tr>
-												</thead>
-                                                <tbody>
-                                                    <tr data-popup-open="invetion-popup">
-                                                      <td>Rosy</td>
-                                                      <td>Brown</td>
-                                                      <td>05.25.2016</td>
-                                                      <td><input type="checkbox" name="check" /></td>
-                                                      <td class="inviton" data-href='url://'><i class="fa fa-paper-plane-o"></i>Resend Invitation</td>
-                                                      <td class="inviton thrsh" data-href='url://'><i class="fa fa-trash-o"></i>Delete</td>
-                                                    </tr>
-                                                    <tr data-popup-open="invetion-popup">
-                                                      <td>Rosy</td>
-                                                      <td>Brown</td>
-                                                      <td>05.25.2016</td>
-                                                      <td><input type="checkbox" name="check" /></td>
-                                                      <td class="inviton" data-href='url://'><i class="fa fa-paper-plane-o"></i>Resend Invitation</td>
-                                                      <td class="inviton thrsh" data-href='url://'><i class="fa fa-trash-o"></i>Delete</td>
-                                                    </tr>
-													<tr data-popup-open="invetion-popup">
-                                                      <td>Rosy</td>
-                                                      <td>Brown</td>
-                                                      <td>05.25.2016</td>
-                                                      <td><input type="checkbox" name="check" /></td>
-                                                      <td class="inviton" data-href='url://'><i class="fa fa-paper-plane-o"></i>Resend Invitation</td>
-                                                      <td class="inviton thrsh" data-href='url://'><i class="fa fa-trash-o"></i>Delete</td>
-                                                    </tr>
-													<tr data-popup-open="invetion-popup">
-                                                      <td>Rosy</td>
-                                                      <td>Brown</td>
-                                                      <td>05.25.2016</td>
-                                                      <td><input type="checkbox" name="check" /></td>
-                                                      <td class="inviton" data-href='url://'><i class="fa fa-paper-plane-o"></i>Resend Invitation</td>
-                                                      <td class="inviton thrsh" data-href='url://'><i class="fa fa-trash-o"></i>Delete</td>
-                                                    </tr>
-                                                    <tr data-popup-open="invetion-popup">
-                                                      <td>Rosy</td>
-                                                      <td>Brown</td>
-                                                      <td>05.25.2016</td>
-                                                      <td><input type="checkbox" name="check" /></td>
-                                                      <td class="inviton" data-href='url://'><i class="fa fa-paper-plane-o"></i>Resend Invitation</td>
-                                                      <td class="inviton thrsh" data-href='url://'><i class="fa fa-trash-o"></i>Delete</td>
-                                                    </tr>
-                                                    <tr data-popup-open="invetion-popup">
-                                                      <td>Rosy</td>
-                                                      <td>Brown</td>
-                                                      <td>05.25.2016</td>
-                                                      <td><input type="checkbox" name="check" /></td>
-                                                      <td class="inviton" data-href='url://'><i class="fa fa-paper-plane-o"></i>Resend Invitation</td>
-                                                      <td class="inviton thrsh" data-href='url://'><i class="fa fa-trash-o"></i>Delete</td>
-                                                    </tr>
-                                                    <tr data-popup-open="invetion-popup">
-                                                      <td>Rosy</td>
-                                                      <td>Brown</td>
-                                                      <td>05.25.2016</td>
-                                                      <td><input type="checkbox" name="check" /></td>
-                                                      <td class="inviton" data-href='url://'><i class="fa fa-paper-plane-o"></i>Resend Invitation</td>
-                                                      <td class="inviton thrsh" data-href='url://'><i class="fa fa-trash-o"></i>Delete</td>
-                                                    </tr>
-                                                    <tr data-popup-open="invetion-popup">
-                                                      <td>Rosy</td>
-                                                      <td>Brown</td>
-                                                      <td>05.25.2016</td>
-                                                      <td><input type="checkbox" name="check" /></td>
-                                                      <td class="inviton" data-href='url://'><i class="fa fa-paper-plane-o"></i>Resend Invitation</td>
-                                                      <td class="inviton thrsh" data-href='url://'><i class="fa fa-trash-o"></i>Delete</td>
-                                                    </tr>
 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-								</div>
-							</div>
-							<!-- invite people -->
-							<div class="show-div hidden" id="invite-people">
-								<div class="invite-peop">
-									<h2>Invite People</h2>
-									<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera. Viris decore cu eum,
-									mea id modus petentium voluptatum. Amet abhorreant mei ad, eum </p>
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12 ">
-                                           <div class="invition-form">
-												<form name="htmlform" method="post" action="toyousender.php">
-													<div class="col-md-4">
-														<div class="form-group">
-															<label for="email">Email</label>
-															<input type="email" id="email" required="">
-														</div>
-													</div>
-													<div class="col-md-4">
-														<div class="form-group">
-															<label for="name">First Name (optional)</label>
-															<input type="text" id="name" required="">
+							<?php sboardInclude('admin._membersList', compact('membersData')); ?>
 
-														</div>
-													</div>
-													<div class="col-md-4">
-														<div class="form-group">
-															<label for="name">Lastt Name (optional)</label>
-															<input type="text" id="name" required="">
-														</div>
-													</div>
-												</form>
-												<form name="htmlform" method="post" action="toyousender.php">
-													<div class="col-md-4">
-														<div class="form-group">
-															<label for="email">Email</label>
-															<input type="email" id="email" required="">
-														</div>
-													</div>
-													<div class="col-md-4">
-														<div class="form-group">
-															<label for="name">First Name (optional)</label>
-															<input type="text" id="name" required="">
+							<?php sboardInclude('admin._inviteMembers', compact('companyData')); ?>
 
-														</div>
-													</div>
-													<div class="col-md-4">
-														<div class="form-group">
-															<label for="name">Last Name (optional)</label>
-															<input type="text" id="name" required="">
-														</div>
-													</div>
-												</form>
-												<a href="#" class="add-mort"><i class="fa fa-plus"></i>Add more</a>
-											</div>
-                                        </div>
-										<div class="col-md-12">
-											<div class="save-profl">
-												<a href="#" class="canl-btn">Send Invitation</a>
-											</div>
-										</div>
-                                    </div>
-								</div>
-							</div>
-
-							<?php sboardInclude('admin._findOffer'); ?>
+							<?php sboardInclude('admin._findOffer', compact('positions', 'locations')); ?>
 
 							<?php sboardInclude('admin._makeOffer', compact('companyData')); ?>
 
@@ -633,44 +493,9 @@ sboardInclude('admin._header', compact('title')); ?>
 			</div>
         </div>
     </section>
-    <!-- ------------member-list popup-------------- -->
-		<div class="invention" data-popup="invetion-popup">
-			<div class="popup-strutre">
-				<div class="john-whit clearfix">
-					<div class="left-cont">
-						<h3>John White</h3>
-						<p><strong>Position:</strong> Airport Customer Service Agent</p>
-						<p><strong>Email:</strong> jownwhite@gmail.com</p>
-					</div>
-					<div class="right-img">
-						<img src="image/john-white.png" alt="" class="img-responsive" />
-					</div>
-					<p>As a Customer Service Agent,  you will be an important part of our customers' travel experience. You 'll assist customer with
-					check-in, boarding/de-boarding our bus to/from Houston, and addressing questions related to checked baggages. In this role, it's vital
-					to create a welcoming environment for our customers.
-					</p>
-					<div class="form-group trms">
-						<input type="checkbox" name="term" value="term" id="term">
-						<label for="term"> Give Administrator Permissions</label>
-					</div>
-					<div class="verificatio">
-						<div class="save-profl">
-							<a href="#"><i class="fa fa-paper-plane-o"></i>Resend Invitation</a>
-						</div>
-						<div class="save-profl">
-							<a href="#" class="yellow"><i class="fa fa fa-comments"></i>Send Message</a>
-						</div>
-						<div class="save-profl">
-							<a href="#" class="canl-btn"><i class="fa fa-trash-o"></i>Delete user</a>
-						</div>
-					</div>
-				</div>
-				<a class="john-close" data-popup-close="invetion-popup" href="#">x</a>
-			</div>
-		</div>
 				<!-- ------------Find-offer popup-------------- -->
-		<div class="invention offer" data-popup="find-offer">
-			<div class="popup-strutre">
+		<div class="invitation offer" data-popup="find-offer">
+			<div class="popup-structure">
 				<div class="john-whit clearfix">
 					<div class="left-cont">
 						<h3>Airport Customer Service Agent</h3>
@@ -704,8 +529,8 @@ sboardInclude('admin._header', compact('title')); ?>
 			</div>
 		</div>
 				<!-- ------------email-blast popup-------------- -->
-		<div class="invention offer" data-popup="email-blast">
-			<div class="popup-strutre">
+		<div class="invitation offer" data-popup="email-blast">
+			<div class="popup-structure">
 				<div class="blasstt" clearfix">
 					<h3>Email Blast</h3>
 					<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera.

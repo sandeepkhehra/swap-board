@@ -99,3 +99,20 @@ CREATE TABLE IF NOT EXISTS `###sboard_offers`
 	FOREIGN KEY(companyID) REFERENCES ###sboard_companies(id) ON DELETE CASCADE,
 	PRIMARY KEY (`id`)
 ) ~~~COLLATE;
+
+-- Members table.
+
+CREATE TABLE IF NOT EXISTS `###sboard_members`
+(
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`companyID` INT(10) NOT NULL,
+	`email` VARCHAR(191),
+	`firstName` VARCHAR(50),
+	`lastName` VARCHAR(50),
+	`isMember` TINYINT DEFAULT 0,
+	`isAdmin` TINYINT DEFAULT 0,
+	`createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,
+	`modifiedAt` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+	FOREIGN KEY(companyID) REFERENCES ###sboard_companies(id) ON DELETE CASCADE,
+	PRIMARY KEY (`id`)
+) ~~~COLLATE;

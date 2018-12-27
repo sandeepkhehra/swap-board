@@ -76,7 +76,7 @@ $locations = unserialize($companyData->locations);
 						<?php endif; ?>
 					</div>
 
-					<span class="sb-add-row" data-swap-add-row="positions"><i class="fa fa-plus"></i> Add more</span>
+					<span class="sb-row-action" data-swap-add-row="positions"><i class="fa fa-plus"></i> Add more</span>
 				</div>
 				<div class="col-md-6">
 					<h6 class="heading-medium">Locations</h6>
@@ -99,7 +99,7 @@ $locations = unserialize($companyData->locations);
 						<?php endif; ?>
 					</div>
 
-					<span class="sb-add-row" data-swap-add-row="locations"><i class="fa fa-plus"></i> Add more</span>
+					<span class="sb-row-action" data-swap-add-row="locations"><i class="fa fa-plus"></i> Add more</span>
 				</div>
 			</div>
 		</div>

@@ -18,12 +18,14 @@ jQuery(function($) {
 	})
 
 	$('[data-swap-button]').on('click', function(e) {
-		const form = $(this).parents('form')
+		e.preventDefault()
+		const $this = $(this)
+		const form = $this.closest('form')
 		const formData = new FormData(form[0])
 		const formScope = form.data('swap-form')
-		const type = $(this).data('swap-button')
-		const step = $(this).data('swap-step')
-		const popType = $(this).data('swap-pop-type')
+		const type = $this.data('swap-button')
+		const step = $this.data('swap-step')
+		const popType = $this.data('swap-pop-type')
 
 		switch (type) {
 			case 'popup-open':
@@ -42,6 +44,26 @@ jQuery(function($) {
 				processFormData(formData)
 				break
 
+			case 'invite-members':
+				processFormData(formData)
+				break
+
+			case 'resend-invite':
+				processFormData(formData)
+				break
+
+			case 'delete':
+				if (confirm('Are you sure? All the related data will be deleted too!')) {
+					const promise = processFormData(formData)
+
+					if (promise) {
+						$this.parents('tr').css('background-color', 'red').fadeOut('slow', function() {
+							$this.parents('tr').remove()
+						})
+					}
+				}
+				break
+
 			case 'finish':
 				SwapBoard.processMultiStep(formScope, formData)
 				break;
@@ -50,13 +72,12 @@ jQuery(function($) {
 })
 
 function processFormData(formData) {
-	const promise = (new sBoardServer).send(formData)
+	return (new sBoardServer).send(formData)
 	.then(resp => {
 		if (resp.type === 'error') {
 			alert('Error: ' + resp.msg)
 			return false
 		}
+		return true
 	})
-
-	console.log('xx', promise)
 }

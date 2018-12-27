@@ -1,3 +1,8 @@
+<?php
+// $allPositions =
+
+?>
+
 <div class="show-div hidden" id="find-offer">
 	<div class="find-offer">
 		<h2>Find Offer</h2>
@@ -10,9 +15,9 @@
 								<div class="form-group">
 									<label for="Position">Position</label>
 									<select class="sb-input-field">
-										<option>Flight Safety Manager</option>
-										<option>Flight Safety Manager</option>
-										<option>Flight Safety Manager</option>
+									<?php foreach ( $positions as $position ) : ?>
+										<option value="<?php echo $position; ?>"><?php echo $position; ?></option>
+									<?php endforeach; ?>
 									</select>
 								</div>
 							</div>

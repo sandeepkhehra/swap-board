@@ -5,10 +5,10 @@
         max-width: 100%;
 
     }
-    
+
 }
 @media only screen and (max-width: 1200px) {
-   
+
 	.invition-form .search button {
 		max-width: 160px;
 		margin-left: 0;
@@ -16,7 +16,7 @@
 
 }
 @media only screen and (max-width: 1100px) {
-	
+
 
 }
 @media only screen and (max-width: 992px) {
@@ -24,7 +24,7 @@
         width: 48%;
         margin: 0 1% 1% 1%;
     }
-   
+
 	.company-detail .filed-company {
 		-ms-flex: 0 0 100%;
 		flex: 0 0 100%;
@@ -41,7 +41,7 @@
 	.job-postn {
 		padding: 20px 0;
 	}
-	.save-profl {   
+	.save-profl {
 		display: inline-block;
 	}
 	.offer-res .date {
@@ -57,7 +57,7 @@
 	.emal-deft .blast-rate {
 		flex: 0 0 100%;
 		max-width: 100%;
-       
+
 	}
 	.emal-deft .emal-blast {
 		-ms-flex: 0 0 100%;
@@ -90,7 +90,7 @@
 .popup-inner{
 	padding: 0;
 }
-.invention.offer .popup-strutre {
+.invitation.offer .popup-structure {
     transform: translate(0%, 0%);
     top: 5%;
     left: 0;
@@ -101,7 +101,7 @@
     padding: 20px;
 	height: 100vh
 }
-.popup-strutre {
+.popup-structure {
     transform: translate(0%, 0%);
     top: 5%;
     left: 0;
@@ -110,7 +110,7 @@
     overflow-y: scroll;
     max-width: 100%;
     padding: 20px;
-	
+
 }
 .john-close {
     top: 16px;
@@ -223,23 +223,23 @@
 	}
 	.invition-form {
 		padding: 8px;
-   
+
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	.navmenu li:after{
         display: none;
     }
     #configurator-wrap{
         width:100%;
     }
-    
-   
-   
+
+
+
     #configure {
        color: #fff;
 		cursor: pointer;
@@ -300,7 +300,7 @@
         -webkit-transform-origin: top;
         transform-origin: top;
         z-index: 9;
-		
+
     }
 	.navmenu ul {
         float: left;
@@ -333,7 +333,7 @@
         color: #fff !important;
 		background: #05c5de;
     }
-    
+
     .navmenu li a:after{
 		display: none;
 	}
@@ -383,7 +383,7 @@
 	}
 	.tooltiptext {
 		width: 400px;
-   
+
 	}
 }
 @media only screen and (max-width: 550px) {
@@ -401,9 +401,9 @@
 	}
 	.tooltiptext {
 		width: 350px;
-   
+
 	}
-	
+
 }
 @media only screen and (max-width: 480px) {
     .dashboard-tabwrp {
@@ -415,14 +415,14 @@
     }
 	.tooltiptext {
 		width: 300px;
-   
+
 	}
    .emal-deft .blast-rate {
 		flex: 0 0 100%;
 		max-width: 100%;
 		align-items: inherit;
 	}
-	
+
 	.emal-deft .blast-rate h3 {
 		flex: 1 100%;
 		text-align: left;
@@ -438,6 +438,6 @@
 @media only screen and (max-width: 400px) {
 	.tooltiptext {
 		width: 240px;
-   
+
 	}
 }

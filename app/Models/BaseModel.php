@@ -45,6 +45,11 @@ abstract class BaseModel
 		return $this->dbDriver->get_results("SELECT * FROM {$this->table}");
 	}
 
+	public function readFrom(  )
+	{
+		# code...
+	}
+
 	protected function readOptionsTable( string $key )
 	{
 		return get_option( $key );
@@ -55,9 +60,9 @@ abstract class BaseModel
 		return $this->dbDriver->update( $this->table, $data, ['id' => $data['id']] );
 	}
 
-	protected function delete( $id )
+	protected function delete( int $id )
 	{
-		// action
+		return $this->dbDriver->delete( $this->table, ['id' => $id] );
 	}
 
 	public function tblCols()
