@@ -18,7 +18,7 @@
 						<a id="dashbrd-clck" class="visible-xs text-right"></a>
 						<ul class="listing-navigtion hidden-xs" id="configurator-wrap"">
 							<li><a href="#invite-people" class="tbntabs">Invite People</a></li>
-							<li><a href="#member-list" class="tbntabs">Member List</a></li>
+							<li><a href="#member-list" class="tbntabs">Members List</a></li>
 							<li class="active"><a href="#profile" class="tbntabs">Company Profile</a></li>
 						</ul>
 						<div class="icons-slide">

@@ -1,4 +1,4 @@
-<ul class="list-unstyled components">
+<ul class="components">
 	<li class="tabs_div">
 		<a href="#find-offer">
 			<span><i class="fa fa-search"></i></span>

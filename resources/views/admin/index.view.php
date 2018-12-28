@@ -8,12 +8,6 @@ $locations = unserialize($companyData->locations);
 $offers = $this->template->model->with('sboard_offers', 'companyID', $companyData->id)->sboard_offers;
 $membersData = $this->template->model->with('sboard_members', 'companyID', $companyData->id)->sboard_members;
 
-// $allPositions = $this->template->model->dbDriver;
-
-// echo "<pre>";
-// print_r($allPositions);
-// echo "</pre>";
-
 sboardInclude('admin._header', compact('title')); ?>
     <section class="sb-user-admin">
         <div class="container">
@@ -21,16 +15,14 @@ sboardInclude('admin._header', compact('title')); ?>
                 <div class="col-md-12">
                     <div class="wrapper">
                         <div class="sidebar">
-
 							<div class="specier-name">
 								<h5><?php echo get_userdata( $user_ID )->display_name; ?></h5>
 							</div>
 							<div class="close-btn sidebarCollapse"></div>
 
 							<?php sboardInclude('admin._menus'); ?>
-
                         </div>
-                        <!-- Page Content Holder -->
+
                         <div id="content">
 							<?php sboardInclude('admin._companyProfile', compact('companyData')); ?>
 
@@ -38,7 +30,7 @@ sboardInclude('admin._header', compact('title')); ?>
 
 							<?php sboardInclude('admin._inviteMembers', compact('companyData')); ?>
 
-							<?php sboardInclude('admin._findOffer', compact('positions', 'locations')); ?>
+							<?php sboardInclude('admin._findOffer', compact('companyData', 'positions', 'locations')); ?>
 
 							<?php sboardInclude('admin._makeOffer', compact('companyData')); ?>
 

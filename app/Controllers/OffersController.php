@@ -35,8 +35,43 @@ class OffersController extends BaseController
 		$this->model->readAll();
 	}
 
-	public function offers()
+	public function findOffers()
 	{
-		$this->model->getOffers();
+		$postData = sboardFilterPostData( $_POST );
+
+		$offers = $this->model->customQuery( $postData );
+
+		array_map( function( $offer ) {
+			return $offer->datetime = unserialize( $offer->datetime );
+		}, $offers );
+
+		if ( ! empty( $this->hasErrors() ) ) {
+			$return['type'] = 'error';
+			$return['msg'] = $this->hasErrors();
+		} else {
+			$return['type'] = 'success';
+			$return['data'] = $offers;
+		}
+
+		echo json_encode($return);
+	}
+
+	public function delete()
+	{
+		$postData = sboardFilterPostData( $_POST );
+
+		if ( ! $this->dataExists( $postData['id'] ) ) return;
+
+		$this->model->delete( $postData['id'] );
+
+		if ( ! empty( $this->hasErrors() ) ) {
+			$return['type'] = 'error';
+			$return['msg'] = $this->hasErrors();
+		} else {
+			$return['type'] = 'success';
+			$return['msg'] = 'Member deleted successfully!';
+		}
+
+		echo json_encode( $return );
 	}
 }

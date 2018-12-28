@@ -1,20 +1,17 @@
-<?php
-// $allPositions =
-
-?>
-
 <div class="show-div hidden" id="find-offer">
 	<div class="find-offer">
 		<h2>Find Offer</h2>
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12 ">
 				<div class="invition-form offer">
-					<form name="htmlform" method="post" action="toyousender.php">
+					<form data-swap-form>
+						<?php sboardDefineFormAction('ajax', 'findOffers', SwapBoard\Controllers\OffersController::class); ?>
+						<input type="hidden" name="companyID" value="<?php echo $companyData->id; ?>">
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="Position">Position</label>
-									<select class="sb-input-field">
+									<select class="sb-input-field" name="position">
 									<?php foreach ( $positions as $position ) : ?>
 										<option value="<?php echo $position; ?>"><?php echo $position; ?></option>
 									<?php endforeach; ?>
@@ -24,10 +21,10 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="Location">Location</label>
-									<select class="sb-input-field">
-										<option>Boston-Logan International Airport</option>
-										<option>Boston-Logan International Airport</option>
-										<option>Boston-Logan International Airport</option>
+									<select class="sb-input-field" name="location">
+									<?php foreach ( $locations as $location ) : ?>
+										<option value="<?php echo $location; ?>"><?php echo $location; ?></option>
+									<?php endforeach; ?>
 									</select>
 								</div>
 							</div>
@@ -90,14 +87,15 @@
 									</div>
 								</div>
 
-								<button type="button" class="sb-form-button margin--35t sb-form-button--danger" data-swap-button="create-offer">Find Offer</button>
+								<button type="button" class="sb-form-button margin--35t sb-form-button--danger" data-swap-button="find-offers">Find Offer</button>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		<div class="member-list table-sec ">
+
+		<div class="member-list table-sec">
 			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
 					<table class="table-data-provider table-responsive table-striped">
@@ -112,12 +110,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr data-popup-open="find-offer">
-								<td>Licensed Engineer</td>
-								<td>Boston-Logan International Airport</td>
-								<td>May29, 2016</td>
-								<td>7am-12am</td>
-								<td>Shift swap</td>
+							<tr>
+								<td colspan="5">Search to get results!</td>
 							</tr>
 						</tbody>
 					</table>

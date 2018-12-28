@@ -29,16 +29,6 @@ jQuery(function($) {
 		e.preventDefault()
 	})
 
-	$(".tbntabs").on("click", function(e) {
-		e.preventDefault()
-		const target = $(this).attr("href")
-
-		$("div" + target)
-			.removeClass("hidden")
-			.siblings("div")
-			.addClass("hidden")
-	})
-
 	$(".tabs_div").each(function() {
 		$(this)
 			.children("a")

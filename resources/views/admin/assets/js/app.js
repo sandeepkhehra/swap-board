@@ -17,6 +17,17 @@ jQuery(function($) {
 		$(this).parents('[data-swap-row]').remove()
 	})
 
+	$('.tbntabs').on('click', function(e) {
+		e.preventDefault()
+		const target = $(this).attr('href')
+		$(this).parent().addClass('active').siblings().removeClass('active')
+
+		$('div' + target)
+			.removeClass('hidden')
+			.siblings('div')
+			.addClass('hidden')
+	})
+
 	$('[data-swap-button]').on('click', function(e) {
 		e.preventDefault()
 		const $this = $(this)
@@ -40,8 +51,34 @@ jQuery(function($) {
 				processFormData(formData)
 				break
 
+			case 'find-offers':
+				const promise = processFormData(formData)
+				$('.table-sec table tbody').find('tr:first').remove()
+				promise.then(d => {
+					if (d.data != '') {
+						d.data.map(x => {
+							$('.table-sec table tbody').append('<tr><td>' + x.position + '</td><td>' + x.location + '</td><td>' + x.datetime.date + '</td><td>' + x.datetime.time.start + ' &mdash; ' + x.datetime.time.end + '</td><td>' + x.type + '</td></tr>')
+						})
+					} else {
+						$('.table-sec table tbody').html('<tr><td colspan="5">No result found!</td></tr>')
+					}
+				})
+				break
+
 			case 'create-offer':
 				processFormData(formData)
+				break
+
+			case 'delete-offer':
+				if (confirm('Are you sure? All the related data will be deleted too!')) {
+					const promise = processFormData(formData)
+
+					if (promise) {
+						$this.parents('tr').css('background-color', 'red').fadeOut('slow', function() {
+							$this.parents('tr').remove()
+						})
+					}
+				}
 				break
 
 			case 'invite-members':
@@ -78,6 +115,6 @@ function processFormData(formData) {
 			alert('Error: ' + resp.msg)
 			return false
 		}
-		return true
+		return resp
 	})
 }

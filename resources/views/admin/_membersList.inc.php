@@ -1,6 +1,6 @@
 <div class="show-div hidden" id="member-list">
 	<div class="member-list table-sec ">
-		<h2>Member List</h2>
+		<h2>Members List</h2>
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
 				<table class="table-data-provider">
@@ -10,8 +10,7 @@
 							<th scope="col"><a href="#" class="sort-by">Last Name</a></th>
 							<th scope="col"><a href="#" class="sort-by">Invitation Date</a></th>
 							<th scope="col"><a href="#" class="sort-by">Administrator</a></th>
-							<th></th>
-							<th></th>
+							<th colspan="2">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -28,7 +27,7 @@
 										<input type="checkbox" data-swap-button="member-admin" name="check" <?php echo $member->isAdmin ? 'checked' : ''; ?>>
 									</form>
 								</td>
-								<td class="inviton">
+								<td>
 									<?php if ( ! $member->isMember ) : ?>
 									<form style="margin: 0">
 										<?php sboardDefineFormAction('ajax', 'resendInvite', SwapBoard\Controllers\Admin\InviteMembersController::class); ?>

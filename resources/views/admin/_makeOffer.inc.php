@@ -16,8 +16,8 @@ $locations = unserialize($companyData->locations);
 								<h6 class="heading-medium">Position</h6>
 								<?php if ( ! empty( $positions ) ) : ?>
 								<select class="sb-input-field" name="position">
-									<?php foreach ( $positions as $key => $position ) : ?>
-									<option value="<?php echo $key; ?>"><?php echo $position; ?></option>
+									<?php foreach ( $positions as $position ) : ?>
+									<option value="<?php echo sboardGetSlug( $position ); ?>"><?php echo $position; ?></option>
 									<?php endforeach; ?>
 								</select>
 								<?php else: ?>
@@ -28,8 +28,8 @@ $locations = unserialize($companyData->locations);
 								<h6 class="heading-medium">Location</h6>
 								<?php if ( ! empty( $locations ) ) : ?>
 								<select class="sb-input-field" name="location">
-									<?php foreach ( $locations as $key => $location ) : ?>
-									<option value="<?php echo $key; ?>"><?php echo $location; ?></option>
+									<?php foreach ( $locations as $location ) : ?>
+									<option value="<?php echo sboardGetSlug( $location ); ?>"><?php echo $location; ?></option>
 									<?php endforeach; ?>
 								</select>
 								<?php else: ?>

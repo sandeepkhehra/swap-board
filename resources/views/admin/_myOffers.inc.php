@@ -52,10 +52,15 @@ $shiftTypes = ['NA', 'Post a shift', 'Shift Swap', 'Permanent Shift Swap'];
 									</td>
 									<td><?php echo $startTime; ?> &mdash; <?php echo $endTime; ?></td>
 									<td><?php echo $shiftTypes[ $offer->type ]; ?></td>
-									<td class="inviton edit" data-href="url://"><i class="fa fa-pencil"></i>Edit</td>
-									<td class="inviton thrsh" data-href="url://"><i class="fa fa-trash-o"></i>Delete</td>
-									<td class="inviton thrsh" data-href="url://"><i class="fa fa-eye-slash"></i>Hide</td>
-									<td></td>
+									<td><span class="sb-row-action sb-row-action--small" data-swap-button=""><i class="fa fa-pencil"></i> Edit</span></td>
+									<td>
+										<form style="margin: 0">
+											<?php sboardDefineFormAction('ajax', 'delete', SwapBoard\Controllers\OffersController::class); ?>
+											<input type="hidden" name="id" value="<?php echo $offer->id; ?>">
+											<span class="sb-row-action sb-row-action--small" data-swap-button="delete-offer"><i class="fa fa-trash-o"></i> Delete</span>
+										</form>
+									</td>
+									<td><span class="sb-row-action sb-row-action--small" data-swap-button=""><i class="fa fa-eye-slash"></i> Hide</td>
 								</tr>
 								<?php
 								endforeach;

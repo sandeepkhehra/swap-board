@@ -299,10 +299,6 @@
 	width: 100%;
 }
 
-.sidebar ul li a {
-	text-align: left;
-}
-
 .sidebar ul li span {
 	float: left;
 	padding-right: 10px;
@@ -374,10 +370,13 @@
 
 .sidebar ul li a {
 	padding: 10px;
-	display: inline-block;
+	display: inline-flex;
 	width: 100%;
+	align-items: center;
+	text-decoration: none;
 }
 
+.sidebar ul li.active span,
 .sidebar ul li:hover span {
 	color: #fff;
 }
