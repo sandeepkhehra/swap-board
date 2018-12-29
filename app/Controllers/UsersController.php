@@ -22,7 +22,7 @@ class UsersController extends BaseController
 		$userData['fullName'] = $userDataArr['meta']['firstName'] .' '. $userDataArr['meta']['lastName'];
 		$userData['position'] = $userData['location'] = 'empty'; /** @todo fix this shit */
 
-		if ( $this->validateData( $userData ) && ! $this->dataExists( $userData['email'], 'email' ) ) :
+		if ( $this->validateData( $userData ) && ! $this->dataExists( $userData['email'], 'user_email' ) ) :
 			$this->model->insert( $userData ); /** @todo work on error handling */
 
 			if ( ! empty( $this->hasErrors() ) ) {
@@ -45,7 +45,7 @@ class UsersController extends BaseController
 		$postData = $_POST;
 
 		/** @todo defer the ajax call */
-		if ( ! $this->dataExists( $postData['email'], 'email' ) ) :
+		if ( ! $this->dataExists( $postData['email'], 'user_email' ) ) :
 			$return['type'] = 'success';
 		else:
 			$return['type'] = 'error';

@@ -7,9 +7,9 @@ use SwapBoard\Helpers\HookrInterface;
 
 class SwapBoardInstaller implements HookrInterface
 {
-	protected $dbDriver;
+	protected static $dbDriver;
 
-	private function resolveSQLPath(string $filePath)
+	private static function resolveSQLPath(string $filePath)
 	{
 		$sqlContent = file_get_contents($filePath);
 		$sqlContent = trim($sqlContent, '\n\r\0x20;');
@@ -19,18 +19,17 @@ class SwapBoardInstaller implements HookrInterface
 
 		foreach ($sqlCommands as $sqlCommand) :
 
-			$sqlCommand = $this->resolveSQL($sqlCommand);
-
-			$this->dbDriver->query("{$sqlCommand};");
+			$sqlCommand = self::resolveSQL($sqlCommand);
+			self::$dbDriver->query("{$sqlCommand};");
 
 		endforeach;
 	}
 
-	private function resolveSQL(string $sqlData)
+	private static function resolveSQL(string $sqlData)
 	{
 		$correctSQLData = trim($sqlData, '\n\r\0x20;');
-		$correctSQLData = str_replace('###', $this->dbDriver->prefix, $correctSQLData);
-		$correctSQLData = str_replace('~~~COLLATE', $this->dbDriver->get_charset_collate(), $correctSQLData);
+		$correctSQLData = str_replace('###', self::$dbDriver->prefix, $correctSQLData);
+		$correctSQLData = str_replace('~~~COLLATE', self::$dbDriver->get_charset_collate(), $correctSQLData);
 
 		return $correctSQLData;
 	}
@@ -38,19 +37,19 @@ class SwapBoardInstaller implements HookrInterface
 	public function hook()
 	{
 		global $wpdb;
-		$this->dbDriver = $wpdb;
+		self::$dbDriver = $wpdb;
 
-		register_activation_hook(SB_ROOT_FILE, [$this, 'installDB']);
-		register_uninstall_hook(SB_ROOT_FILE, [$this, 'uninstallDB']);
+		register_activation_hook(SB_ROOT_FILE, [__CLASS__, 'installDB']);
+		register_uninstall_hook(SB_ROOT_FILE, [__CLASS__, 'uninstallDB']);
 	}
 
-	public function installDB()
+	public static function installDB()
 	{
-		$this->resolveSQLPath(SB_DB_DIR . 'installer.sql');
+		self::resolveSQLPath(SB_DB_DIR . 'installer.sql');
 	}
 
-	public function uninstallDB()
+	public static function uninstallDB()
 	{
-		$this->resolveSQLPath(SB_DB_DIR . 'uninstaller.sql');
+		self::resolveSQLPath(SB_DB_DIR . 'uninstaller.sql');
 	}
 }

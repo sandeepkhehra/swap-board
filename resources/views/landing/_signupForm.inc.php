@@ -17,11 +17,11 @@
 							<span>swapboard.com</span>
 						</div>
 						<div class="form-group">
-							<label for="email">Administrator Email</label>
-							<input type="email" name="details[email]" id="adminEmail" required />
+							<label for="companyEmail">Administrator Email</label>
+							<input type="email" name="details[email]" id="companyEmail" required />
 						</div>
 						<div class="form-group">
-							<label for="tel">Phone Number</label> <input type="tel" name="details[phone]" id="tel" required />
+							<label for="companyPhone">Phone Number</label> <input type="tel" name="details[phone]" id="companyPhone" required />
 						</div>
 						<div class="form-group"><button type="button" class="submit" data-swap-button="next" data-swap-step="2">Next</button></div>
 					</form>

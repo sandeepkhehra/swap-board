@@ -1,9 +1,15 @@
-DROP TABLE IF EXISTS `###sboard_users`;
-
-DROP TABLE IF EXISTS `###sboard_company`;
+ALTER TABLE `###sboard_chat_messages` DROP FOREIGN KEY ###sboard_chat_messages_ibfk_1;
+DROP TABLE IF EXISTS `###sboard_chat_messages`;
 
 DROP TABLE IF EXISTS `###sboard_chats`;
 
-DROP TABLE IF EXISTS `###sboard_chat_messages`;
+DROP TABLE IF EXISTS `###sboard_plans`;
 
-DROP TABLE IF EXISTS `###sboard_settings`;
+ALTER TABLE `###sboard_offers` DROP FOREIGN KEY ###sboard_offers_ibfk_1;
+DROP TABLE IF EXISTS `###sboard_offers`;
+
+ALTER TABLE `###sboard_members` DROP FOREIGN KEY ###sboard_members_ibfk_1;
+DROP TABLE IF EXISTS `###sboard_members`;
+
+ALTER TABLE `###sboard_companies` DROP FOREIGN KEY ###sboard_companies_ibfk_1;
+DROP TABLE IF EXISTS `###sboard_companies`;

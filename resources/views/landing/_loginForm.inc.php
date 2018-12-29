@@ -8,6 +8,11 @@
 						class="delta-logo img-responsive"
 						alt=""
 					/>
+
+					<div class="mp-form-errors">
+						Username or Password is incorrect!
+					</div>
+
 					<form data-swap-form="login">
 
 						<?php sboardDefineFormAction('ajax', 'authenticate', SwapBoard\Controllers\Auth\LoginController::class); ?>

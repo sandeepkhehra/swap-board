@@ -33,8 +33,8 @@ jQuery(function($) {
 							.siblings('.dash-pop[data-swap-step-id='+ step +']')
 							.removeClass('is-hidden')
 
-						jQuery(formData).each(function(i, v) {
-							jQuery('[data-form-field="'+ v.name +'"]').html(v.value)
+						$('[data-form-field]').each(function() {
+							$(this).html( $('#' + $(this).attr('data-form-field')).val() )
 						})
 					}
 				})

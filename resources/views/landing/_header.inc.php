@@ -21,7 +21,7 @@
 								<li><a href="#Company">Add Company</a></li>
 								<li><a href="#plans">Plans & Prices</a></li>
 								<li><a href="#help">Help & Support </a></li>
-								<li><a data-swap-button="popup-open" data-swap-pop-type="login">Sign In</a></li>
+								<li><a href="#" data-swap-button="popup-open" data-swap-pop-type="login">Sign In</a></li>
 							</ul>
 						</div>
 					</div>

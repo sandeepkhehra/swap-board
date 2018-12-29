@@ -12,20 +12,6 @@ class UsersJSModel {
 	}
 }
 
-class UsersMetaJSModel {
-	process(data) {
-		return (new sBoardServer).send(data)
-		.then(resp => {
-			if (resp.type === 'error') {
-				alert('Error: ' + resp.msg)
-				return false
-			} else {
-				return true
-			}
-		})
-	}
-}
-
 class CompaniesJSModel {
 	process(data) {
 		return (new sBoardServer).send(data)
@@ -47,7 +33,6 @@ window.sBoard = class SwapBoardEnvironment {
 		this.models = {
 			user: new UsersJSModel,
 			company: new CompaniesJSModel,
-			userMeta: new UsersMetaJSModel,
 		}
 	}
 
@@ -92,10 +77,7 @@ window.sBoard = class SwapBoardEnvironment {
 		promise.then(id => {
 			if ( id ) {
 				this.formData.company.append('userID', id)
-				this.formData.userMeta.append('userID', id)
-
 				this.models.company.process(this.formData.company)
-				this.models.userMeta.process(this.formData.userMeta)
 			}
 		})
 	}

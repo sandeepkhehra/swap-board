@@ -45,11 +45,6 @@ abstract class BaseModel
 		return $this->dbDriver->get_results("SELECT * FROM {$this->table}");
 	}
 
-	public function readFrom(  )
-	{
-		# code...
-	}
-
 	protected function readOptionsTable( string $key )
 	{
 		return get_option( $key );

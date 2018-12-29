@@ -14,6 +14,11 @@ class UsersModel extends BaseModel
 
 	public function insert( $data )
 	{
-		$this->create( $data );
+		$userdata = [
+			'user_login'  =>  'login_name',
+			'user_pass'   =>  NULL
+		];
+
+		$userID = wp_insert_user( $userdata );
 	}
 }
