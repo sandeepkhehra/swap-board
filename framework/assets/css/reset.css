@@ -125,6 +125,7 @@ pre {
 	color: #2c323a;
 	border: 1px solid #b6c1c6;
 }
+img {max-width: 100%;}
 
 .container {
 	width: 1170px;
@@ -147,6 +148,9 @@ pre {
 }
 .padding--5r {
 	padding-right: 5px;
+}
+.padding--35 {
+	padding: 35px;
 }
 .padding--35t {
 	padding-top: 35px;

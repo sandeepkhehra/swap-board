@@ -10,7 +10,7 @@ $locations = unserialize($companyData->locations);
 				<form data-swap-form>
 					<?php sboardDefineFormAction('ajax', 'create', SwapBoard\Controllers\OffersController::class); ?>
 					<input type="hidden" name="companyID" value="<?php echo $companyData->id ?>">
-					<div class="invition-form offer">
+					<div class="invitation-form offer">
 						<div class="padding--35b flex">
 							<div class="flex flex-d-c margin--10r w100">
 								<h6 class="heading-medium">Position</h6>
@@ -46,8 +46,8 @@ $locations = unserialize($companyData->locations);
 								<div class="flex flex-jc-sb">
 
 									<div class="margin--20r">
-										<label class="sb-form-label sb-form-label--active" for="offerDate">Date</label>
-										<input type="date" class="sb-input-field sb-input-field--datetime" name="datetime[date]" id="offerDate" />
+										<label class="sb-form-label sb-form-label--active" for="makeOfferDate">Date</label>
+										<input type="date" class="sb-input-field sb-input-field--datetime" name="datetime[date]" id="makeOfferDate" />
 									</div>
 
 									<div class="margin--20r">
@@ -83,16 +83,16 @@ $locations = unserialize($companyData->locations);
 										<label class="sb-form-label sb-form-label--active">Offer Type</label>
 										<ul>
 											<li>
-												<input id="postShift" name="type" type="radio" value="1" checked>
-												<label for="postShift" class="radio-label">Post a shift</label>
+												<input id="makePostShift" name="type" type="radio" value="1" checked>
+												<label for="makePostShift" class="radio-label">Post a shift</label>
 											</li>
 											<li>
-												<input id="swapShift" name="type" type="radio" value="2" />
-												<label for="swapShift" class="radio-label">Shift Swap</label>
+												<input id="makeSwapShift" name="type" type="radio" value="2" />
+												<label for="makeSwapShift" class="radio-label">Shift Swap</label>
 											</li>
 											<li>
-												<input id="permaSwapShift" name="type" type="radio" value="3" />
-												<label for="permaSwapShift" class="radio-label">Permanent Shift Swap</label>
+												<input id="makePermaSwapShift" name="type" type="radio" value="3" />
+												<label for="makePermaSwapShift" class="radio-label">Permanent Shift Swap</label>
 											</li>
 										</ul>
 									</div>

@@ -13,3 +13,5 @@ DROP TABLE IF EXISTS `###sboard_members`;
 
 ALTER TABLE `###sboard_companies` DROP FOREIGN KEY ###sboard_companies_ibfk_1;
 DROP TABLE IF EXISTS `###sboard_companies`;
+
+DROP TABLE IF EXISTS `###sboard_email_templates`;

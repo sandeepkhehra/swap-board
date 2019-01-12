@@ -32,5 +32,11 @@ define('PLUGIN_ADMIN_DASH_PAGE', !empty(get_option(PLUGIN_SETTINGS_KEY)) ? get_o
  * Form related.
  *
  */
-define('SB_FORM_NONCE', PLUGIN_SLUG . '_nonce');
+define( 'SB_FORM_NONCE', PLUGIN_SLUG . '_nonce' );
 define( 'SB_SESS_KEY', 'swapBoardSess' );
+
+/**
+ * Site related.
+ */
+define( 'SB_SITE_NAME', 'SwapBoard' );
+define( 'SB_SITE_URL', 'localhost' );

@@ -5,7 +5,6 @@ defined('ABSPATH') or die('Not permitted!');
 
 use SwapBoard\Traits\ViewsTrait;
 use SwapBoard\Helpers\HookrInterface;
-// use SwapBoard\Helpers\AuthMiddleware;
 use SwapBoard\Helpers\ViewTemplateInterface;
 
 class ViewTemplatesController implements HookrInterface
@@ -41,7 +40,7 @@ class ViewTemplatesController implements HookrInterface
 
 	public function hook()
 	{
-		add_filter('show_admin_bar', '__return_false');
-		add_filter('page_template', [$this, 'loadTemplates']);
+		add_filter( 'show_admin_bar', '__return_false' );
+		add_filter( 'page_template', [$this, 'loadTemplates'] );
 	}
 }

@@ -32,7 +32,10 @@ abstract class BaseModel
 
 	protected function read($value, string $column = 'id')
 	{
-		return $this->dbDriver->get_row("SELECT * FROM {$this->table} WHERE {$column}='{$value}' LIMIT 1");
+		$res = $this->dbDriver->get_row("SELECT * FROM {$this->table} WHERE {$column}='{$value}' LIMIT 1");
+
+		if ( $res ) unset($res->createdAt, $res->modifiedAt );
+		return $res;
 	}
 
 	protected function readMulti($values, string $column = 'id')
@@ -45,6 +48,14 @@ abstract class BaseModel
 		return $this->dbDriver->get_results("SELECT * FROM {$this->table}");
 	}
 
+	protected function readFrom( $tblName, $value, string $column = 'id')
+	{
+		$res = $this->dbDriver->get_row("SELECT * FROM {$this->dbDriver->prefix}{$tblName} WHERE {$column}='{$value}' LIMIT 1");
+
+		if ( $res ) unset($res->createdAt, $res->modifiedAt );
+		return $res;
+	}
+
 	protected function readOptionsTable( string $key )
 	{
 		return get_option( $key );
@@ -53,6 +64,12 @@ abstract class BaseModel
 	public function update( $data )
 	{
 		return $this->dbDriver->update( $this->table, $data, ['id' => $data['id']] );
+	}
+
+	public function updateWhere( $data, $column, $tblName = null )
+	{
+		if ( $tblName === null ) $tableName = $this->table;
+		return $this->dbDriver->update( $tblName, $data, [$column => $data[ $column ]] );
 	}
 
 	protected function delete( int $id )

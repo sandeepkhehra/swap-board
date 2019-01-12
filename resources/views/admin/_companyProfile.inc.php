@@ -35,9 +35,9 @@ $locations = unserialize($companyData->locations);
 			</div>
 			<div class="company-logo">
 				<div class="col-md-12 col-sm-12 col-xs-12">
-					<label>Company Logo</label>
+					<label class="form-label" for="fileName">Company Logo</label>
 					<div class="file-upload">
-						<div class="file-select textfield pass">
+						<div class="file-select textfield">
 							<div class="file-select-button" id="fileName"><i class="fa fa-camera"></i></div>
 							<div class="file-select-name">
 							<?php if ( isset( $details['logo'] ) ) : ?>
@@ -105,7 +105,7 @@ $locations = unserialize($companyData->locations);
 		</div>
 
 		<div class="padding--35t">
-			<button type="button" data-swap-button="update" class="sb-form-button">Save</button>
+			<button type="button" data-swap-button="update" class="sb-form-button sb-form-button--info">Save</button>
 			<button type="button" data-swap-button="cancel" class="sb-form-button sb-form-button--danger">Cancel</button>
 		</div>
 	</form>

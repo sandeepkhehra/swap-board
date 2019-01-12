@@ -1,5 +1,6 @@
 <?php
-$title = $this->template->title;
+$context = $this;
+$title = $context->template->title;
 
 sboardInclude('landing._header', compact('title')); ?>
 
@@ -51,4 +52,4 @@ sboardInclude('landing._header', compact('title')); ?>
 		</div>
 	</section>
 
-<?php sboardInclude('landing._footer'); ?>
+<?php sboardInclude('landing._footer', compact( 'context' ) ); ?>

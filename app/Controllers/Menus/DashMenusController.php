@@ -12,6 +12,7 @@ class DashMenusController implements HookrInterface
 		SwapBoardMenuController::class,
 		// UsersMenuController::class,
 		PlansMenuController::class,
+		EmailTemplatesMenuController::class,
 		SettingsMenuController::class,
 	];
 

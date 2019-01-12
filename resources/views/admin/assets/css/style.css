@@ -436,6 +436,7 @@ tab-section
 	border: 1px solid #e5e5e5;
 	outline: none;
 	background: #fff;
+	overflow: hidden;
 }
 .file-upload .file-select .file-select-button i {
 	background: #00b4cb;
@@ -450,7 +451,6 @@ tab-section
 .file-select .file-select-name {
 	line-height: 40px;
 	display: inline-block;
-	padding: 0 10px;
 }
 .file-select input[type="file"] {
 	z-index: 100;
@@ -501,7 +501,6 @@ tab-section
 	font-size: 15px;
 }
 .sb-form-button {
-	background: #00b4cb;
 	color: #fff;
 	border: 0;
 	font-size: 16px;
@@ -512,8 +511,14 @@ tab-section
 	font-family: "Lato", sans-serif;
 	margin-right: 18px;
 }
+.sb-form-button--info {
+	background: #00b4cb;
+}
 .sb-form-button--danger {
 	background: #cc0057;
+}
+.sb-form-button--warning {
+	background: #fdce44;
 }
 
 /*==========================
@@ -532,7 +537,6 @@ member-list
 
 .table-data-provider tr {
 	border-bottom: 1px solid #dadada;
-	cursor: pointer;
 }
 
 .table-data-provider td,
@@ -658,44 +662,6 @@ a.sort-by:after {
 	color: #303030;
 	font-weight: 600;
 }
-.verificatio .save-profl {
-	padding: 35px 0 0 0;
-	display: inline-block;
-}
-.verificatio .save-profl a {
-	background: #00b4cb;
-	color: #fff;
-	border: 0;
-	font-size: 16px;
-	line-height: 25px;
-	padding: 8px 22px;
-	display: inline-block;
-	border-radius: 4px;
-	vertical-align: middle;
-	-webkit-transform: translateZ(0);
-	transform: translateZ(0);
-	box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	-moz-osx-font-smoothing: grayscale;
-	position: relative;
-	-webkit-transition-property: color;
-	transition-property: color;
-	-webkit-transition-duration: 0.3s;
-	transition-duration: 0.3s;
-	font-family: "Lato", sans-serif;
-	margin-right: 18px;
-}
-.verificatio .save-profl a i {
-	padding: 0 12px;
-}
-.verificatio .save-profl a.yellow {
-	background: #fdce44;
-}
-.verificatio .save-profl a.canl-btn {
-	background: #cc0057;
-}
-
 .invite-peop p {
 	font-size: 16px;
 	line-height: 24px;
@@ -703,7 +669,7 @@ a.sort-by:after {
 	margin: 0;
 	font-family: "Lato", sans-serif;
 }
-.invition-form {
+.invitation-form {
 	background: #fff;
 	padding: 25px;
 	display: inline-block;
@@ -711,21 +677,21 @@ a.sort-by:after {
 	margin-top: 30px;
 }
 /*=========find-offer======*/
-.invition-form.offer {
+.invitation-form.offer {
 	margin-top: 0;
 }
-.invition-form.offer .flight {
+.invitation-form.offer .flight {
 	position: relative;
 }
-.invition-form.offer .flight:before {
+.invitation-form.offer .flight:before {
 	position: absolute;
 	content: "\f041";
 	left: 0;
 }
-.invition-form.offer .date label {
+.invitation-form.offer .date label {
 	display: inline-block;
 }
-.invition-form.offer aside {
+.invitation-form.offer aside {
 	display: inline-block;
 	margin-left: 15px;
 	color: #000;
@@ -767,15 +733,15 @@ a.sort-by:after {
 .time-change .time.shift {
 	margin: 0 0 0 16px;
 }
-.invition-form.offer .time.shift select {
+.invitation-form.offer .time.shift select {
 	padding: 0 2px 0 2px !important;
 	width: 110px;
 	font-size: 13px;
 }
-.invition-form.offer .search {
+.invitation-form.offer .search {
 	flex: auto;
 }
-.invition-form .search button {
+.invitation-form .search button {
 	width: 100%;
 	height: 40px;
 	border: 1px solid #cc0057;
@@ -1110,7 +1076,6 @@ a.sort-by:after {
 .profile-detal .file-select .file-select-name {
 	line-height: 120px;
 	display: inline-block;
-	padding: 0 10px;
 }
 .profile-detal .file-select input[type="file"] {
 	z-index: 100;

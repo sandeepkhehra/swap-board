@@ -3,7 +3,7 @@
 		<h2>Find Offer</h2>
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12 ">
-				<div class="invition-form offer">
+				<div class="invitation-form offer">
 					<form data-swap-form>
 						<?php sboardDefineFormAction('ajax', 'findOffers', SwapBoard\Controllers\OffersController::class); ?>
 						<input type="hidden" name="companyID" value="<?php echo $companyData->id; ?>">

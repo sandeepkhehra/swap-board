@@ -19,6 +19,11 @@ abstract class BaseController
 		return $this->model->getBy( $value, $column );
 	}
 
+	public function dataExistsIn( $tblName, $value, $column = 'id' )
+	{
+		return $this->model->getByFrom( $tblName, $value, $column );
+	}
+
 	protected function hasErrors()
 	{
 		return $this->model->errorsBag;

@@ -57,6 +57,32 @@ class CompaniesController extends BaseController
 		$postData = sboardFilterPostData( $_POST );
 
 		if ( isset( $postData['id'] ) ) :
+			if (isset($_FILES['details'])) {
+				$fileTmpPath = $_FILES['details']['tmp_name']['logo'];
+				$fileName = $_FILES['details']['name']['logo'];
+				$fileSize = $_FILES['details']['size']['logo'];
+				$fileType = $_FILES['details']['type']['logo'];
+				$fileNameCmps = explode(".", $fileName);
+				$ext = strtolower( end( $fileNameCmps ) );
+				$allowedFileExtensions = ['jpg', 'gif', 'png'];
+				$uploadFileDir = wp_upload_dir()['basedir'].'/swap/';
+				if (!file_exists($uploadFileDir)) {
+					mkdir($uploadFileDir, 0777, true);
+				}
+				$newFileName = md5(time() . $fileName) . '.' . $ext;
+				$dest_path = $uploadFileDir . $newFileName;
+				$fullURL = wp_upload_dir()['baseurl'].'/swap/'.$newFileName;
+
+				if ( in_array( $ext, $allowedFileExtensions ) ) {
+					if (move_uploaded_file($fileTmpPath, $dest_path))
+					{
+					echo $message ='File is successfully uploaded.';
+					} else {
+						echo 'sss';
+					}
+				}
+			}
+			$postData['details']['logo'] = $fullURL;
 			$postData['details'] = serialize( $postData['details'] );
 			$postData['positions'] = serialize( $postData['positions'] );
 			$postData['locations'] = serialize( $postData['locations'] );

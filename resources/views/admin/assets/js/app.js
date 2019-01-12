@@ -33,9 +33,7 @@ jQuery(function($) {
 		const $this = $(this)
 		const form = $this.closest('form')
 		const formData = new FormData(form[0])
-		const formScope = form.data('swap-form')
 		const type = $this.data('swap-button')
-		const step = $this.data('swap-step')
 		const popType = $this.data('swap-pop-type')
 
 		switch (type) {
@@ -101,9 +99,24 @@ jQuery(function($) {
 				}
 				break
 
-			case 'finish':
-				SwapBoard.processMultiStep(formScope, formData)
-				break;
+			case 'create-invited':
+				processFormData(formData)
+				break
+
+			case 'user-details':
+				processFormData(formData).then(resp => {
+					if (resp.type == 'success') {
+						console.log('sd', resp.data)
+						$('div[data-popup="invitation"]').find('[data-inv-name]').html(resp.data.display_name)
+						$('div[data-popup="invitation"]').find('[data-inv-pos]').html(resp.data.meta_data.invPosition)
+						$('div[data-popup="invitation"]').find('[data-inv-email]').html(resp.data.user_email)
+						$('div[data-popup="invitation"]').find('[data-inv-desc]').html(resp.data.description)
+						SwapBoard.triggerPopup(e, 'open', 'invitation');
+					} else {
+						alert(resp.msg);
+					}
+				})
+				break
 		}
 	})
 })

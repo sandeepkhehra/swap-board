@@ -5,7 +5,7 @@ defined('ABSPATH') or die('Not permitted!');
 
 use SwapBoard\Models\UsersModel;
 use SwapBoard\Controllers\BaseController;
-use SwapBoard\Controllers\UsersControllers;
+// use SwapBoard\Controllers\UsersControllers;
 use SwapBoard\Controllers\SwapBoardAuthenticator;
 
 class LoginController extends BaseController

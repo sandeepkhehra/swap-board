@@ -3,11 +3,15 @@ namespace SwapBoard\Controllers\Admin;
 
 defined( 'ABSPATH' ) or die( 'Not permitted!' );
 
+use SwapBoard\Traits\MailerTrait;
 use SwapBoard\Models\InviteMembersModel;
 use SwapBoard\Controllers\BaseController;
+use SwapBoard\Controllers\Menus\EmailTemplatesMenuController;
 
 class InviteMembersController extends BaseController
 {
+	use MailerTrait;
+
 	public function __construct()
 	{
 		parent::__construct( new InviteMembersModel );
@@ -20,20 +24,65 @@ class InviteMembersController extends BaseController
 		if ( empty( $postData['email'] ) || count( $postData['email'] ) <= 0 ) return;
 
 		foreach ( $postData['email'] as $index => $email ) :
-			if ( ! $this->dataExists( $email, 'email' ) ) :
+			if ( ! $this->dataExists( $email, 'email' ) && ! $this->dataExistsIn( 'users', $email, 'user_email' ) ) :
 				$postData['email'] = $email;
 				$postData['firstName'] = $postData['firstName'][ $index ];
 				$postData['lastName'] = $postData['lastName'][ $index ];
+				$getHash = $this->sendInvite( $email );
 
-				$this->sendInvite( $email );
-				$this->model->insert( $postData );
+				if ( $getHash ) :
+					$postData['hash'] = $getHash;
+					$this->model->insert( $postData );
+				endif;
 			endif;
 		endforeach;
 	}
 
 	public function sendInvite( string $email )
 	{
-		wp_mail( $email, 'subject', 'message', $headers );
+		$emailTempController = new EmailTemplatesMenuController;
+		$emailContent = $emailTempController->getTemplateData( 'inviteUser' );
+
+		/** @todo work on exception case. */
+		if ( $emailContent && ! empty( $emailContent->content ) ) :
+			$inviteData = $this->getInviteLink( $email );
+			$inviteLink = $inviteData->link;
+			$hasInviteTag = preg_match( '/(\%invite_link\%)/', $emailContent->content );
+
+			if ( ! $hasInviteTag ) $inviteLink = 'NO LINK WAS PROVIDED. PLEASE CONTACT ADMIN';
+
+			$emailContent->content = str_replace( '%invite_link%', $inviteLink, $emailContent->content );
+
+			$this->sendEmail( $email, $emailContent->subject, $emailContent->content );
+
+			return is_object( $inviteData ) ? $inviteData->hash : false;
+		endif;
+	}
+
+	private function getInviteLink( string $email )
+	{
+		global $user_ID;
+
+		if ( 0 !== $user_ID ) :
+			$companyData = $this->model->withOne( 'sboard_companies', 'userID', $user_ID );
+
+			return $this->generateInviteLink( $companyData->id, $email );
+		endif;
+
+		return; // link based on company ID or maybe the one who invited
+	}
+
+	private function generateInviteLink( int $companyID, string $userEmail )
+	{
+		$hash = md5( $companyID . $userEmail );
+		$link = "http://localhost/swap/sample-page/";
+		$link = $link . "?invite={$hash}";
+
+		/** @todo maybe make `hash` column unique in db schema */
+		return ( object ) [  /*  | */
+			'hash' => $hash,/*<--| */
+			'link' => $link,
+		];
 	}
 
 	public function delete()
@@ -63,5 +112,10 @@ class InviteMembersController extends BaseController
 		if ( ! $memberData ) return;
 
 		$this->sendInvite( $memberData->email );
+	}
+
+	public function inviteeResponded( string $hash, int $status )
+	{
+		return $this->model->setInviteeStatus( $hash, $status );
 	}
 }

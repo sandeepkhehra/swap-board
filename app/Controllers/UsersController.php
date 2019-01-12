@@ -4,6 +4,7 @@ namespace SwapBoard\Controllers;
 defined( 'ABSPATH' ) or die( 'Not permitted!' );
 
 use SwapBoard\Models\UsersModel;
+use SwapBoard\Controllers\Admin\InviteMembersController;
 
 class UsersController extends BaseController
 {
@@ -15,7 +16,7 @@ class UsersController extends BaseController
 	public function create()
 	{
 		$postData = sboardFilterPostData( $_POST );
-		$userDataArr = $this->extractUserMeta( $postData );
+		$userDataArr = [];
 		$userData = $userDataArr['rest'];
 		$userMeta = $userDataArr['meta'];
 		$userData['password'] = password_hash( $userDataArr['rest']['password'], PASSWORD_BCRYPT );
@@ -55,35 +56,52 @@ class UsersController extends BaseController
 		echo json_encode( $return );
 	}
 
-	public function extractUserMeta( $data )
+	public function createInvitedUser()
 	{
-		$userTblCols = $this->model->tblCols();
-		unset( $userTblCols['id'] );
-		$userData['rest'] = [];
+		$postData = sboardFilterPostData( $_POST );
 
-		if ( ! empty( $userTblCols ) ) :
-			foreach ( $userTblCols as $col ) :
-				if ( ! empty( $data[ $col ] ) ) :
+		if ( ! $this->dataExists( $postData['invEmail'], 'user_email' ) ) :
+			$userData = [
+				'user_login' => $postData['invEmail'],
+				'user_pass' => $postData['invPassword'],
+				'user_email' => $postData['invEmail'],
+				'first_name' => $postData['firstName'],
+				'last_name' => $postData['lastName'],
+				'description' => $postData['invDescription'],
+			];
+			$userID = wp_insert_user( $userData );
 
-					$userData['rest'][ $col ] = $data[ $col ];
-					unset( $data[ $col ] );
+			if ( ! empty( $this->hasErrors() ) ) {
+				$return['type'] = 'error';
+				$return['msg'] = $this->hasErrors();
+			} else {
+				update_user_meta( $userID, '__swap-user', $postData );
+				( new InviteMembersController )->inviteeResponded( $postData['hash'], 1 );
 
-				endif;
-			endforeach;
+				$return['type'] = 'success';
+			}
+		else:
+			$return['type'] = 'error';
+			$return['msg'] = 'Email address already exists!';
 		endif;
 
-		$userData['meta'] = $data;
-
-		return $userData;
+		echo json_encode( $return );
 	}
 
-	public function getCompany()
+	public function userDetails()
 	{
-		// $lol = new CompaniesController;
-		// echo "<pre>";
-		// print_r($lol->model->read());
-		// echo "</pre>";
+		$postData = sboardFilterPostData( $_POST );
+		$user = $this->model->getBy( $postData['id'] );
+
+		if ( $user ) :
+			$user->meta_data = get_user_meta( $user->ID, '__swap-user', true );
+			$return['type'] = 'success';
+			$return['data'] = $user;
+		else:
+			$return['type'] = 'error';
+			$return['msg'] = 'Something Happened!';
+		endif;
+
+		echo json_encode( $return );
 	}
-
-
 }

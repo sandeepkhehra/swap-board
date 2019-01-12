@@ -79,10 +79,24 @@ CREATE TABLE IF NOT EXISTS `###sboard_members`
 	`email` VARCHAR(191),
 	`firstName` VARCHAR(50),
 	`lastName` VARCHAR(50),
+	`hash` VARCHAR(100),
 	`isMember` TINYINT DEFAULT 0,
 	`isAdmin` TINYINT DEFAULT 0,
 	`createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,
 	`modifiedAt` DATETIME ON UPDATE CURRENT_TIMESTAMP,
 	FOREIGN KEY(companyID) REFERENCES ###sboard_companies(id) ON DELETE CASCADE,
+	PRIMARY KEY (`id`)
+) ~~~COLLATE;
+
+-- Email Templates table.
+
+CREATE TABLE IF NOT EXISTS `###sboard_email_templates`
+(
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`tempID` VARCHAR(50),
+	`subject` VARCHAR(50),
+	`content` LONGTEXT,
+	`createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,
+	`modifiedAt` DATETIME ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)
 ) ~~~COLLATE;

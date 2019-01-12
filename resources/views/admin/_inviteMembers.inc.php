@@ -12,7 +12,7 @@
 				<input type="hidden" name="companyID" value="<?php echo $companyData->id; ?>">
 
 				<div class="col-md-12 col-sm-12 col-xs-12 ">
-					<div class="invition-form">
+					<div class="invitation-form">
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="memEmail">Email</label>

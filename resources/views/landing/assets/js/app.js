@@ -40,7 +40,7 @@ jQuery(function($) {
 				})
 				break;
 
-			case 'finish':
+			case 'create-invited':
 				SwapBoard.processMultiStep(formScope, formData)
 				break;
 		}
