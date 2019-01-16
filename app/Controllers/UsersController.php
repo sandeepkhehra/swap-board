@@ -16,26 +16,27 @@ class UsersController extends BaseController
 	public function create()
 	{
 		$postData = sboardFilterPostData( $_POST );
-		$userDataArr = [];
-		$userData = $userDataArr['rest'];
-		$userMeta = $userDataArr['meta'];
-		$userData['password'] = password_hash( $userDataArr['rest']['password'], PASSWORD_BCRYPT );
-		$userData['fullName'] = $userDataArr['meta']['firstName'] .' '. $userDataArr['meta']['lastName'];
-		$userData['position'] = $userData['location'] = 'empty'; /** @todo fix this shit */
 
-		if ( $this->validateData( $userData ) && ! $this->dataExists( $userData['email'], 'user_email' ) ) :
-			$this->model->insert( $userData ); /** @todo work on error handling */
-
-			if ( ! empty( $this->hasErrors() ) ) {
-				$return['type'] = 'error';
-				$return['msg'] = $this->hasErrors();
-			} else {
-				$return['type'] = 'success';
-				$return['data'] = $this->getInsertID();
-			}
-
-		else:
+		if ( empty( $postData['user_login'] ) || empty( $postData['user_pass'] ) ) :
 			$return['type'] = 'error';
+			$return['msg'] = 'Some fields are missing!';
+		else:
+			$postData['role'] = 'swap-admin'; /** Make it the admin */
+			$postData['user_email'] = $postData['user_login'];
+
+			// if ( $this->validateData( $userData ) && ! $this->dataExists( $userData['email'], 'user_email' ) ) :
+			if ( ! $this->dataExists( $postData['user_login'], 'user_login' ) ) :
+				$this->model->insert( $postData ); /** @todo work on error handling */
+
+				if ( ! empty( $this->hasErrors() ) ) :
+					$return['type'] = 'error';
+					$return['msg'] = $this->hasErrors();
+				endif;
+
+			else:
+				$return['type'] = 'error';
+				$return['msg'] = 'The email address already exists!';
+			endif;
 		endif;
 
 		echo json_encode($return);
@@ -43,10 +44,10 @@ class UsersController extends BaseController
 
 	public function check()
 	{
-		$postData = $_POST;
+		$postData = sboardFilterPostData( $_POST );
 
 		/** @todo defer the ajax call */
-		if ( ! $this->dataExists( $postData['email'], 'user_email' ) ) :
+		if ( ! $this->dataExists( $postData['user_login'], 'user_login' ) ) :
 			$return['type'] = 'success';
 		else:
 			$return['type'] = 'error';

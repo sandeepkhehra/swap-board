@@ -19,8 +19,9 @@ class CompaniesJSModel {
 			if (resp.type === 'error') {
 				alert('Error: ' + resp.msg)
 				return false
-			} else {
-				return true
+			}
+			else if (resp.type === 'success' && resp.redirect) {
+				window.location.href = resp.redirect
 			}
 		})
 	}
@@ -47,6 +48,40 @@ window.sBoard = class SwapBoardEnvironment {
 		}
 	}
 
+	formDataValidator(formData, form) {
+		let ret = {
+			is: false,
+			fields: []
+		}
+
+		for (const pair of formData.entries()) {
+			const elm = form.querySelector('input[name="'+pair[0]+'"][required]')
+			const errMsgElm = form.querySelector('[data-sb-form-field="' + pair[0] + '"]')
+
+			if (errMsgElm) {
+				errMsgElm.remove()
+			}
+
+			if ( elm ) {
+				if (typeof elm !== 'undefined' && elm.value != '' ) {
+					ret.is = true
+				} else {
+					ret.is = false
+					elm.focus()
+
+					if (errMsgElm === null) {
+						jQuery('<p class="sb-input-field__error-msg" data-sb-form-field="' + pair[0] + '">This is a required field!</p>').insertAfter(jQuery('input[name="'+ pair[0] +'"]').parents('div.form-group'))
+					}
+
+					ret.fields.push(pair[0])
+					break
+				}
+			}
+		}
+
+		return ret
+	}
+
 	processMultiStep(key, data) {
 		this.formData[key] = data
 
@@ -60,7 +95,7 @@ window.sBoard = class SwapBoardEnvironment {
 					alert('Error: ' + resp.msg)
 					return false
 				} else {
-					return true
+					return resp
 				}
 			})
 		}
@@ -68,6 +103,7 @@ window.sBoard = class SwapBoardEnvironment {
 	}
 
 	processFormData() {
+		console.log('sad', this.formData)
 		Object.keys(this.formData).map(k => {
 			this.formData[k].set('sbAction', 'create')
 		})

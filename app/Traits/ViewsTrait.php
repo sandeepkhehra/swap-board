@@ -90,7 +90,7 @@ trait ViewsTrait
 		if ($assetType == 'css') :
 			wp_enqueue_style(PLUGIN_SLUG .'-'. $handle, $assetPath);
 		elseif ($assetType == 'js'):
-			wp_enqueue_script(PLUGIN_SLUG .'-'.  $handle, $assetPath, null, false, true);
+			wp_enqueue_script(PLUGIN_SLUG .'-'.  $handle, $assetPath, ['jquery'], false, true);
 		endif;
 	}
 

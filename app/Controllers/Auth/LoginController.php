@@ -18,15 +18,25 @@ class LoginController extends BaseController
 	public function authenticate()
 	{
 		$postData = sboardFilterPostData( $_POST );
-		$swapUser = $this->dataExists( $postData['email'], 'email' );
 
-		if ( $swapUser && $this->validate( $postData, $swapUser ) ) :
-			sboardSetSession( 'user', $swapUser );
-
-			$return['type'] = 'success';
-		else:
+		if ( empty( $postData['user_login'] ) || empty( $postData['user_pass'] ) ) :
 			$return['type'] = 'error';
-			$return['msg'] = 'Credentials do not match.';
+			$return['msg'] = 'Some fields are missing!';
+		else:
+			$swapUser = $this->dataExists( $postData['user_login'], 'user_login' );
+
+			// if ( $swapUser && $this->validate( $postData, $swapUser ) ) :
+			if ( $swapUser ) :
+				wp_signon( ['user_login' => $swapUser->user_login, 'user_password' => $_POST['user_pass'] ] );
+				sboardSetSession( 'user', $swapUser );
+
+				$return['type'] = 'success';
+				$return['redirect'] = get_permalink( PLUGIN_ADMIN_DASH_PAGE );
+
+			else:
+				$return['type'] = 'error';
+				$return['msg'] = 'Credentials do not match.';
+			endif;
 		endif;
 
 		echo json_encode( $return );

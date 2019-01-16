@@ -7,6 +7,12 @@ use SwapBoard\Models\OffersModel;
 
 class OffersController extends BaseController
 {
+	const SHIFT_TYPES = [
+		1 => 'Post a Shift',
+		2 => 'Swift Swap',
+		3 => 'Permanent Swift Swap',
+	];
+
 	public function __construct()
 	{
 		parent::__construct( new OffersModel );
@@ -15,7 +21,11 @@ class OffersController extends BaseController
 	public function create()
 	{
 		$postData = sboardFilterPostData( $_POST );
-		$postData['datetime'] = serialize( $postData['datetime'] );
+		$startDateTime = date(  'Y-m-d H:i:s', strtotime( $_POST['date']. ' ' .$_POST['startTime'] ) );
+		$endDateTime = date( 'Y-m-d H:i:s', strtotime( $_POST['date']. ' ' .$_POST['endTime'] ) );
+		$postData['startDatetime'] = $startDateTime;
+		$postData['endDatetime'] = $endDateTime;
+		unset( $postData['date'], $postData['startTime'], $postData['endTime'] );
 
 		$this->model->insert( $postData ); /** @todo work on error handling */
 
@@ -42,7 +52,10 @@ class OffersController extends BaseController
 		$offers = $this->model->customQuery( $postData );
 
 		array_map( function( $offer ) {
-			return $offer->datetime = unserialize( $offer->datetime );
+			$offer->date = date( 'Md, Y', strtotime( $offer->startDatetime ) );
+			$offer->startTime = date( 'g:i A', strtotime( $offer->startDatetime ) );
+			$offer->endTime = date( 'g:i A', strtotime( $offer->endDatetime ) );
+			$offer->type = self::SHIFT_TYPES[ $offer->type ];
 		}, $offers );
 
 		if ( ! empty( $this->hasErrors() ) ) {

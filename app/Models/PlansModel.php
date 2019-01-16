@@ -14,6 +14,6 @@ class PlansModel extends BaseModel
 
 	public function insert( array $data )
 	{
-		$this->create( $data );
+		return $this->create( $data );
 	}
 }

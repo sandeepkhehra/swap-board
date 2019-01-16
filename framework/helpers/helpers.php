@@ -176,7 +176,7 @@ if (!function_exists('sboardCoreAssets')) {
 		if (in_array($assetType, ['css', 'js', 'images', 'fonts'])) :
 
 			foreach ($assets as $asset) :
-				$dirPath = SB_ASSETS_DIR . $assetType . DS . $asset;
+				$dirPath = SB_ASSETS_DIR . $assetType . SB_DS . $asset;
 
 				if (file_exists($dirPath)):
 					$assetPath = str_replace(SB_ASSETS_DIR, SB_ASSETS_URL, $dirPath);

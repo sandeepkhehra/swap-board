@@ -46,19 +46,19 @@ jQuery(function($) {
 				break
 
 			case 'update':
-				processFormData(formData)
+				processFormData(formData).then(resp => resp.type === 'success' ? location.reload() : '')
 				break
 
 			case 'find-offers':
 				const promise = processFormData(formData)
-				$('.table-sec table tbody').find('tr:first').remove()
+				$('#findOfferTable tbody').find('tr:first').remove()
 				promise.then(d => {
 					if (d.data != '') {
 						d.data.map(x => {
-							$('.table-sec table tbody').append('<tr><td>' + x.position + '</td><td>' + x.location + '</td><td>' + x.datetime.date + '</td><td>' + x.datetime.time.start + ' &mdash; ' + x.datetime.time.end + '</td><td>' + x.type + '</td></tr>')
+							$('#findOfferTable tbody').append('<tr><td>' + x.position + '</td><td>' + x.location + '</td><td>' + x.date + '</td><td>' + x.startTime + ' &mdash; ' + x.endTime + '</td><td>' + x.type + '</td></tr>')
 						})
 					} else {
-						$('.table-sec table tbody').html('<tr><td colspan="5">No result found!</td></tr>')
+						$('#findOfferTable tbody').html('<tr><td colspan="5">No result found!</td></tr>')
 					}
 				})
 				break
@@ -80,7 +80,7 @@ jQuery(function($) {
 				break
 
 			case 'invite-members':
-				processFormData(formData)
+				processFormData(formData).then(resp => resp.type === 'success' ? alert(resp.msg) : console.log('oops, check code'))
 				break
 
 			case 'resend-invite':
@@ -106,7 +106,6 @@ jQuery(function($) {
 			case 'user-details':
 				processFormData(formData).then(resp => {
 					if (resp.type == 'success') {
-						console.log('sd', resp.data)
 						$('div[data-popup="invitation"]').find('[data-inv-name]').html(resp.data.display_name)
 						$('div[data-popup="invitation"]').find('[data-inv-pos]').html(resp.data.meta_data.invPosition)
 						$('div[data-popup="invitation"]').find('[data-inv-email]').html(resp.data.user_email)

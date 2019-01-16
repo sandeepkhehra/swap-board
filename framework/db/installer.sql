@@ -57,16 +57,16 @@ CREATE TABLE IF NOT EXISTS `###sboard_plans`
 CREATE TABLE IF NOT EXISTS `###sboard_offers`
 (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
-	`companyID` INT(10) NOT NULL,
+	`userID` INT(10) NOT NULL,
 	`position` VARCHAR(191),
 	`location` VARCHAR(191),
 	`description` TEXT,
-	`datetime` LONGTEXT,
+	`startDatetime` DATETIME,
+	`endDatetime` DATETIME,
 	`type` TINYINT NOT NULL,
 	`status` TINYINT DEFAULT 1,
 	`createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,
 	`modifiedAt` DATETIME ON UPDATE CURRENT_TIMESTAMP,
-	FOREIGN KEY(companyID) REFERENCES ###sboard_companies(id) ON DELETE CASCADE,
 	PRIMARY KEY (`id`)
 ) ~~~COLLATE;
 

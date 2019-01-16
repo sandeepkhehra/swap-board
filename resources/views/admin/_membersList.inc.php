@@ -86,7 +86,7 @@
 					<form style="margin: 0">
 						<?php sboardDefineFormAction('ajax', 'delete', SwapBoard\Controllers\Admin\InviteMembersController::class); ?>
 						<input type="hidden" name="id" value="<?php echo $member->id; ?>">
-						<button class="sb-form-button sb-form-button--danger"><i class="fa fa-trash-o"></i> Delete user</a>
+						<button class="sb-form-button sb-form-button--danger" data-swap-button="delete"><i class="fa fa-trash-o"></i> Delete user</a>
 					</form>
 				</div>
 			</div>

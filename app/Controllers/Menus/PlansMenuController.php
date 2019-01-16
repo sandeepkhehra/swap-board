@@ -37,6 +37,8 @@ class PlansMenuController extends BaseMenuController
 	{
 		$postData = sboardFilterPostData( $_POST );
 
-		return $this->model->insert( $postData );
+		$this->model->insert( $postData );
+
+		return sboardRedirect();
 	}
 }

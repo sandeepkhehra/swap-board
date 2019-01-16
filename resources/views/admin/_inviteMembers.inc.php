@@ -1,11 +1,8 @@
 <div class="show-div hidden" id="invite-people">
 	<div class="invite-peop">
 		<h2>Invite People</h2>
-		<p>
-			Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur
-			sea ne, ei his eros dicit altera. Viris decore cu eum, mea id modus petentium voluptatum. Amet abhorreant
-			mei ad, eum
-		</p>
+		<p>Invite members to your network.</p>
+
 		<div class="row">
 			<form data-swap-form>
 				<?php sboardDefineFormAction('ajax', 'create', SwapBoard\Controllers\Admin\InviteMembersController::class); ?>

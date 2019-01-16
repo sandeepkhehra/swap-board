@@ -14,11 +14,21 @@ class UsersModel extends BaseModel
 
 	public function insert( $data )
 	{
-		$userdata = [
-			'user_login'  =>  'login_name',
-			'user_pass'   =>  NULL
-		];
+		$userTel = $data['phone'];
+		unset( $data['phone'] );
 
-		$userID = wp_insert_user( $userdata );
+		$userID = wp_insert_user( $data );
+
+		if ( is_wp_error( $userID ) ) {
+			$return['type'] = 'error';
+			$return['msg'] = $userID->get_error_message();
+		} else {
+			wp_signon( ['user_login' => $data['user_login'], 'user_password' => $data['user_pass'] ] );
+			$return['type'] = 'success';
+			$return['data'] = $userID;
+		}
+
+		echo json_encode( $return );
+		wp_die();
 	}
 }

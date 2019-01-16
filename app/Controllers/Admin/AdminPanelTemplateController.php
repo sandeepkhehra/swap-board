@@ -25,8 +25,6 @@ class AdminPanelTemplateController extends BaseController implements ViewTemplat
 
 	public function __construct()
 	{
-		// $this->model = new UsersModel;
-		// $this->controller = new UsersController;
 		parent::__construct(new UsersModel);
 	}
 
@@ -48,32 +46,16 @@ class AdminPanelTemplateController extends BaseController implements ViewTemplat
 
 	public function authenticate()
 	{
-		global $user_ID;
+		$user = wp_get_current_user();
 
-		if ( 0 == $user_ID && isset( $_GET['viewMode'] )
-			&& $_GET['viewMode'] == 'admin' ) {
-
-			$currentUser = wp_get_current_user();
-			$caps = $currentUser->caps;
-
-			if ( $currentUser->ID > 0 && array_key_exists( 'administrator', $caps ) ) return true;
-
-		} else {
-			// $checkUser = $this->dataExists( $swapUser->id );
-
-			// if ( ! $checkUser ) {
-			// 	unset( $_SESSION[ SB_SESS_KEY ]['user'] );
-			// 	return false;
-			// }
-
-			return true;
-		}
+		if ( $user && $user->ID > 0 ) :
+			if ( in_array( 'swap-admin', (array) $user->roles ) || in_array( 'swap-member', (array) $user->roles ) ) :
+				return true;
+			else:
+				return false;
+			endif;
+		endif;
 
 		return false;
-	}
-
-	public function getOffers()
-	{
-		$ll = $this->model->getCustomTableData();
 	}
 }

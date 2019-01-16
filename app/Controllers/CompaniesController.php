@@ -16,7 +16,8 @@ class CompaniesController extends BaseController
 	{
 		$postData = sboardFilterPostData( $_POST );
 
-		if ( $this->validateData( $postData ) && ! $this->dataExists( $postData['url'], 'url' ) ) :
+		// if ( $this->validateData( $postData ) && ! $this->dataExists( $postData['url'], 'url' ) ) :
+		if ( ! $this->dataExists( $postData['url'], 'url' ) ) :
 
 			$postData['details'] = serialize( $postData['details'] );
 
@@ -27,6 +28,7 @@ class CompaniesController extends BaseController
 				$return['msg'] = $this->hasErrors();
 			} else {
 				$return['type'] = 'success';
+				$return['redirect'] = get_permalink( PLUGIN_ADMIN_DASH_PAGE );
 			}
 
 		else:
@@ -39,14 +41,19 @@ class CompaniesController extends BaseController
 
 	public function check()
 	{
-		$postData = $_POST;
+		$postData = sboardFilterPostData( $_POST );
 
-		/** @todo defer the ajax call */
-		if ( ! $this->dataExists( $postData['url'], 'url' ) ) :
-			$return['type'] = 'success';
-		else:
+		if ( empty( $postData['url'] ) || empty( $postData['name'] ) ) :
 			$return['type'] = 'error';
-			$return['msg'] = 'The company URL already exists!';
+			$return['msg'] = 'Some fields are missing!';
+		else:
+			/** @todo defer the ajax call */
+			if ( ! $this->dataExists( $postData['url'], 'url' ) ) :
+				$return['type'] = 'success';
+			else:
+				$return['type'] = 'error';
+				$return['msg'] = 'The company URL already exists!';
+			endif;
 		endif;
 
 		echo json_encode( $return );
@@ -74,24 +81,24 @@ class CompaniesController extends BaseController
 				$fullURL = wp_upload_dir()['baseurl'].'/swap/'.$newFileName;
 
 				if ( in_array( $ext, $allowedFileExtensions ) ) {
-					if (move_uploaded_file($fileTmpPath, $dest_path))
-					{
-					echo $message ='File is successfully uploaded.';
-					} else {
-						echo 'sss';
-					}
+					if (move_uploaded_file($fileTmpPath, $dest_path)) :
+						$postData['details']['logo'] = $fullURL;
+						$postData['details'] = serialize( $postData['details'] );
+						$postData['positions'] = serialize( $postData['positions'] );
+						$postData['locations'] = serialize( $postData['locations'] );
+
+						$this->model->update( $postData );
+
+						$return['type'] = 'success';
+						$return['msg'] = 'Data updated successfully!';
+					else:
+						$return['type'] = 'error';
+						$return['msg'] = 'Couldn\'t upload file!';
+					endif;
 				}
 			}
-			$postData['details']['logo'] = $fullURL;
-			$postData['details'] = serialize( $postData['details'] );
-			$postData['positions'] = serialize( $postData['positions'] );
-			$postData['locations'] = serialize( $postData['locations'] );
 
-			$this->model->update( $postData );
-
-			$return['type'] = 'success';
-		else:
-			$return['type'] = 'error';
+		else $return['type'] = 'error';
 		endif;
 
 		echo json_encode( $return );

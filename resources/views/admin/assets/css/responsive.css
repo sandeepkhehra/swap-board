@@ -1,4 +1,3 @@
-
 @media only screen and (max-width: 1300px) {
     .container {
         width: 100% !important;
@@ -72,11 +71,11 @@
 		display: flex;
 		flex-direction: column;
 	}
-	.pop-aprt {
+	.pop-part {
 		order: 2;
 		padding: 20px;
 	}
-	.retun-step {
+	.return-step {
     background: #00b4cb;
     padding: 20px;
     position: relative;
@@ -206,15 +205,15 @@
         float: left;
         padding: 25px 0 0 0;
     }
-	.topheader em {
+	.top-header em {
 		width: 100%;
 		float: left;
 	}
-	.topheader aside {
+	.top-header aside {
 		float: left;
 		width: 100%;
 	}
-	.topheader .listing-navigtion li {
+	.top-header .listing-navigtion li {
 		float: left;
 		padding: 0 15px 0 0px;
 	}
@@ -337,10 +336,10 @@
     .navmenu li a:after{
 		display: none;
 	}
-	.board-indx:after{
+	.board-index:after{
 		display: none;
 	}
-   .board-indx:before{
+   .board-index:before{
 	   width: 100%;
    }
    #dashbrd-clck {
@@ -365,20 +364,20 @@
         font-weight: normal;
         line-height: 16px;
     }
-	.topheader .listing-navigtion li {
+	.top-header .listing-navigtion li {
 		float: left;
 		padding: 8px 15px;
 		width: 100%;
 		border-bottom: 1px solid #18c0da;
 	}
-	.topheader .listing-navigtion li a {
+	.top-header .listing-navigtion li a {
 		color: #fff;
 		font-weight: 600;
 		font-size: 16px;
 		font-family: 'Lato', sans-serif;
 		line-height: 24px;
 	}
-	.topheader .listing-navigtion li.active a {
+	.top-header .listing-navigtion li.active a {
 		    color: #fff;
 	}
 	.tooltiptext {
@@ -387,7 +386,7 @@
 	}
 }
 @media only screen and (max-width: 550px) {
-    .topheader aside {
+    .top-header aside {
         float: left;
         padding: 10px 0 0 0;
     }

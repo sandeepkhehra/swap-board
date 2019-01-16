@@ -34,13 +34,27 @@ class SwapBoardInstaller implements HookrInterface
 		return $correctSQLData;
 	}
 
+	public static function swapUserRoles()
+	{
+		add_role( 'swap-admin', __( 'SwapBoard Admin' ),
+			[
+				'read'         => true,
+				'edit_posts'   => true,
+				'delete_posts' => true,
+			]
+		);
+
+		add_role( 'swap-member', __( 'SwapBoard Member' ) );
+	}
+
 	public function hook()
 	{
 		global $wpdb;
 		self::$dbDriver = $wpdb;
 
-		register_activation_hook(SB_ROOT_FILE, [__CLASS__, 'installDB']);
-		register_uninstall_hook(SB_ROOT_FILE, [__CLASS__, 'uninstallDB']);
+		register_activation_hook( SB_ROOT_FILE, [__CLASS__, 'swapUserRoles'] );
+		register_activation_hook( SB_ROOT_FILE, [__CLASS__, 'installDB'] );
+		register_uninstall_hook( SB_ROOT_FILE, [__CLASS__, 'uninstallDB'] );
 	}
 
 	public static function installDB()

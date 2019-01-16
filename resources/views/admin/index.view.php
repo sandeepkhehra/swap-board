@@ -3,12 +3,14 @@ global $user_ID;
 
 $title = $this->template->title;
 $companyData = $this->template->model->withOne('sboard_companies', 'userID', $user_ID);
-$positions = unserialize($companyData->positions);
-$locations = unserialize($companyData->locations);
-$offers = $this->template->model->with('sboard_offers', 'companyID', $companyData->id)->sboard_offers;
-$membersData = $this->template->model->with('sboard_members', 'companyID', $companyData->id)->sboard_members;
+! empty( ( array ) $companyData ) ?: wp_redirect( get_site_url() ); /** Rare case */
 
-sboardInclude('admin._header', compact('title')); ?>
+$positions = isset( $companyData->positions ) ? unserialize($companyData->positions) : [];
+$locations = isset( $companyData->positions ) ? unserialize($companyData->locations) : [];
+$offers = $this->template->model->with('sboard_offers', 'userID', $user_ID)->sboard_offers;
+$membersData = (object) $this->template->model->with('sboard_members', 'companyID', $companyData->id)->sboard_members;
+
+sboardInclude('admin._header', compact('title', 'companyData', 'user_ID')); ?>
     <section class="sb-user-admin">
         <div class="container">
             <div class="row">
@@ -30,9 +32,9 @@ sboardInclude('admin._header', compact('title')); ?>
 
 							<?php sboardInclude('admin._inviteMembers', compact('companyData')); ?>
 
-							<?php sboardInclude('admin._findOffer', compact('companyData', 'positions', 'locations')); ?>
+							<?php sboardInclude('admin._findOffer', compact('companyData', 'positions', 'locations', 'user_ID')); ?>
 
-							<?php sboardInclude('admin._makeOffer', compact('companyData')); ?>
+							<?php sboardInclude('admin._makeOffer', compact('companyData', 'user_ID')); ?>
 
 							<?php sboardInclude('admin._myOffers', compact('companyData', 'offers')); ?>
 
@@ -598,112 +600,7 @@ sboardInclude('admin._header', compact('title')); ?>
 				<a class="john-close" data-popup-close="email-blast" href="#">x</a>
 			</div>
 		</div>
-		<!-- ----profle-popup-- -->
-		<div class="popup" data-popup="sign-popup" style="display: none">
-			<div class="popup-inner">
-				<div class="dash-pop clearfix">
-					<div class="pop-aprt">
-						<!-- create-form -->
-						<div class="create-form joingroup">
-							<div class="profile-detal">
-								<h3>My Profile</h3>
-								<div class="file-upload">
-									<div class="file-select textfield pass">
-										<div class="file-select-button" id="fileName"><i class="fa fa-camera"></i></div>
-										<div class="file-select-name" id="noFile">No file chosen...</div>
-											<input type="file" name="chooseFile" id="chooseFile">
-									</div>
-								</div>
-							</div>
-							<form name="htmlform" method="post" action="toyousender.php">
-								<div class="row">
-									<div class="col-md-6 col-sm-12">
-										<div class="form-group">
-											<label for="name">First Name</label>
-											<input type="text" id="First-name" required />
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-12">
-										<div class="form-group">
-											<label for="Last-name">Last Name</label>
-											<input type="text" id="last-name" required />
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-12">
-										<div class="form-group">
-											<label for="email">Email</label> <input type="text" id="email" required />
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-12">
-										<div class="form-group">
-											<label for="telphone">Phone Number</label>
-											<input type="tel" id="telphone" required />
-										</div>
-									</div>
-									<div class="col-md-12 col-sm-12">
-										<div class="form-group">
-											<label for="Position">Position</label>
-											<select>
-												<option>Here is the unstyled select box</option>
-												<option>The second option</option>
-												<option>The third option</option>
-											</select>
-										</div>
-									</div>
 
-									<div class="col-md-6 col-sm-12">
-										<div class="form-group">
-											<label for="Position">Location</label>
-											<select>
-												<option>Here is the unstyled select box</option>
-												<option>The second option</option>
-												<option>The third option</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-12">
-										<div class="form-group">
-											<label for="Identification">Employee Identification Number</label>
-											<input type="text" id="Identification" required />
-										</div>
-									</div>
-									<div class="col-md-12 col-sm-12">
-										<div class="form-group">
-											<label for="message">Short job Description</label>
-											<textarea name="comments" id="message"></textarea>
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-								<button type="button" class="submit save">Save</button>
-								<button type="button" class="submit">Cancel</button>
-								</div>
-							</form>
-						</div>
-					</div>
-					<div class="retun-step">
-						<div class="form-fild third profle ">
-							<h4>Change Password</h4>
-							<form name="htmlform" method="post" action="toyousender.php">
-								<div class="profl-cret">
-									<label for="current">Current Passsword</label>
-									<input type="text" id="current" required="">
-								</div>
-								<div class="profl-cret">
-									<label for="password">Password</label>
-									<input type="password" id="password" required="">
-								</div>
-								<div class="profl-cret">
-									<button type="button" class="submit ">Change</button>
-								</div>
-
-							</form>
-						</div>
-					</div>
-				</div>
-				<a class="popup-close" data-popup-close="sign-popup" href="#">x</a>
-			</div>
-		</div>
 	<!-- ----FAQ-popup-- -->
 		<div class="faq-popup" data-popup="faq-popup">
 			<div class="faq-inner">

@@ -1,15 +1,17 @@
 <?php
 $positions = unserialize($companyData->positions);
 $locations = unserialize($companyData->locations);
+$offerController = SwapBoard\Controllers\OffersController::class;
 ?>
+
 <div class="show-div hidden" id="make-offer">
 	<div class="find-offer">
 		<h2>Make Offer</h2>
 		<div class="row">
 			<div class="col-md-12 col-sm-12 col-xs-12 ">
 				<form data-swap-form>
-					<?php sboardDefineFormAction('ajax', 'create', SwapBoard\Controllers\OffersController::class); ?>
-					<input type="hidden" name="companyID" value="<?php echo $companyData->id ?>">
+					<?php sboardDefineFormAction('ajax', 'create', $offerController); ?>
+					<input type="hidden" name="userID" value="<?php echo $user_ID ?>">
 					<div class="invitation-form offer">
 						<div class="padding--35b flex">
 							<div class="flex flex-d-c margin--10r w100">
@@ -47,53 +49,39 @@ $locations = unserialize($companyData->locations);
 
 									<div class="margin--20r">
 										<label class="sb-form-label sb-form-label--active" for="makeOfferDate">Date</label>
-										<input type="date" class="sb-input-field sb-input-field--datetime" name="datetime[date]" id="makeOfferDate" />
+										<input type="date" class="sb-input-field sb-input-field--datetime" name="date" id="makeOfferDate" />
 									</div>
 
 									<div class="margin--20r">
 										<label class="sb-form-label">Day of week</label>
 										<div class="weekDays-selector">
-											<input type="checkbox" id="weekday-mon" value="mon" name="offerDay[]" class="weekday" />
-											<label for="weekday-mon">M</label>
-											<input type="checkbox" id="weekday-tue" value="tue" name="offerDay[]" class="weekday" />
-											<label for="weekday-tue">T</label>
-											<input type="checkbox" id="weekday-wed" value="wed" name="offerDay[]" class="weekday" />
-											<label for="weekday-wed">W</label>
-											<input type="checkbox" id="weekday-thu" value="thu" name="offerDay[]" class="weekday" />
-											<label for="weekday-thu">T</label>
-											<input type="checkbox" id="weekday-fri" value="fri" name="offerDay[]" class="weekday" />
-											<label for="weekday-fri">F</label>
-											<input type="checkbox" id="weekday-sat" value="sat" name="offerDay[]" class="weekday" />
-											<label for="weekday-sat">S</label>
-											<input type="checkbox" id="weekday-sun" value="sun" name="offerDay[]" class="weekday" />
-											<label for="weekday-sun">S</label>
+										<?php $timestamp = strtotime('last Sunday');
+											for ( $i = 0; $i < 7; $i++ ) :
+												$timestamp = strtotime('+1 day', $timestamp); ?>
+												<input type="radio" name="date" id="weekday-<?php echo substr( strftime('%A', $timestamp), 0, 3 ); ?>" value="<?php echo date( 'Y-m-d', $timestamp ); ?>" class="weekday" />
+												<label for="weekday-<?php echo substr( strftime('%A', $timestamp), 0, 3 ); ?>" title="<?php echo date( 'Y-m-d', $timestamp ); ?>"><?php echo substr( strftime('%A', $timestamp), 0, 1 ); ?></label>
+											<?php endfor; ?>
 										</div>
 									</div>
 
 									<div class="set-time margin--20r">
 										<label class="sb-form-label sb-form-label--active">Time</label>
 										<div class="flex flex-ai-center">
-											<input type="time" class="sb-input-field sb-input-field--datetime" name="datetime[time][start]">
+											<input type="time" class="sb-input-field sb-input-field--datetime" name="startTime">
 											<span class="padding--5l padding--5r">&mdash;</span>
-											<input type="time" class="sb-input-field sb-input-field--datetime" name="datetime[time][end]">
+											<input type="time" class="sb-input-field sb-input-field--datetime" name="endTime">
 										</div>
 									</div>
 
 									<div class="offer-type margin--20r">
 										<label class="sb-form-label sb-form-label--active">Offer Type</label>
 										<ul>
-											<li>
-												<input id="makePostShift" name="type" type="radio" value="1" checked>
-												<label for="makePostShift" class="radio-label">Post a shift</label>
-											</li>
-											<li>
-												<input id="makeSwapShift" name="type" type="radio" value="2" />
-												<label for="makeSwapShift" class="radio-label">Shift Swap</label>
-											</li>
-											<li>
-												<input id="makePermaSwapShift" name="type" type="radio" value="3" />
-												<label for="makePermaSwapShift" class="radio-label">Permanent Shift Swap</label>
-											</li>
+											<?php foreach ( $offerController::SHIFT_TYPES as $id => $type ) : ?>
+												<li>
+													<input id="<?php echo sboardGetSlug( $type ); ?>" name="type" type="radio" value="<?php echo $id; ?>">
+													<label for="<?php echo sboardGetSlug( $type ); ?>" class="radio-label"><?php echo $type; ?></label>
+												</li>
+											<?php endforeach; ?>
 										</ul>
 									</div>
 								</div>

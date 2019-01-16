@@ -1,7 +1,7 @@
 window.sBoardServer = class SwapBoardServer {
 	constructor() {
 		this.action = 'sboardAJAX'
-		this.url = '/swap/wp-admin/admin-ajax.php?action=' + this.action
+		this.url = sb_helpers.url + '?action=' + this.action
 	}
 
 	async send(data) {

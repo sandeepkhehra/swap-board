@@ -9,7 +9,7 @@ use SwapBoard\Helpers\ViewTemplateInterface;
 
 class ViewTemplatesController implements HookrInterface
 {
-	use  ViewsTrait;
+	use ViewsTrait;
 
 	public $template;
 
@@ -38,8 +38,31 @@ class ViewTemplatesController implements HookrInterface
 		return $templatePath;
 	}
 
+	public function setRedirection()
+	{
+		global $post;
+
+		if ( $post && is_object( $post ) ) :
+			$user = wp_get_current_user();
+
+			if ( $post->ID == PLUGIN_ADMIN_LAND_PAGE ) :
+				if ( in_array( 'swap-admin', (array) $user->roles ) || in_array( 'swap-member', (array) $user->roles ) ) :
+					wp_redirect( get_permalink( PLUGIN_ADMIN_DASH_PAGE ) );
+					exit;
+				endif;
+
+			elseif ( $post->ID == PLUGIN_ADMIN_DASH_PAGE ) :
+				if ( ! in_array( 'swap-admin', (array) $user->roles ) && ! in_array( 'swap-member', (array) $user->roles ) ) :
+					wp_redirect( get_permalink( PLUGIN_ADMIN_LAND_PAGE ) );
+					exit;
+				endif;
+			endif;
+		endif;
+	}
+
 	public function hook()
 	{
+		add_action( 'wp', [$this, 'setRedirection'] );
 		add_filter( 'show_admin_bar', '__return_false' );
 		add_filter( 'page_template', [$this, 'loadTemplates'] );
 	}

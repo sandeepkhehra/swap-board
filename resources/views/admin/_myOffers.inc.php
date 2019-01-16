@@ -1,8 +1,7 @@
 <?php
 $positions = unserialize($companyData->positions);
 $locations = unserialize($companyData->locations);
-
-$shiftTypes = ['NA', 'Post a shift', 'Shift Swap', 'Permanent Shift Swap'];
+$offerController = SwapBoard\Controllers\OffersController::class;
 ?>
 
 <div class="show-div hidden" id="my-offer">
@@ -24,15 +23,14 @@ $shiftTypes = ['NA', 'Post a shift', 'Shift Swap', 'Permanent Shift Swap'];
 						<tbody>
 							<?php if ( ! empty( $offers ) ) :
 								foreach ( $offers as $offer ) :
-									$datetime = unserialize($offer->datetime);
-									$date = (new DateTime($datetime['date']))->format('M d, Y');
-									$startTime = (new DateTime($datetime['time']['start']))->format('g:i A');
-									$endTime = (new DateTime($datetime['time']['end']))->format('g:i A');
+									$date = (new DateTime($offer->startDatetime))->format('M d, Y');
+									$startTime = (new DateTime($offer->startDatetime))->format('g:i A');
+									$endTime = (new DateTime($offer->endDatetime))->format('g:i A');
 								?>
 								<tr>
 									<td class="<?php echo $offer->status == 1 ? 'accept' : 'expired'; ?>">
 										<?php echo $date; ?>
-										<div class="tooltiptext">
+										<!-- <div class="tooltiptext">
 											<h5>1 person wants to work your shift!</h5>
 											<aside>Comment:</aside>
 											<p>
@@ -48,14 +46,14 @@ $shiftTypes = ['NA', 'Post a shift', 'Shift Swap', 'Permanent Shift Swap'];
 												</div>
 												<div class="save-profl"><a href="#" class="canl-btn">Decline</a></div>
 											</div>
-										</div>
+										</div> -->
 									</td>
 									<td><?php echo $startTime; ?> &mdash; <?php echo $endTime; ?></td>
-									<td><?php echo $shiftTypes[ $offer->type ]; ?></td>
+									<td><?php echo $offerController::SHIFT_TYPES[ $offer->type ]; ?></td>
 									<td><span class="sb-row-action sb-row-action--small" data-swap-button=""><i class="fa fa-pencil"></i> Edit</span></td>
 									<td>
 										<form style="margin: 0">
-											<?php sboardDefineFormAction('ajax', 'delete', SwapBoard\Controllers\OffersController::class); ?>
+											<?php sboardDefineFormAction('ajax', 'delete', $offerController); ?>
 											<input type="hidden" name="id" value="<?php echo $offer->id; ?>">
 											<span class="sb-row-action sb-row-action--small" data-swap-button="delete-offer"><i class="fa fa-trash-o"></i> Delete</span>
 										</form>

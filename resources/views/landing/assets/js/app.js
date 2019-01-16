@@ -8,6 +8,7 @@ jQuery(function($) {
 		const type = $(this).data('swap-button')
 		const step = $(this).data('swap-step')
 		const popType = $(this).data('swap-pop-type')
+		const validator = SwapBoard.formDataValidator(formData, form[0])
 
 		switch (type) {
 			case 'popup-open':
@@ -18,31 +19,56 @@ jQuery(function($) {
 				SwapBoard.triggerPopup(e, 'close', popType);
 				break;
 
-			case 'next': case 'back':
-				let promise = Promise.resolve(true)
+			case 'check-company':
+				if (validator.is === true) {
+					SwapBoard.processMultiStep(formScope, formData).then(resp => {
+						if (resp.type === 'success') {
+							$(this)
+								.parents('.dash-pop')
+								.addClass('hidden')
+								.siblings('.dash-pop[data-swap-step-id='+ step +']')
+								.removeClass('hidden')
 
-				if ( type == 'next' ) {
-					promise = SwapBoard.processMultiStep(formScope, formData)
+							$('[data-form-field]').each(function() {
+								$(this).html( $('#' + $(this).attr('data-form-field')).val() )
+							})
+						}
+					})
 				}
+				break;
 
-				promise.then(resp => {
-					if (resp) {
-						$(this)
-							.parents('.dash-pop')
-							.addClass('is-hidden')
-							.siblings('.dash-pop[data-swap-step-id='+ step +']')
-							.removeClass('is-hidden')
+			case 'step-back':
+				$(this)
+					.parents('.dash-pop')
+					.addClass('hidden')
+					.siblings('.dash-pop[data-swap-step-id='+ step +']')
+					.removeClass('hidden')
+				break
 
-						$('[data-form-field]').each(function() {
-							$(this).html( $('#' + $(this).attr('data-form-field')).val() )
+			case 'create-swap-user':
+					if (validator.is === true) {
+						SwapBoard.processMultiStep(formScope, formData).then(resp => {
+							if (resp.type === 'success') {
+								SwapBoard.processFormData()
+							}
 						})
 					}
-				})
-				break;
+				break
+
+			case 'login-user':
+				if (validator.is === true) {
+					SwapBoard.processMultiStep(formScope, formData).then(resp => {
+						if (resp.type === 'success' && resp.redirect) {
+							window.location.href = resp.redirect
+						}
+					})
+				}
+				break
 
 			case 'create-invited':
 				SwapBoard.processMultiStep(formScope, formData)
 				break;
+
 		}
 	})
 })

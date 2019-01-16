@@ -34,8 +34,20 @@ class InviteMembersController extends BaseController
 					$postData['hash'] = $getHash;
 					$this->model->insert( $postData );
 				endif;
+			else:
+				$return['type'] = 'error';
+				$return['msg'] = 'You\'ve already sent the invite to ' . $email;
+
+				echo json_encode( $return );
+				wp_die();
 			endif;
 		endforeach;
+
+		$return['type'] = 'success';
+		$return['msg'] = 'Invites sent successfully!';
+
+		echo json_encode( $return );
+		wp_die();
 	}
 
 	public function sendInvite( string $email )
@@ -53,10 +65,21 @@ class InviteMembersController extends BaseController
 
 			$emailContent->content = str_replace( '%invite_link%', $inviteLink, $emailContent->content );
 
-			$this->sendEmail( $email, $emailContent->subject, $emailContent->content );
+			if ( $this->sendEmail( $email, $emailContent->subject, $emailContent->content ) ) :
 
-			return is_object( $inviteData ) ? $inviteData->hash : false;
+				return is_object( $inviteData ) ? $inviteData->hash : false;
+			endif;
+
+			return;
+		else:
+			$return['type'] = 'error';
+			$return['msg'] = 'No email template has been set!';
+
+			echo json_encode( $return );
+			wp_die();
 		endif;
+
+		return false;
 	}
 
 	private function getInviteLink( string $email )

@@ -2,63 +2,69 @@
 	<div class="popup-inner">
 		<?php if ( ! isset( $_GET['invite'] ) || ! $context->template->validateInvite( $_GET['invite'] ) ) : ?>
 			<div class="dash-pop clearfix" data-swap-step-id="1">
-				<div class="pop-aprt">
+				<div class="pop-part">
 					<p>Create a Company</p>
-					<h2>Step #1</h2>
+					<h2 class="popup-heading">Step #1</h2>
+
+					<div class="form-error-bag">
+						<ul class="form-error-bag__list-wrap"></ul>
+					</div>
+
 					<div class="create-form">
 						<form data-swap-form="company">
 
 							<?php sboardDefineFormAction('ajax', 'check', SwapBoard\Controllers\CompaniesController::class); ?>
 
 							<div class="form-group">
-								<label for="companyName">Company Name</label> <input type="text" name="name" id="companyName" required />
+								<label for="companyName" class="sb-form-label sb-form-label--gray">Company Name</label> <input type="text" name="name" id="companyName" class="sb-input-field" required>
 							</div>
 							<div class="form-group swap-addre">
-								<label for="companyUrl">Swapboard Address</label> <input type="url" name="url" id="companyUrl" required />
-								<span>swapboard.com</span>
+								<label class="sb-form-label sb-form-label--gray" for="companyUrl">SwapBoard Address</label>
+								<div class="flex flex-jc-sb flex-ai-center">
+									<input type="text" name="url" id="companyUrl" class="sb-input-field" required>
+									<span>.swapboard.com</span>
+								</div>
 							</div>
 							<div class="form-group">
-								<label for="companyEmail">Administrator Email</label>
-								<input type="email" name="details[email]" id="companyEmail" required />
+								<label class="sb-form-label sb-form-label--gray" for="companyEmail">Administrator Email</label>
+								<input type="email" name="details[email]" id="companyEmail" class="sb-input-field" required>
 							</div>
 							<div class="form-group">
-								<label for="companyPhone">Phone Number</label> <input type="tel" name="details[phone]" id="companyPhone" required />
+								<label class="sb-form-label sb-form-label--gray" for="companyPhone">Phone Number</label> <input type="tel"  pattern="[0-9]{10}" name="details[phone]" id="companyPhone" class="sb-input-field" required>
 							</div>
-							<div class="form-group"><button type="button" class="submit" data-swap-button="next" data-swap-step="2">Next</button></div>
+							<div class="form-group"><button type="button" class="sb-form-button sb-form-button--danger sb-form-button--big" data-swap-button="check-company" data-swap-step="2">Next</button></div>
 						</form>
 					</div>
 				</div>
 			</div>
 
-			<div class="dash-pop is-hidden clearfix" data-swap-step-id="2">
-				<div class="pop-aprt">
+			<div class="dash-pop hidden clearfix" data-swap-step-id="2">
+				<div class="pop-part">
 					<p>Create a Company</p>
-					<h2>Step #2</h2>
-					<div class="retun-step">
-						<div class="form-fild">
-							<p>Create a company</p>
-							<h2>Step #1</h2>
-							<div class="fild-recrd">
-								<aside>
-									<h6>Company Name:</h6>
-									<span data-form-field="companyName">Delta Airlines</span>
-								</aside>
-								<aside>
-									<h6>Swapboard Address:</h6>
-									<span data-form-field="companyUrl">delta</span>
-								</aside>
-								<aside>
-									<h6>Administrator Email:</h6>
-									<span data-form-field="companyEmail">deltamaster@gmil.com</span>
-								</aside>
-								<aside>
-									<h6>Phone Number:</h6>
-									<span data-form-field="companyPhone">(123) 555-6666</span>
-								</aside>
-								<aside class="form-group">
-									<button type="button" data-swap-button="back" class="submit" data-swap-step="1">Return to Step 1</button>
-								</aside>
-							</div>
+					<h2 class="popup-heading">Step #2</h2>
+					<div class="return-step">
+						<p>Create a company</p>
+						<h2 class="popup-heading popup-heading--white">Step #1</h2>
+						<div class="fild-recrd">
+							<aside>
+								<h6>Company Name:</h6>
+								<span data-form-field="companyName"></span>
+							</aside>
+							<aside>
+								<h6>SwapBoard Address:</h6>
+								<span data-form-field="companyUrl"></span><span>.swapboard.com</span>
+							</aside>
+							<aside>
+								<h6>Administrator Email:</h6>
+								<span data-form-field="companyEmail"></span>
+							</aside>
+							<aside>
+								<h6>Phone Number:</h6>
+								<span data-form-field="companyPhone"></span>
+							</aside>
+							<aside class="form-group">
+								<button type="button" data-swap-button="step-back" class="sb-form-button sb-form-button--secondary sb-form-button--big" data-swap-step="1">Return to Step 1</button>
+							</aside>
 						</div>
 					</div>
 
@@ -68,26 +74,26 @@
 							<?php sboardDefineFormAction('ajax', 'check', SwapBoard\Controllers\UsersController::class); ?>
 
 							<div class="form-group">
-								<label for="name">Your First Name</label> <input type="text" name="firstName" required />
+								<label class="sb-form-label sb-form-label--gray" for="name">Your First Name</label> <input type="text" name="first_name" class="sb-input-field" required>
+								</div>
+							<div class="form-group">
+								<label class="sb-form-label sb-form-label--gray" for="email">Your Last Name</label> <input type="text" name="last_name" class="sb-input-field" required>
 							</div>
 							<div class="form-group">
-								<label for="email">Your Last Name</label> <input type="text" name="lastName" required />
+								<label class="sb-form-label sb-form-label--gray" for="email">Email</label> <input type="text" name="user_login" class="sb-input-field" required>
 							</div>
 							<div class="form-group">
-								<label for="email">Email</label> <input type="text" name="email" required />
+								<label class="sb-form-label sb-form-label--gray" for="telephone">Phone Number</label> <input type="tel" name="phone" class="sb-input-field" required>
 							</div>
 							<div class="form-group">
-								<label for="telphone">Phone Number</label> <input type="tel" name="phone" required />
+								<label class="sb-form-label sb-form-label--gray" for="password">Password</label> <input type="password" name="user_pass" class="sb-input-field" required>
 							</div>
 							<div class="form-group">
-								<label for="password">Password</label> <input type="password" name="password" required />
-							</div>
-							<div class="form-group trms">
 								<input type="checkbox" name="term" value="term" id="term" />
-								<label for="term"> I agree with the <a href="#">Term of use</a></label>
+								<label class="sb-form-label sb-form-label--gray" for="term"> I agree with the <a href="#">Term of use</a></label>
 							</div>
 							<div class="form-group">
-								<button type="button" class="submit" data-swap-button="next" data-swap-step="3">Finish</button>
+								<button type="button" class="sb-form-button sb-form-button--danger sb-form-button--big" data-swap-button="create-swap-user">Finish</button>
 							</div>
 						</form>
 					</div>
@@ -104,7 +110,7 @@
 			$locations = unserialize( $companyData->locations );
 			?>
 			<div class="dash-pop clearfix" data-swap-step-id="3">
-				<div class="pop-aprt">
+				<div class="pop-part">
 					<div class="create-form joingroup">
 						<form>
 
@@ -183,7 +189,7 @@
 						</form>
 					</div>
 				</div>
-				<div class="retun-step">
+				<div class="return-step">
 					<div class="form-fild third">
 						<h2>Hi,</h2>
 						<h4><?php echo $userName; ?>!</h4>

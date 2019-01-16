@@ -1,7 +1,7 @@
 <?php
 use SwapBoard\Models\PlansModel;
 $plans = new PlansModel;
-$allPlans = $plans->readAll();
+$allPlans = array_reverse( $plans->readAll() );
 ?>
 <div class="show-div hidden" id="plans-price">
 	<div class="sb-plans-wrap">
@@ -17,7 +17,7 @@ $allPlans = $plans->readAll();
 					</div>
 					<div class="sb-plan-price">
 						<h3>$<?php echo $plan->price; ?></h3>
-						<button class="sb-plan-button" data-popup-open="email-blast" class="buy-blst">Buy Now</button>
+						<button class="sb-plan-button" data-popup-open="email-blast">Buy Now</button>
 					</div>
 				</div>
 			</div>
@@ -31,9 +31,7 @@ $allPlans = $plans->readAll();
 		<div class="row">
 			<div class="col-md-12">
 				<p>
-					Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim
-					omittantur sea ne, ei his eros dicit altera. Viris decore cu eum, mea id modus petentium voluptatum.
-					Amet abhorreant mei ad, eum
+					Some plans here.
 				</p>
 			</div>
 		</div>
