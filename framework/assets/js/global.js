@@ -103,7 +103,6 @@ window.sBoard = class SwapBoardEnvironment {
 	}
 
 	processFormData() {
-		console.log('sad', this.formData)
 		Object.keys(this.formData).map(k => {
 			this.formData[k].set('sbAction', 'create')
 		})

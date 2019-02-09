@@ -1,16 +1,41 @@
 <?php
+use SwapBoard\Controllers\UsersController;
+
 global $user_ID;
 
 $title = $this->template->title;
-$companyData = $this->template->model->withOne('sboard_companies', 'userID', $user_ID);
+$userData = get_userdata( $user_ID );
+$userMeta = ( new UsersController )->getUserMeta( $userData->ID );
+
+$role = $userData->roles;
+
+if ( in_array( 'swap-member', $role ) ) :
+	$companyID = $this->template->model->getByFrom('sboard_members', $userData->user_email, 'email')->companyID;
+	$companyData = $this->template->model->getByFrom('sboard_companies', $companyID, 'id');
+	$offers = $this->template->model->with('sboard_offers', 'userID', $user_ID)->sboard_offers;
+	$chats = $this->template->model->with('sboard_chats', 'clientID', $user_ID)->sboard_chats;
+else:
+	$tablesData = $this->template->model->with(['sboard_companies', 'sboard_offers', 'sboard_chats'], 'userID', $user_ID);
+	$companyData = $tablesData->sboard_companies[0];
+	$offers = $tablesData->sboard_offers;
+	$chats = $tablesData->sboard_chats;
+endif;
+
 ! empty( ( array ) $companyData ) ?: wp_redirect( get_site_url() ); /** Rare case */
 
 $positions = isset( $companyData->positions ) ? unserialize($companyData->positions) : [];
 $locations = isset( $companyData->positions ) ? unserialize($companyData->locations) : [];
-$offers = $this->template->model->with('sboard_offers', 'userID', $user_ID)->sboard_offers;
-$membersData = (object) $this->template->model->with('sboard_members', 'companyID', $companyData->id)->sboard_members;
 
-sboardInclude('admin._header', compact('title', 'companyData', 'user_ID')); ?>
+$membersData = $this->template->model->with('sboard_members', 'companyID', $companyData->id)->sboard_members;
+
+/** Remove self from Member's list. */
+foreach ( $membersData as $key => $memberData ) :
+	if ( $memberData->email == $userData->user_email ) :
+		unset( $membersData[$key] );
+	endif;
+endforeach;
+
+sboardInclude('admin._header', compact('title', 'companyData', 'userMeta', 'chats')); ?>
     <section class="sb-user-admin">
         <div class="container">
             <div class="row">
@@ -28,7 +53,7 @@ sboardInclude('admin._header', compact('title', 'companyData', 'user_ID')); ?>
                         <div id="content">
 							<?php sboardInclude('admin._companyProfile', compact('companyData')); ?>
 
-							<?php sboardInclude('admin._membersList', compact('membersData')); ?>
+							<?php sboardInclude('admin._membersList', compact('user_ID', 'companyData' ,'membersData')); ?>
 
 							<?php sboardInclude('admin._inviteMembers', compact('companyData')); ?>
 
@@ -38,369 +63,13 @@ sboardInclude('admin._header', compact('title', 'companyData', 'user_ID')); ?>
 
 							<?php sboardInclude('admin._myOffers', compact('companyData', 'offers')); ?>
 
-							<!-- <div class="show-div hidden" id="private-mesage">
-								<div class="find-offer archive">
-									<h2>Private Messages</h2>
-									<div class="wrapper-chat">
-										<div class="container-left">
-											<div class="left">
-												<ul class="people">
-													<li class="person" data-chat="person1">
-														<img src="<?php sboardCoreAssets('images', ['thomas.jpg'], 'admin'); ?>" alt="" />
-														<span class="name">Thomas Bangalter</span>
-														<span class="time">3</span>
-														<span class="preview">I was wondering...</span>
-													</li>
-													<li class="person" data-chat="person2">
-														<img src="<?php sboardCoreAssets('images', ['dog.png'], 'admin'); ?>" alt="" />
-														<span class="name">Dog Woofson</span>
-														<span class="time">5</span>
-														<span class="preview">I've forgotten how it felt before</span>
-													</li>
-													<li class="person" data-chat="person3">
-														<img src="<?php sboardCoreAssets('images', ['louis-ck.jpeg'], 'admin'); ?>" alt="" />
-														<span class="name">Louis CK</span>
-														<span class="time">2</span>
-														<span class="preview">But we’re probably gonna need a new carpet.</span>
-													</li>
-													<li class="person" data-chat="person4">
-														<img src="<?php sboardCoreAssets('images', ['bo-jackson.jpg'], 'admin'); ?>" alt="" />
-														<span class="name">Bo Jackson</span>
-														<span class="time">5</span>
-														<span class="preview">It’s not that bad...</span>
-													</li>
-													<li class="person" data-chat="person5">
-														<img src="<?php sboardCoreAssets('images', ['michael-jordan.jpg'], 'admin'); ?>" alt="" />
-														<span class="name">Michael Jordan</span>
-														<span class="time">0</span>
-														<span class="preview">Wasup for the third time like is
-									you blind bitch</span>
-													</li>
-													<li class="person" data-chat="person6">
-														<img src="<?php sboardCoreAssets('images', ['drake.jpg'], 'admin'); ?>" alt="" />
-														<span class="name">Drake</span>
-														<span class="time">5</span>
-														<span class="preview">howdoyoudoaspace</span>
-													</li>
-												</ul>
-											</div>
-											<div class="right">
-												<div class="chat" data-chat="person1">
-													<div class="conversation-start">
-														<span>Thomas Bangalter</span>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="<?php sboardCoreAssets('images', ['thomas.jpg']); ?>" alt="" />
-														</div>
-														<div class="bubble you">
-															Hello,
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="<?php sboardCoreAssets('images', ['thomas.jpg']); ?>" alt="" />
-														</div>
-														<div class="bubble you">
-															it's me.
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="<?php sboardCoreAssets('images', ['thomas.jpg']); ?>" alt="" />
-														</div>
-														<div class="bubble you">
-															I was wondering...
-														</div>
-													</div>
+							<?php sboardInclude('admin._chat', compact('user_ID', 'chats')); ?>
 
-												</div>
-												<div class="chat" data-chat="person2">
-													<div class="conversation-start">
-														<span>Dog Woofson</span>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/dog.png" alt="" />
-														</div>
-														<div class="bubble you">
-															Hello, can you hear me?
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/dog.png" alt="" />
-														</div>
-														<div class="bubble you">
-															I'm in California dreaming
-														</div>
-													</div>
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/thome.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															... about who we used to be.
-														</div>
-													</div>
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/thome.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															Are you serious?
-														</div>
-													</div>
-
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/dog.png" alt="" />
-														</div>
-														<div class="bubble you">
-															When we were younger and free...
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/dog.png" alt="" />
-														</div>
-														<div class="bubble you">
-															I've forgotten how it felt before
-														</div>
-													</div>
-
-												</div>
-												<div class="chat" data-chat="person3">
-													<div class="conversation-start">
-														<span>Louis CK</span>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/louis-ck.jpeg" alt="" />
-														</div>
-														<div class="bubble you">
-															Hey human!
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/louis-ck.jpeg" alt="" />
-														</div>
-														<div class="bubble you">
-															Umm... Someone took a shit in the hallway.
-														</div>
-													</div>
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/client-sp.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															... what.
-														</div>
-													</div>
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/client-sp.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															Are you serious?
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/louis-ck.jpeg" alt="" />
-														</div>
-														<div class="bubble you">
-															I mean....
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/louis-ck.jpeg" alt="" />
-														</div>
-														<div class="bubble you">
-															It’s not that bad...
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/louis-ck.jpeg" alt="" />
-														</div>
-														<div class="bubble you">
-															But we’re probably gonna need a new carpet.
-														</div>
-													</div>
-
-												</div>
-												<div class="chat" data-chat="person4">
-													<div class="conversation-start">
-														<span>Bo Jackson</span>
-													</div>
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/client-sp.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															Hey human!
-														</div>
-													</div>
-
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/client-sp.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															Umm... Someone took a shit in the hallway.
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/bo-jackson.jpg" alt="" />
-														</div>
-														<div class="bubble you">
-															... what.
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/bo-jackson.jpg" alt="" />
-														</div>
-														<div class="bubble you">
-															Are you serious?
-														</div>
-													</div>
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/client-sp.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															I mean...
-														</div>
-													</div>
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/client-sp.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															It’s not that bad...
-														</div>
-													</div>
-												</div>
-												<div class="chat" data-chat="person5">
-													<div class="conversation-start">
-														<span>Michael Jordan</span>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/michael-jordan.jpg" alt="" />
-														</div>
-														<div class="bubble you">
-															Hello,
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/michael-jordan.jpg" alt="" />
-														</div>
-														<div class="bubble you">
-															Wasup
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/michael-jordan.jpg" alt="" />
-														</div>
-														<div class="bubble you">
-															I was wondering...
-														</div>
-													</div>
-
-
-												</div>
-												<div class="chat" data-chat="person6">
-													<div class="conversation-start">
-														<span>Drake</span>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/drake.jpg" alt="" />
-														</div>
-														<div class="bubble you">
-															So, how's your new phone?
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/drake.jpg" alt="" />
-														</div>
-														<div class="bubble you">
-															You finally have a smartphone :D
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/drake.jpg" alt="" />
-														</div>
-														<div class="bubble you">
-															Why aren't you answering?
-														</div>
-													</div>
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/thome.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															... about who we used to be.
-														</div>
-													</div>
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/thome.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															Are you serious?
-														</div>
-													</div>
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/thome.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															Drake?
-														</div>
-													</div>
-													<div class="convert-timr oter">
-														<div class="img-chat">
-															<img src="image/thome.jpg" alt="" />
-														</div>
-														<div class="bubble me">
-															Why aren't you answering?
-														</div>
-													</div>
-													<div class="convert-timr">
-														<div class="img-chat">
-															<img src="image/drake.jpg" alt="" />
-														</div>
-														<div class="bubble you">
-															howdoyoudoaspace
-														</div>
-													</div>
-												</div>
-												<div class="write">
-													<a href="javascript:;" class="write-link attach"></a>
-													<input type="text" />
-													<a href="javascript:;" class="write-link smiley"></a>
-													<a href="javascript:;" class="write-link send"></a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-                     		</div> -->
+							<?php sboardInclude('admin._plansPrice'); ?>
 
 							<?php sboardInclude('admin._archiveOffers', compact('offers')); ?>
 
-							<?php sboardInclude('admin._plansPrice'); ?>
+							<?php sboardInclude('admin._blog'); ?>
 
 							<!-- Faq -->
 							<div class="show-div hidden" id="term-use">
@@ -744,4 +413,5 @@ sboardInclude('admin._header', compact('title', 'companyData', 'user_ID')); ?>
 			</div>
 		</div>
 
-<?php sboardInclude('admin._footer'); ?>
+
+<?php sboardInclude('admin._footer', compact('user_ID')); ?>

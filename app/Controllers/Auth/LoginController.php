@@ -25,14 +25,17 @@ class LoginController extends BaseController
 		else:
 			$swapUser = $this->dataExists( $postData['user_login'], 'user_login' );
 
-			// if ( $swapUser && $this->validate( $postData, $swapUser ) ) :
 			if ( $swapUser ) :
-				wp_signon( ['user_login' => $swapUser->user_login, 'user_password' => $_POST['user_pass'] ] );
+				$user = wp_signon( ['user_login' => $swapUser->user_login, 'user_password' => $_POST['user_pass'] ] );
 				sboardSetSession( 'user', $swapUser );
 
-				$return['type'] = 'success';
-				$return['redirect'] = get_permalink( PLUGIN_ADMIN_DASH_PAGE );
-
+				if ( is_wp_error( $user ) ) :
+					$return['type'] = 'error';
+					$return['msg'] = 'The username or the password is incorrect!';
+				else:
+					$return['type'] = 'success';
+					$return['redirect'] = get_permalink( PLUGIN_ADMIN_DASH_PAGE );
+				endif;
 			else:
 				$return['type'] = 'error';
 				$return['msg'] = 'Credentials do not match.';

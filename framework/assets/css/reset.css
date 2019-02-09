@@ -94,6 +94,10 @@ input,
 button {
 	outline: none;
 }
+input[readonly],
+input[disabled] {
+	cursor: not-allowed;
+}
 pre {
 	background: #e4e8ea;
 	color: #2c323a;
@@ -103,63 +107,6 @@ img {max-width: 100%;}
 
 .container {
 	width: 1170px;
-}
-
-/**
- * Dyna Styling
- *
- */
-
-/* Sizings */
-.w100 {
-	width: 100%;
-}
-
-
-/* Paddings and Margins */
-.padding--5l {
-	padding-left: 5px;
-}
-.padding--5r {
-	padding-right: 5px;
-}
-.padding--35 {
-	padding: 35px;
-}
-.padding--35t {
-	padding-top: 35px;
-}
-.padding--35b {
-	padding-bottom: 35px;
-}
-.margin--10r {
-	margin-right: 10px;
-}
-.margin--20r {
-	margin-right: 20px;
-}
-.margin--20t {
-	margin-top: 20px;
-}
-.margin--35t {
-	margin-top: 35px;
-}
-.margin--35b {
-	margin-bottom: 35px;
-}
-
-/* Display properties */
-.flex {
-	display: flex;
-}
-.flex.flex-d-c {
-	flex-direction: column;
-}
-.flex.flex-ai-center {
-	align-items: center;
-}
-.flex.flex-jc-sb {
-	justify-content: space-between;
 }
 
 /* General Styling */
@@ -348,7 +295,7 @@ img {max-width: 100%;}
 }
 .create-form {
 	padding: 50px 0 0 0;
-	max-width: 400px;
+	width: 400px;
 }
 .return-step {
 	background: #00b4cb;
@@ -425,4 +372,67 @@ img {max-width: 100%;}
 }
 .bottom-footer--gray .social-icons a {
 	color: #7b7d89;
+}
+
+/**
+ * Dyna Styling
+ *
+ */
+
+/* Sizings */
+.w100 {
+	width: 100%;
+}
+
+
+/* Paddings and Margins */
+.padding--5l {
+	padding-left: 5px;
+}
+.padding--5r {
+	padding-right: 5px;
+}
+.padding--20l {
+	padding-left: 20px;
+}
+.padding--20r {
+	padding-right: 20px;
+}
+.padding--35 {
+	padding: 35px;
+}
+.padding--35t {
+	padding-top: 35px;
+}
+.padding--35b {
+	padding-bottom: 35px;
+}
+.margin--10r {
+	margin-right: 10px;
+}
+.margin--20r {
+	margin-right: 20px;
+}
+.margin--20t {
+	margin-top: 20px;
+}
+.margin--35t {
+	margin-top: 35px;
+}
+.margin--35b {
+	margin-bottom: 35px;
+}
+
+/* Display properties */
+.flex {
+	display: flex;
+}
+.flex.flex-d-c {
+	flex-direction: column;
+}
+.flex.flex-ai-center {
+	align-items: center;
+}
+.flex.flex-jc-sb {
+	justify-content: space-between;
 }

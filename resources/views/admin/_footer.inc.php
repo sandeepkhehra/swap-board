@@ -20,5 +20,9 @@
 
 		<?php sboardCoreAssets('js', ['bootstrap.min.js', 'wow.min.css', 'sboard-server.js', 'global.js', 'app.js']); ?>
 		<?php wp_footer(); ?>
+
+		<script>
+			checkChats( "<?php echo $user_ID; ?>", 30000 );
+		</script>
 	</body>
 </html>

@@ -20,7 +20,8 @@ CREATE TABLE IF NOT EXISTS `###sboard_companies`
 CREATE TABLE IF NOT EXISTS `###sboard_chats`
 (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
-	`authorID` BIGINT(20) UNSIGNED NOT NULL,
+	`companyID` INT(10) UNSIGNED NOT NULL,
+	`userID` BIGINT(20) UNSIGNED NOT NULL,
 	`clientID` BIGINT(20) UNSIGNED NOT NULL,
 	`ts` DATETIME DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)
@@ -32,8 +33,9 @@ CREATE TABLE IF NOT EXISTS `###sboard_chat_messages`
 (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
 	`chatID` INT(10),
-	`content` TEXT,
-	`status` TINYINT,
+	`userID` INT(10),
+	`content` LONGTEXT,
+	`status` TINYINT DEFAULT 0,
 	`ts` DATETIME DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY(chatID) REFERENCES ###sboard_chats(id) ON DELETE CASCADE,
 	PRIMARY KEY (`id`)
@@ -76,7 +78,8 @@ CREATE TABLE IF NOT EXISTS `###sboard_members`
 (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
 	`companyID` INT(10) NOT NULL,
-	`email` VARCHAR(191),
+	`userID` BIGINT(20) UNSIGNED,
+	`email` VARCHAR(191) NOT NULL UNIQUE,
 	`firstName` VARCHAR(50),
 	`lastName` VARCHAR(50),
 	`hash` VARCHAR(100),

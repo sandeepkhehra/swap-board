@@ -30,7 +30,7 @@
 								<td>
 									<form style="margin: 0">
 										<?php sboardDefineFormAction('ajax', 'userDetails', SwapBoard\Controllers\UsersController::class); ?>
-										<input type="hidden" name="id" value="<?php echo $member->id; ?>">
+										<input type="hidden" name="id" value="<?php echo $member->userID; ?>">
 										<span class="sb-row-action sb-row-action--small" data-swap-button="user-details"><i class="fa fa-list"></i> Details</span>
 									</form>
 								</td>
@@ -79,14 +79,24 @@
 					<label for="term"> Give Administrator Permissions</label>
 				</div>
 				<div class="flex flex-jc-sb padding--35t">
-					<?php if ( ! $member->isMember ) : ?>
-						<button class="sb-form-button sb-form-button--info"><i class="fa fa-paper-plane-o"></i> Resend Invitation</a>
-					<?php endif; ?>
-					<!-- <button class="sb-form-button sb-form-button--warning" class="yellow"><i class="fa fa fa-comments"></i> Send Message</a> -->
+					<form style="margin: 0" data-member-form="resend" style="display: none">
+						<?php sboardDefineFormAction('ajax', 'resendInvite', SwapBoard\Controllers\Admin\InviteMembersController::class); ?>
+						<input type="hidden" name="id" value="">
+						<button class="sb-form-button sb-form-button--info" data-swap-button="resend-invite"><i class="fa fa-paper-plane-o"></i> Resend Invitation</button>
+					</form>
+
+					<form style="margin: 0" data-member-form="chat" style="display: none">
+						<?php sboardDefineFormAction('ajax', 'chat', SwapBoard\Controllers\Admin\ChatsController::class); ?>
+						<input type="hidden" name="id" value="">
+						<input type="hidden" name="companyID" value="<?php echo $companyData->id; ?>">
+						<input type="hidden" name="userID" value="<?php echo $user_ID; ?>">
+						<button class="sb-form-button sb-form-button--warning" data-swap-button="chat"><i class="fa fa fa-comments"></i> Send Message</button>
+					</form>
+
 					<form style="margin: 0">
 						<?php sboardDefineFormAction('ajax', 'delete', SwapBoard\Controllers\Admin\InviteMembersController::class); ?>
-						<input type="hidden" name="id" value="<?php echo $member->id; ?>">
-						<button class="sb-form-button sb-form-button--danger" data-swap-button="delete"><i class="fa fa-trash-o"></i> Delete user</a>
+						<input type="hidden" name="id" value="">
+						<button class="sb-form-button sb-form-button--danger" data-swap-button="delete"><i class="fa fa-trash-o"></i> Delete user</button>
 					</form>
 				</div>
 			</div>

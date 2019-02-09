@@ -27,8 +27,8 @@ class InviteMembersModel extends BaseModel
 		parent::delete( $id );
 	}
 
-	public function setInviteeStatus( string $hash, int $status )
+	public function setInviteeStatus( string $hash, int $status, int $userID )
 	{
-		return $this->dbDriver->query( "UPDATE {$this->table} SET isMember = $status WHERE hash='$hash'" );
+		return $this->dbDriver->query( "UPDATE {$this->table} SET isMember = $status, userID = $userID WHERE hash='$hash'" );
 	}
 }

@@ -105,13 +105,13 @@
 			$firstName = ! empty( $user->firstName ) ? $user->firstName : '';
 			$lastName = ! empty( $user->lastName ) ? $user->lastName : '';
 			$userName = empty( $firstName ) && empty( $lastName ) ? 'User' : $firstName .' '. $lastName;
-			$companyData = $context->template->model->withOne('sboard_companies', 'userID', $user->companyID);
+			$companyData = $context->template->model->withOne('sboard_companies', 'id', $user->companyID);
 			$positions = unserialize( $companyData->positions );
 			$locations = unserialize( $companyData->locations );
 			?>
 			<div class="dash-pop clearfix" data-swap-step-id="3">
 				<div class="pop-part">
-					<div class="create-form joingroup">
+					<div class="create-form w100">
 						<form>
 
 							<?php sboardDefineFormAction('ajax', 'createInvitedUser', SwapBoard\Controllers\UsersController::class); ?>
@@ -121,31 +121,31 @@
 								<div class="col-md-6 col-sm-12">
 									<div class="form-group">
 										<label for="invFName">First Name</label>
-										<input type="text" name="firstName" value="<?php echo $firstName; ?>" id="invFName" required>
+										<input type="text" class="sb-input-field" name="firstName" value="<?php echo $firstName; ?>" id="invFName" required>
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-12">
 									<div class="form-group">
 										<label for="invLName">Last Name</label>
-										<input type="text" name="lastName" value="<?php echo $lastName; ?>" id="invLName" required>
+										<input type="text" class="sb-input-field" name="lastName" value="<?php echo $lastName; ?>" id="invLName" required>
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-12">
 									<div class="form-group">
 										<label for="invEmail">Email</label>
-										<input type="email" name="invEmail" value="<?php echo $user->email; ?>" readonly>
+										<input type="email" class="sb-input-field" name="invEmail" value="<?php echo $user->email; ?>" readonly>
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-12">
 									<div class="form-group">
 										<label for="invTel">Phone Number</label>
-										<input type="tel" name="invTel" id="invTel">
+										<input type="tel" class="sb-input-field" name="invTel" id="invTel">
 									</div>
 								</div>
 								<div class="col-md-12 col-sm-12">
 									<div class="form-group">
 										<label for="invPosition">Position</label>
-										<select name="invPosition" id="invPosition">
+										<select name="invPosition" id="invPosition" class="sb-input-field">
 											<option value="">Select a Position</option>
 											<?php foreach ( $positions as $position ) : ?>
 												<option value="<?php echo sboardGetSlug( $position ); ?>"><?php echo $position; ?></option>
@@ -156,13 +156,13 @@
 								<div class="col-md-12 col-sm-12">
 									<div class="form-group">
 										<label for="invDescription">Short Job Description</label>
-										<textarea name="invDescription" id="invDescription"></textarea>
+										<textarea name="invDescription" class="sb-input-field sb-input-field--textarea" id="invDescription"></textarea>
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-12">
 									<div class="form-group">
 										<label for="invLocations">Location</label>
-										<select name="invLocations" id="invLocations">
+										<select name="invLocations" id="invLocations" class="sb-input-field">
 											<option value="">Select a Location</option>
 											<?php foreach ( $locations as $location ) : ?>
 												<option value="<?php echo sboardGetSlug( $location ); ?>"><?php echo $location; ?></option>
@@ -173,18 +173,18 @@
 								<div class="col-md-6 col-sm-12">
 									<div class="form-group">
 										<label for="invEID">Employee Identification Number</label>
-										<input type="text" name="invEID" id="invEID" required>
+										<input type="text" class="sb-input-field" name="invEID" id="invEID">
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-12">
 									<div class="form-group">
 										<label for="invPassword">Password</label>
-										<input type="password" name="invPassword" id="invPassword" required>
+										<input type="password" class="sb-input-field" name="invPassword" id="invPassword" required>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<button type="button" data-swap-button="create-invited" class="submit">Join</button>
+								<button type="button" data-swap-button="create-invited" class="sb-form-button sb-form-button--danger sb-form-button--big">Join</button>
 							</div>
 						</form>
 					</div>

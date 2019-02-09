@@ -5,7 +5,7 @@ defined('ABSPATH') or die('Not permitted!');
 
 abstract class BaseModel
 {
-	protected $dbDriver;
+	public $dbDriver;
 
 	public $errorsBag = [];
 
@@ -51,6 +51,14 @@ abstract class BaseModel
 	protected function readFrom( $tblName, $value, string $column = 'id')
 	{
 		$res = $this->dbDriver->get_row("SELECT * FROM {$this->dbDriver->prefix}{$tblName} WHERE {$column}='{$value}' LIMIT 1");
+
+		if ( $res ) unset($res->createdAt, $res->modifiedAt );
+		return $res;
+	}
+
+	protected function readFromMulti( $tblName, $value, string $column = 'id')
+	{
+		$res = $this->dbDriver->get_results("SELECT * FROM {$this->dbDriver->prefix}{$tblName} WHERE {$column} IN ({$value})");
 
 		if ( $res ) unset($res->createdAt, $res->modifiedAt );
 		return $res;

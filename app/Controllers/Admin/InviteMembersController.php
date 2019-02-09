@@ -137,8 +137,8 @@ class InviteMembersController extends BaseController
 		$this->sendInvite( $memberData->email );
 	}
 
-	public function inviteeResponded( string $hash, int $status )
+	public function inviteeResponded( string $hash, int $status, int $userID )
 	{
-		return $this->model->setInviteeStatus( $hash, $status );
+		return $this->model->setInviteeStatus( $hash, $status, $userID );
 	}
 }

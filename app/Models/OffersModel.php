@@ -28,6 +28,7 @@ class OffersModel extends BaseModel
 		if ( ! empty( $startDateTime ) ) $where .= " AND startDatetime BETWEEN '$startDateTime' AND '$endDateTime'";
 		if ( ! empty( $data['type'] ) ) $where .= " AND type='$data[type]'";
 
+		// echo "SELECT location, position, type, startDatetime, endDatetime FROM {$this->table} WHERE $where";
 		return $this->dbDriver->get_results("SELECT location, position, type, startDatetime, endDatetime FROM {$this->table} WHERE $where");
 	}
 

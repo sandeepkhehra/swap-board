@@ -17,12 +17,12 @@
 			<dd>My Offer</dd>
 		</a>
 	</li>
-	<!-- <li class="tabs_div">
-		<a href="#private-mesage">
+	<li class="tabs_div">
+		<a href="#private-messages">
 			<span><i class="fa fa-comments"></i></span>
 			<dd>Private Messages</dd>
 		</a>
-	</li> -->
+	</li>
 	<li class="tabs_div">
 		<a href="#plans-price">
 			<span><i class="fa fa-usd"></i></span>
@@ -39,6 +39,12 @@
 		<a href="#">
 			<span><i class="fa fa-comment-o"></i></span>
 			<dd>Forum</dd>
+		</a>
+	</li>
+	<li class="tabs_div">
+		<a href="#blogs">
+			<span><i class="fa fa-list"></i></span>
+			<dd>Blog</dd>
 		</a>
 	</li>
 	<li>

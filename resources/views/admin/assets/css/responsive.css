@@ -213,7 +213,7 @@
 		float: left;
 		width: 100%;
 	}
-	.top-header .listing-navigtion li {
+	.top-header .listing-navigation li {
 		float: left;
 		padding: 0 15px 0 0px;
 	}
@@ -364,20 +364,20 @@
         font-weight: normal;
         line-height: 16px;
     }
-	.top-header .listing-navigtion li {
+	.top-header .listing-navigation li {
 		float: left;
 		padding: 8px 15px;
 		width: 100%;
 		border-bottom: 1px solid #18c0da;
 	}
-	.top-header .listing-navigtion li a {
+	.top-header .listing-navigation li a {
 		color: #fff;
 		font-weight: 600;
 		font-size: 16px;
 		font-family: 'Lato', sans-serif;
 		line-height: 24px;
 	}
-	.top-header .listing-navigtion li.active a {
+	.top-header .listing-navigation li.active a {
 		    color: #fff;
 	}
 	.tooltiptext {
