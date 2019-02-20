@@ -50,7 +50,7 @@ endif;
 							<li class="active"><a href="#profile" class="tbntabs">Company Profile</a></li>
 						</ul>
 						<div class="icons-slide">
-							<span class="message-pop">
+							<span class="message-pop" data-pop="messages">
 								<a href="javascript:void(0)" class="message-chat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-envelope-o"></i> </a>
 								<div class="dropdown-menu " role="menu" aria-labelledby="dLabel">
 									<div class="shw-msg">
@@ -60,7 +60,7 @@ endif;
 													$userData = get_userdata( $chat->userID );
 												?>
 												<li style="white-space: nowrap;">
-													<div class="flex">
+													<div class="flex flex-ai-center">
 														<figure style="width: 30px; height: 30px;min-width: 30px; border: 1px solid rgba(0,0,0,0.3); border-radius: 50%; overflow: hidden">
 															<img src="<?php echo $userMeta['avatar']; ?>" alt="su" >
 														</figure>
@@ -75,7 +75,7 @@ endif;
 									</div>
 								</div>
 							</span>
-							<span class="message-pop">
+							<span class="message-pop" data-pop="notifications">
 								<a href="javascript:void(0)" class="chat-notc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell-o"></i></a>
 								<div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 									<div class="shw-msg">
@@ -84,7 +84,7 @@ endif;
 									</div>
 								</div>
 							</span>
-							<span class="message-pop profile">
+							<span class="message-pop profile" data-pop="profile">
 								<a href="javascript:void(0)" class="drop_dn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-sign-out"></i></a>
 								<div class="dropdown-menu " role="menu" aria-labelledby="dLabel">
 									<div class="shw-msg">

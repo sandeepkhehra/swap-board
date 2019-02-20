@@ -1,7 +1,7 @@
 <?php
 $positions = unserialize($companyData->positions);
 $locations = unserialize($companyData->locations);
-$offerController = SwapBoard\Controllers\OffersController::class;
+$offerController = SwapBoard\Controllers\Admin\OffersController::class;
 ?>
 
 <div class="show-div hidden" id="make-offer">

@@ -1,5 +1,5 @@
 <?php
-$offerController = SwapBoard\Controllers\OffersController::class;
+$offerController = SwapBoard\Controllers\Admin\OffersController::class;
 ?>
 
 <div class="show-div hidden" id="find-offer">
@@ -107,5 +107,26 @@ $offerController = SwapBoard\Controllers\OffersController::class;
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+
+<div class="invitation" data-popup="review-offer">
+	<div class="popup-structure">
+		<div class="john-whit clearfix">
+			<div class="left-cont"><h3 data-offer-position></h3></div>
+			<p data-offer-description></p>
+			<div class="clearfix" data-offer-details></div>
+
+			<form>
+				<textarea name="comment" placeholder="Enter your comments here."></textarea>
+				<?php sboardDefineFormAction( 'ajax', 'applyOffer', SwapBoard\Controllers\Admin\AppliedOffersController::class ); ?>
+				<div class="form-group clearfix">
+					<input type="hidden" name="offerID" value="0">
+					<button type="button" data-swap-button="apply-offer" class="sb-form-button margin--35t sb-form-button--danger">Apply for this Offer</button>
+				</div>
+			</form>
+		</div>
+
+		<span class="popup-close" data-swap-button="popup-close">&times;</span>
 	</div>
 </div>

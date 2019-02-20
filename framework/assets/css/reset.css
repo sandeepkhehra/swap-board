@@ -422,6 +422,9 @@ img {max-width: 100%;}
 .margin--35b {
 	margin-bottom: 35px;
 }
+.margin--35b {
+	margin-bottom: 35px;
+}
 
 /* Display properties */
 .flex {
@@ -435,4 +438,7 @@ img {max-width: 100%;}
 }
 .flex.flex-jc-sb {
 	justify-content: space-between;
+}
+.flex.flex-jc-fe {
+	justify-content: flex-end;
 }

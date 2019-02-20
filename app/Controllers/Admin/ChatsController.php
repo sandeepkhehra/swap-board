@@ -20,10 +20,10 @@ class ChatsController extends BaseController
 		$postData['clientID'] = $postData['id'];
 		unset( $postData['id'] );
 
-		if ( ! $this->dataExists( $postData['clientID'], 'clientID' ) &&
-			 ! $this->dataExists( $postData['companyID'], 'companyID' ) &&
-		 	 ! $this->dataExists( $postData['userID'], 'userID' )
-		) $this->model->insert( $postData );
+		/** We need to check if the user is trying to create a new chat with the old client
+		 * So, check if the current user ID AND the client ID doesn't exist already in same row.
+		 */
+		if ( ! $this->dataExists( $postData['clientID'], 'clientID' ) ) $this->model->insert( $postData );
 
 		if ( ! empty( $this->hasErrors() ) ) :
 			$return['type'] = 'error';
@@ -67,7 +67,8 @@ class ChatsController extends BaseController
 		global $user_ID;
 
 		$tblName = $this->model->dbDriver->prefix . 'sboard_chat_messages';
-		$chatsData = $this->model->dbDriver->get_results("SELECT userID,content,ts FROM $tblName WHERE chatID IN ($chatIDs) AND userID <> $user_ID AND status = 0");
+		// echo "SELECT id,userID,content,ts FROM $tblName WHERE chatID IN ($chatIDs) AND userID <> $user_ID AND status = 0";
+		$chatsData = $this->model->dbDriver->get_results("SELECT id,userID,content,ts FROM $tblName WHERE chatID IN ($chatIDs) AND userID <> $user_ID AND status = 0");
 
 		return $chatsData;
 	}
@@ -88,6 +89,7 @@ class ChatsController extends BaseController
 			$chatIDs = implode( ',', $chatIDs );
 
 			$chatsData = $this->allUnreadChats( $chatIDs );
+			$chatsCount = count( $chatsData );
 
 			if ( $chatsCount > $postData['cacheCount'] ) :
 				$return['type'] = 'success';
@@ -116,7 +118,7 @@ class ChatsController extends BaseController
 			foreach ( $chatData as $chat ) :
 				$avatar = $userController->getUserMeta( $chat->userID )['avatar'];
 
-				$html['body'] .= '<div class="chat-bbl'. ($chat->userID == $user_ID ? " client-chat" : "") .'">
+				$html['body'] .= '<div class="chat-bbl'. ($chat->userID == $user_ID ? " client-chat" : "") .'"  data-chat-content-id="'. $chat->id .'">
 					<div class="img-chat"><img src="'. $avatar .'" alt="user"></div>
 					<div class="bubble '. ($chat->userID == $user_ID ? "me" : "you") .'">'. $chat->content .'</div>
 				</div>';

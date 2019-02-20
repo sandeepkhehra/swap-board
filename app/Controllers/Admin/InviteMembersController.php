@@ -3,15 +3,12 @@ namespace SwapBoard\Controllers\Admin;
 
 defined( 'ABSPATH' ) or die( 'Not permitted!' );
 
-use SwapBoard\Traits\MailerTrait;
 use SwapBoard\Models\InviteMembersModel;
 use SwapBoard\Controllers\BaseController;
 use SwapBoard\Controllers\Menus\EmailTemplatesMenuController;
 
 class InviteMembersController extends BaseController
 {
-	use MailerTrait;
-
 	public function __construct()
 	{
 		parent::__construct( new InviteMembersModel );

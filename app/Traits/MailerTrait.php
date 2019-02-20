@@ -3,8 +3,6 @@ namespace SwapBoard\Traits;
 
 defined('ABSPATH') or die('Not permitted!');
 
-use SwapBoard\Helpers\ViewsErrorException;
-
 trait MailerTrait
 {
 	public function sendEmail( string $to, string $subject, string $content )

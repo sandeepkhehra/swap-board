@@ -65,7 +65,7 @@ sboardInclude('admin._header', compact('title', 'companyData', 'userMeta', 'chat
 
 							<?php sboardInclude('admin._chat', compact('user_ID', 'chats')); ?>
 
-							<?php sboardInclude('admin._plansPrice'); ?>
+							<?php sboardInclude('admin._plansPrice', compact( 'user_ID' ) ); ?>
 
 							<?php sboardInclude('admin._archiveOffers', compact('offers')); ?>
 
@@ -156,119 +156,6 @@ sboardInclude('admin._header', compact('title', 'companyData', 'userMeta', 'chat
 			</div>
         </div>
     </section>
-				<!-- ------------Find-offer popup-------------- -->
-		<div class="invitation offer" data-popup="find-offer">
-			<div class="popup-structure">
-				<div class="john-whit clearfix">
-					<div class="left-cont">
-						<h3>Airport Customer Service Agent</h3>
-					</div>
-					<p>As a Customer Service Agent,  you will be an important part of our customers' travel experience. You 'll assist customer with
-					check-in, boarding/de-boarding our bus to/from Houston, and addressing questions related to checked baggages. In this role, it's vital
-					to create a welcoming environment for our customers.
-					</p>
-					<div class="offer-swswp clearfix">
-						<span>
-							<strong>Offer shift swap</strong>
-							<p>May 29, 2016 </p>
-							<p>7am-12pm</p>
-						</span>
-						<span>
-							<strong>Location</strong>
-							<p>Dallas-Fort Worth Airport (DWF)</p>
-						</span>
-					</div>
-					<form>
-						<div class="form-group offertxt clearfix">
-							<label for="term">Your comment</label>
-							<textarea></textarea>
-						</div>
-						<div class="form-group search clearfix">
-							<button type="submit" class="accept">Accept</button>
-						</div>
-					</form>
-				</div>
-				<a class="john-close" data-popup-close="find-offer" href="#">x</a>
-			</div>
-		</div>
-				<!-- ------------email-blast popup-------------- -->
-		<div class="invitation offer" data-popup="email-blast">
-			<div class="popup-structure">
-				<div class="blasstt" clearfix">
-					<h3>Email Blast</h3>
-					<p>Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo debitis admodum, mazim omittantur sea ne, ei his eros dicit altera.
-						Viris decore cu eum, mea id modus petentium voluptatum. Amet abhorreant mei ad, eum</p>
-
-					<div class="sub-hom">
-						<ul>
-							<li class="mai-heading">
-								<span class="straw">
-									<h5>Date</h5>
-								</span>
-								<span class="straw">
-									<h5>Time</h5>
-								</span>
-								<span class="straw">
-									<h5>Type</h5>
-								</span>
-							</li>
-							<li>
-								<span class="straw">
-									<input type="checkbox">
-									<h5>May,2016</h5>
-								</span>
-								<span class="straw">
-									<h5>7am-12am</h5>
-								</span>
-								<span class="straw">
-									<h5>Shift Type</h5>
-								</span>
-							</li>
-							<li>
-								<span class="straw">
-									<input type="checkbox">
-									<h5>May,2016</h5>
-								</span>
-								<span class="straw">
-									<h5>7am-12am</h5>
-								</span>
-								<span class="straw">
-									<h5>Shift Type</h5>
-								</span>
-							</li>
-							<li>
-								<span class="straw">
-									<input type="checkbox">
-									<h5>May,2016</h5>
-								</span>
-								<span class="straw">
-									<h5>7am-12am</h5>
-								</span>
-								<span class="straw">
-									<h5>Shift Type</h5>
-								</span>
-							</li>
-							<li>
-								<span class="straw">
-									<input type="checkbox">
-									<h5>May,2016</h5>
-								</span>
-								<span class="straw">
-									<h5>7am-12am</h5>
-								</span>
-								<span class="straw">
-									<h5>Shift Type</h5>
-								</span>
-							</li>
-						</ul>
-
-                    </div>
-					<a href="#" class="buy-pop">Buy and Send</a>
-
-				</div>
-				<a class="john-close" data-popup-close="email-blast" href="#">x</a>
-			</div>
-		</div>
 
 	<!-- ----FAQ-popup-- -->
 		<div class="faq-popup" data-popup="faq-popup">

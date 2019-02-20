@@ -66,7 +66,21 @@ CREATE TABLE IF NOT EXISTS `###sboard_offers`
 	`startDatetime` DATETIME,
 	`endDatetime` DATETIME,
 	`type` TINYINT NOT NULL,
-	`status` TINYINT DEFAULT 1,
+	`status` TINYINT DEFAULT 0,
+	`createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,
+	`modifiedAt` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`)
+) ~~~COLLATE;
+
+-- Applied Offers table.
+
+CREATE TABLE IF NOT EXISTS `###sboard_applied_offers`
+(
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`offerID` INT(10) NOT NULL,
+	`userID` INT(10) NOT NULL,
+	`comment` TEXT,
+	`status` TINYINT DEFAULT 0,
 	`createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,
 	`modifiedAt` DATETIME ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)

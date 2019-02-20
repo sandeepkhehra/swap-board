@@ -42,17 +42,16 @@ $chatsController = new ChatsController;
 				<div class="right">
 					<div class="chat active-chat" data-chat-space>
 						<div class="conversation-start"><span></span></div>
-						<div class="flex" style="height: 100%; justify-content: flex-end; flex-direction: column"></div>
+						<div class="conversation-holder" style="height: 100%; justify-content: flex-end; flex-direction: column;margin-top:110px"></div>
 					</div>
 
 					<div class="write" data-chat-option>
-						<form class="flex flex-jc-sb flex-ai-center padding--20l padding--20r">
+						<form class="flex flex-jc-fe flex-ai-center padding--20l padding--20r">
 							<?php sboardDefineFormAction('ajax', 'sendChat', SwapBoard\Controllers\Admin\ChatMessagesController::class); ?>
-							<input type="text" name="content" placeholder="Type your message here...">
+							<input type="text" name="content" placeholder="Type your message here..." data-emojiable="true">
 							<input type="hidden" name="userID" value="<?php echo $user_ID; ?>">
 							<input type="hidden" name="chatID" value="">
-							<span data-swap-button="send-chat" title="Send message"><i class="fa fa-paper-plane" aria-hidden="true"></i>
-						</span>
+							<span data-swap-button="send-chat" title="Send message"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
 						</form>
 					</div>
 				</div>
@@ -63,49 +62,23 @@ $chatsController = new ChatsController;
 		<p>No chats found! Go to your <a href="#member-list" class="tbntabs">Members List</a> to chat with someone!</p>
 		<?php endif; ?>
 	</div>
-
-	<div id="paypal-button"></div>
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
-<script>
-  paypal.Button.render({
-    // Configure environment
-    env: 'sandbox',
-    client: {
-    //   sandbox: 'demo_sandbox_client_id',
-    //   sandbox: 'Johnsemail89-facilitator_api1.gmail.com',
-      sandbox: 'AcMOZGEoWmg83yQIf2MufsSKs-gdvOdnQWtCUZP1Td9imokH5bysoL4a5SXpm3UeKLNDJ1P0aW3hxLzL',
-      production: 'As-zikyfmLySOA4c70aSRCZQkJuqA.fwELw1z2TtR3W-ebC.E8uLJeYA'
-    },
-    // Customize button (optional)
-    locale: 'en_US',
-    style: {
-      size: 'large',
-      color: 'black',
-      shape: 'rect',
-    },
-
-    // Enable Pay Now checkout flow (optional)
-    commit: true,
-
-    // Set up a payment
-    payment: function(data, actions) {
-      return actions.payment.create({
-        transactions: [{
-          amount: {
-            total: '0.01',
-            currency: 'USD'
-          }
-        }]
-      });
-    },
-    // Execute the payment
-    onAuthorize: function(data, actions) {
-      return actions.payment.execute().then(function() {
-        // Show a confirmation message to the buyer
-        window.alert('Thank you for your purchase!');
-      });
-    }
-  }, '#paypal-button');
-
-</script>
 </div>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script>
+	jQuery(function() {
+		if ($('#private-messages').is(':visible')) {
+			const messageBody = document.querySelector('.active-chat')
+			messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight
+			alert('ss')
+		}
+
+		window.emojiPicker = new EmojiPicker({
+			emojiable_selector: '[data-emojiable=true]',
+			assetsPath: '<?php echo plugin_dir_url(__FILE__); ?>assets/images',
+			popupButtonClasses: 'fa fa-smile-o'
+		});
+
+		window.emojiPicker.discover();
+	})
+</script>

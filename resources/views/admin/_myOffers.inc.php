@@ -1,7 +1,8 @@
 <?php
 $positions = unserialize($companyData->positions);
 $locations = unserialize($companyData->locations);
-$offerController = SwapBoard\Controllers\OffersController::class;
+$offerController = SwapBoard\Controllers\Admin\OffersController::class;
+$appliedOffersController = new SwapBoard\Controllers\Admin\AppliedOffersController;
 ?>
 
 <div class="show-div hidden" id="my-offer">
@@ -26,27 +27,41 @@ $offerController = SwapBoard\Controllers\OffersController::class;
 									$date = (new DateTime($offer->startDatetime))->format('M d, Y');
 									$startTime = (new DateTime($offer->startDatetime))->format('g:i A');
 									$endTime = (new DateTime($offer->endDatetime))->format('g:i A');
+									$appliedOffers = $appliedOffersController->get( $offer->id );
+									$alreadyApplied = $appliedOffersController->isOfferActive( $offer->id );
 								?>
 								<tr>
 									<td class="<?php echo $offer->status == 1 ? 'accept' : 'expired'; ?>">
 										<?php echo $date; ?>
-										<!-- <div class="tooltiptext">
-											<h5>1 person wants to work your shift!</h5>
-											<aside>Comment:</aside>
-											<p>
-												Lorem ipsum dolor sit amet, est ei doming perfecto iudicabit. Ius an probo
-												debitis admodum, mazim omittantur sea ne, ei his eros dicit altera. Viris
-												decore cu eum, mea id modus petentium voluptatum. Amet abhorreant mei ad,
-												eum
-											</p>
-											<div class="verificatio">
-												<div class="save-profl"><a href="#">Accept and hide</a></div>
-												<div class="save-profl">
-													<a href="#" class="yellow">Accept and Keep active</a>
+
+										<?php if ( ! empty( $appliedOffers ) && count( $appliedOffers ) > 0 && ! $alreadyApplied ) :
+											$offersCount = count( $appliedOffers );
+											?>
+										<div class="tooltip-text">
+											<h3><?php printf( _n( '%s person', '%s people', $offersCount ), number_format_i18n( $offersCount ) ); ?> wants to work your shift!</h3>
+
+											<?php foreach ( $appliedOffers as $appliedOffer ) : ?>
+												<aside>Comment:</aside>
+												<p><?php echo $appliedOffer->comment; ?></p>
+												<div class="flex margin--35t margin--35b">
+													<form style="margin: 0">
+														<?php sboardDefineFormAction('ajax', 'acceptOffer', SwapBoard\Controllers\Admin\AppliedOffersController::class); ?>
+														<input type="hidden" name="id" value="<?php echo $appliedOffer->id; ?>">
+														<input type="hidden" name="offerID" value="<?php echo $appliedOffer->offerID; ?>">
+														<input type="hidden" name="userID" value="<?php echo $appliedOffer->userID; ?>">
+														<button class="sb-form-button sb-form-button--info" data-swap-button="accept-offer"><i class="fa fa fa-check"></i> Accept</button>
+													</form>
+													<form style="margin: 0">
+														<?php sboardDefineFormAction('ajax', 'declineOffer', SwapBoard\Controllers\Admin\AppliedOffersController::class); ?>
+														<input type="hidden" name="id" value="<?php echo $appliedOffer->id; ?>">
+														<button class="sb-form-button sb-form-button--danger" data-swap-button="decline-offer"><i class="fa fa fa-times"></i> Decline</button>
+													</form>
 												</div>
-												<div class="save-profl"><a href="#" class="canl-btn">Decline</a></div>
-											</div>
-										</div> -->
+											<?php endforeach; ?>
+
+										</div>
+										<?php endif; ?>
+
 									</td>
 									<td><?php echo $startTime; ?> &mdash; <?php echo $endTime; ?></td>
 									<td><?php echo $offerController::SHIFT_TYPES[ $offer->type ]; ?></td>

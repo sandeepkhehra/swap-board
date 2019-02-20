@@ -4,9 +4,13 @@ namespace SwapBoard\Controllers;
 defined( 'ABSPATH' ) or die( 'Not permitted!' );
 
 use SwapBoard\Models\BaseModel;
+use SwapBoard\Traits\MailerTrait;
+use SwapBoard\Traits\NotificationTrait;
 
 abstract class BaseController
 {
+	use NotificationTrait, MailerTrait;
+
 	protected $model;
 
 	public function __construct( BaseModel $model )

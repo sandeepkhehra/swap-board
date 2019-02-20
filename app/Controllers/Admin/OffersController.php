@@ -1,9 +1,10 @@
 <?php
-namespace SwapBoard\Controllers;
+namespace SwapBoard\Controllers\Admin;
 
 defined('ABSPATH') or die('Not permitted!');
 
 use SwapBoard\Models\OffersModel;
+use SwapBoard\Controllers\BaseController;
 
 class OffersController extends BaseController
 {
@@ -42,7 +43,7 @@ class OffersController extends BaseController
 
 	public function get()
 	{
-		$this->model->readAll();
+		$this->model->getActiveOffers();
 	}
 
 	public function findOffers()
@@ -67,6 +68,11 @@ class OffersController extends BaseController
 		}
 
 		echo json_encode($return);
+	}
+
+	public function updateOfferStatus( $data )
+	{
+		return $this->model->update( $data );
 	}
 
 	public function delete()

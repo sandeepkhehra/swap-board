@@ -13,9 +13,14 @@ class AdminPanelTemplateController extends BaseController implements ViewTemplat
 
 	public $css = [
 		'style.css',
+		'emoji.css',
 	];
 
 	public $js = [
+		'config.js',
+		'util.js',
+		'jquery.emojiarea.js',
+		'emoji-picker.js',
 		'app.js',
 	];
 

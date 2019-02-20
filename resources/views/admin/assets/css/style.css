@@ -67,12 +67,15 @@
 .dropdown-menu ul {
 	position: relative;
 	margin: 0;
+	max-height: 350px;
+	overflow-y: auto;
 }
 .dropdown-menu ul li {
 	position: relative;
 	display: inline-block;
 	width: 100%;
 	border-bottom: 1px solid #8b8e9c;
+	padding: 3px 0;
 }
 
 .dropdown-menu ul li a i {
@@ -512,8 +515,8 @@ a.sort-by:after {
 }
 .popup-structure .popup-close {
 	position: absolute;
-    top: -90px;
-    right: -10px;
+    top: -40px;
+    right: 15px;
     font-size: 60px;
     font-weight: 600;
     cursor: pointer;
@@ -521,6 +524,9 @@ a.sort-by:after {
 }
 .popup-structure .popup-close:hover {
 	color: #CCC;
+	background: none;
+	transform: none;
+	line-height: 100%;
 }
 .john-whit .left-cont {
 	float: left;
@@ -542,7 +548,7 @@ a.sort-by:after {
 }
 .john-whit .right-img {
 	float: right;
-	width: 25%;
+	width: 100px;
 }
 .john-whit p {
 	font-size: 15px;
@@ -636,68 +642,6 @@ a.sort-by:after {
 	width: 110px;
 	font-size: 13px;
 }
-.invitation-form.offer .search {
-	flex: auto;
-}
-.invitation-form .search button {
-	width: 100%;
-	height: 40px;
-	border: 1px solid #cc0057;
-	border-radius: 4px;
-	background: #cc0057;
-	color: #fff;
-	font-size: 18px;
-	font-weight: 700;
-	margin-top: 29px;
-	margin-left: 15px;
-}
-/*---------find-offer popup-----*/
-.invitation.offer .popup-structure {
-	max-width: 850px;
-}
-.invitation.offer .offer-swswp span {
-	float: left;
-	padding-right: 10px;
-}
-.invitation.offer .offer-swswp strong {
-	font-size: 16px;
-	display: block;
-	padding-bottom: 10px;
-}
-.invitation.offer .offer-swswp {
-	padding-bottom: 15px;
-}
-.invitation.offer .offer-swswp p {
-	width: auto;
-	padding: 0;
-}
-.invitation.offer .form-group.offertxt {
-	display: block;
-	width: 100%;
-	float: left;
-	padding: 10px 0 10px 0;
-}
-.invitation.offer .offertxt label {
-	display: block;
-	width: 100%;
-}
-.invitation.offer .offertxt textarea {
-	width: 100%;
-	height: 124px;
-	border-radius: 2px;
-	border: 1px solid #ccc;
-}
-.invitation.offer .search button {
-	width: 130px;
-	height: 40px;
-	border: 1px solid #cc0057;
-	border-radius: 4px;
-	max-width: 200px;
-	background: #cc0057;
-	color: #fff;
-	font-size: 18px;
-	font-weight: 700;
-}
 /*-----------My offers---------*/
 .table-data-provider tr.expired {
 	color: #d7d7d7;
@@ -743,12 +687,11 @@ a.sort-by:after {
 	display: inline-block;
 }
 
-.tooltiptext {
+.tooltip-text {
 	visibility: hidden;
 	width: 700px;
 	background-color: #fff;
-	color: #fff;
-	border-radius: 0px;
+	border-radius: 3px;
 	position: absolute;
 	z-index: 1;
 	top: 52px;
@@ -760,32 +703,19 @@ a.sort-by:after {
 	display: inline-block;
 	padding: 20px;
 	text-align: left;
+	box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.22);
 }
-.tooltiptext h5 {
-	font-size: 20px;
-	font-weight: 700;
-	font-family: "Lato", sans-serif;
-	color: #000;
-	padding-bottom: 10px;
-}
-.tooltiptext .comment {
-	margin: 10px 0;
-	display: inline-block;
-}
-.tooltiptext .comment aside {
-	font-size: 16px;
+.tooltip-text h3 {
 	font-weight: 600;
-	font-family: "Lato", sans-serif;
-	color: #000;
-	padding-bottom: 10px;
+	margin-top: 10px ;
+	margin-bottom: 20px ;
 }
-.tooltiptext .comment p {
-	font-size: 16px;
-	font-weight: 400;
-	font-family: "Lato", sans-serif;
-	color: #000;
+.tooltip-text p {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-.tooltiptext::after {
+.tooltip-text::after {
 	content: "";
 	position: absolute;
 	top: -12px;
@@ -798,7 +728,7 @@ a.sort-by:after {
 	border-bottom: 12px solid #fff;
 }
 
-.accept:hover .tooltiptext {
+.accept:hover .tooltip-text {
 	visibility: visible;
 	opacity: 1;
 }
@@ -849,19 +779,6 @@ a.sort-by:after {
 	font-weight: 700;
 	line-height: 55px;
 	flex: 1;
-}
-.sb-plan-details-wrap .sb-plan-price .sb-plan-button {
-	padding: 10px 16px;
-	border: 1px solid #cc0057;
-	border-radius: 4px;
-	max-width: 140px;
-	background: #cc0057;
-	color: #fff;
-	font-size: 18px;
-	font-weight: 700;
-	text-align: center;
-	flex: 1;
-	display: block;
 }
 .sb-plans-wrap p {
 	font-size: 16px;
@@ -1122,34 +1039,6 @@ a.sort-by:after {
 	background-color: #eceff1;
 	font-weight: 400;
 }
-.container-left .right .write .write-link.attach:before {
-	display: inline-block;
-	width: 20px;
-	height: 42px;
-	content: "";
-	background-image: url("image/attachment.png");
-	background-repeat: no-repeat;
-	background-position: center;
-}
-.container-left .right .write .write-link.smiley:before {
-	display: inline-block;
-	width: 20px;
-	height: 42px;
-	content: "";
-	background-image: url("image/smiley.png");
-	background-repeat: no-repeat;
-	background-position: center;
-}
-.container-left .right .write .write-link.send:before {
-	display: inline-block;
-	width: 20px;
-	height: 42px;
-	margin-left: 11px;
-	content: "";
-	background-image: url("image/send.png");
-	background-repeat: no-repeat;
-	background-position: center;
-}
 .container-left .right .bubble {
 	font-size: 16px;
 	position: relative;
@@ -1159,6 +1048,8 @@ a.sort-by:after {
 	padding: 13px 14px;
 	vertical-align: top;
 	border-radius: 5px;
+	max-width: 90%;
+    word-break: break-all;
 }
 .container-left .right .bubble:before {
 	position: absolute;
@@ -1174,8 +1065,6 @@ a.sort-by:after {
 	color: #1a1a1a;
 	background-color: #dffbff;
 	align-self: flex-start;
-	-webkit-animation-name: slideFromLeft;
-	animation-name: slideFromLeft;
 }
 .container-left .right .bubble.you:before {
 	left: -3px;
@@ -1185,8 +1074,6 @@ a.sort-by:after {
 	color: #000;
 	background-color: #eceff1;
 	align-self: flex-end;
-	-webkit-animation-name: slideFromRight;
-	animation-name: slideFromRight;
 }
 .container-left .right .bubble.me:before {
 	right: -3px;
@@ -1207,31 +1094,20 @@ a.sort-by:after {
 	margin-left: 12px;
 }
 .container-left .right .conversation-start {
-	position: relative;
-	width: 100%;
-	margin: 25px 0;
+	position: fixed;
+	width: 53.4%;
+	padding: 25px 0;
 	text-align: left;
 	border-bottom: 1px solid #ccc;
-	padding-bottom: 10px;
+	z-index: 99;
+	background: #fff;
+	display: flex;
 }
 .container-left .right .conversation-start span {
 	font-size: 22px;
 	display: inline-block;
 	color: #000;
 	font-weight: 700;
-}
-.container-left .right .conversation-start span:after {
-	position: absolute;
-	top: 10px;
-	display: inline-block;
-	width: 8px;
-	height: 8px;
-	content: "";
-	background-color: #2fd420;
-	border-radius: 50%;
-}
-.container-left .right .conversation-start span:after {
-	right: 0;
 }
 [data-swap-button="send-chat"] {
 	cursor: pointer;
@@ -1241,46 +1117,6 @@ a.sort-by:after {
 	color: rgba(0,0,0,0.8);
 }
 
-@keyframes slideFromLeft {
-	0% {
-		margin-left: -200px;
-		opacity: 0;
-	}
-	100% {
-		margin-left: 0;
-		opacity: 1;
-	}
-}
-@-webkit-keyframes slideFromLeft {
-	0% {
-		margin-left: -200px;
-		opacity: 0;
-	}
-	100% {
-		margin-left: 0;
-		opacity: 1;
-	}
-}
-@keyframes slideFromRight {
-	0% {
-		margin-right: -200px;
-		opacity: 0;
-	}
-	100% {
-		margin-right: 0;
-		opacity: 1;
-	}
-}
-@-webkit-keyframes slideFromRight {
-	0% {
-		margin-right: -200px;
-		opacity: 0;
-	}
-	100% {
-		margin-right: 0;
-		opacity: 1;
-	}
-}
 /*=======Faq=========*/
 .sb-plans-wrap .faq-sec p {
 	font-size: 16px;

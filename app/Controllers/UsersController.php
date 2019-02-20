@@ -142,7 +142,7 @@ class UsersController extends BaseController
 		$membersData = (object) $this->model->withOne('sboard_members', 'userID', $postData['id']);
 
 		if ( $user ) :
-			$user->meta_data = get_user_meta( $user->ID, '__swap-user', true );
+			$user->meta_data = $this->getUserMeta( $user->ID );
 			$return['type'] = 'success';
 			$return['data'] = $user;
 			$return['memberData'] = $membersData;
