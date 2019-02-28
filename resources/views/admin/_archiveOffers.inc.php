@@ -17,7 +17,7 @@
 						<tbody>
 							<?php if ( ! empty( $offers ) ) :
 								foreach ( $offers as $offer ) :
-									if ( $offer->status != 1) : ?>
+									if ( $offer->status == 2) : ?>
 										<tr>
 											<td>May29, 2016</td>
 											<td>7am-12am</td>

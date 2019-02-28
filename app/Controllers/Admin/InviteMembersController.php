@@ -95,7 +95,7 @@ class InviteMembersController extends BaseController
 	private function generateInviteLink( int $companyID, string $userEmail )
 	{
 		$hash = md5( $companyID . $userEmail );
-		$link = "http://localhost/swap/sample-page/";
+		$link = get_permalink( PLUGIN_ADMIN_LAND_PAGE );
 		$link = $link . "?invite={$hash}";
 
 		/** @todo maybe make `hash` column unique in db schema */
@@ -131,7 +131,15 @@ class InviteMembersController extends BaseController
 
 		if ( ! $memberData ) return;
 
-		$this->sendInvite( $memberData->email );
+		if ( $this->sendInvite( $memberData->email ) ) :
+			$return['type'] = 'success';
+			$return['msg'] = 'Invitation resent successfully!';
+		else:
+			$return['type'] = 'error';
+			$return['msg'] = 'Something went wrong.';
+		endif;
+
+		echo json_encode( $return );
 	}
 
 	public function inviteeResponded( string $hash, int $status, int $userID )

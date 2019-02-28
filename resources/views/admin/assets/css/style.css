@@ -1,3 +1,4 @@
+@import '_partials/_offers.css';
 .weekDays-selector input {
 	display: none !important;
 }
@@ -421,6 +422,9 @@ tab-section
 .sb-row-action.sb-row-action--small {
 	font-size: 15px;
 }
+.sb-row-action:hover {
+	opacity: 1;
+}
 
 /*==========================
 member-list
@@ -505,7 +509,7 @@ a.sort-by:after {
 	width: 90%;
 	padding: 35px;
 	position: absolute;
-	top: 42%;
+	top: 50%;
 	left: 50%;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
@@ -642,13 +646,7 @@ a.sort-by:after {
 	width: 110px;
 	font-size: 13px;
 }
-/*-----------My offers---------*/
-.table-data-provider tr.expired {
-	color: #d7d7d7;
-}
-.table-data-provider tr.expired .show {
-	color: #d7d7d7;
-}
+
 .offer .pagination {
 	display: flex;
 	background: #fff;
@@ -680,57 +678,6 @@ a.sort-by:after {
 .offer .pagination a.next {
 	color: #17bcdc;
 	float: right;
-}
-
-.accept {
-	position: relative;
-	display: inline-block;
-}
-
-.tooltip-text {
-	visibility: hidden;
-	width: 700px;
-	background-color: #fff;
-	border-radius: 3px;
-	position: absolute;
-	z-index: 1;
-	top: 52px;
-	left: 50%;
-	margin-left: -67px;
-	opacity: 0;
-	transition: opacity 0.3s;
-	max-width: 750px;
-	display: inline-block;
-	padding: 20px;
-	text-align: left;
-	box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.22);
-}
-.tooltip-text h3 {
-	font-weight: 600;
-	margin-top: 10px ;
-	margin-bottom: 20px ;
-}
-.tooltip-text p {
-	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.tooltip-text::after {
-	content: "";
-	position: absolute;
-	top: -12px;
-	left: 27px;
-	margin-left: -5px;
-	width: 0;
-	height: 0;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
-	border-bottom: 12px solid #fff;
-}
-
-.accept:hover .tooltip-text {
-	visibility: visible;
-	opacity: 1;
 }
 .activt-sebsert {
 	font-size: 18px;

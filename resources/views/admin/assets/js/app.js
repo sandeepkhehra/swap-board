@@ -65,18 +65,24 @@ jQuery(function($) {
 					if (d.data != '') {
 						let _tempArr = []
 						d.data.map(x => {
-							console.log('s', x)
-							_tempArr[x.id] = {
-								description: x.description,
-								position: x.position,
-								location: x.location,
-								type: x.type,
-								date: x.date,
-								end: x.endTime,
-								start: x.startTime,
+							if ( $.inArray(x.id, d.appliedTo ) == -1 ) {
+								_tempArr[x.id] = {
+									description: x.description,
+									position: x.position,
+									location: x.location,
+									type: x.type,
+									date: x.date,
+									end: x.endTime,
+									start: x.startTime,
+								}
+
+								$('#findOfferTable tbody').append('<tr data-swap-button="review-offer" data-swap-pop-type="review-offer" data-offer-id="'+x.id+'" style="cursor:pointer"><td>' + x.position + '</td><td>' + x.location + '</td><td>' + x.date + '</td><td>' + x.startTime + ' &mdash; ' + x.endTime + '</td><td>' + x.type + '</td></tr>')
 							}
-							$('#findOfferTable tbody').append('<tr data-swap-button="review-offer" data-swap-pop-type="review-offer" data-offer-id="'+x.id+'"><td>' + x.position + '</td><td>' + x.location + '</td><td>' + x.date + '</td><td>' + x.startTime + ' &mdash; ' + x.endTime + '</td><td>' + x.type + '</td></tr>')
 						})
+
+						if ( _tempArr.length <= 0 ) {
+							$('#findOfferTable tbody').html('<tr><td colspan="5">No result found!</td></tr>')
+						}
 
 						localStorage.setItem('__swapOffers', JSON.stringify(_tempArr))
 					} else {
@@ -132,6 +138,54 @@ jQuery(function($) {
 						})
 					}
 				}
+				break
+
+			case 'edit-offer':
+				processFormData(formData).then( resp => {
+					if ( resp.type === 'success' ) {
+						const offerData = resp.data
+						const dateObj = new Date(resp.data.startDatetime)
+						const dateObjEnd = new Date(resp.data.endDatetime)
+						const date = dateObj.getFullYear()+'-'+("0" + (dateObj.getMonth() + 1)).slice(-2)+'-'+dateObj.getDate()
+						const startTime = ('0' + dateObj.getHours()).slice(-2)+':'+('0' + dateObj.getMinutes()).slice(-2)+':'+('0' + dateObj.getSeconds()).slice(-2)
+						const endTime = ('0' + dateObjEnd.getHours()).slice(-2)+':'+('0' + dateObjEnd.getMinutes()).slice(-2)+':'+('0' + dateObjEnd.getSeconds()).slice(-2)
+
+						$('[data-popup="edit-offer"]').find('input[name="id"]').val( offerData.id )
+						$('[data-popup="edit-offer"]').find('select[name="location"]').val(  offerData.location )
+						$('[data-popup="edit-offer"]').find('select[name="position"]').val(  offerData.position )
+						$('[data-popup="edit-offer"]').find('textarea[name="description"]').val(  offerData.description )
+						$('[data-popup="edit-offer"]').find('input[name="date"]').val( date )
+						$('[data-popup="edit-offer"]').find('input[name="startTime"]').val(  startTime )
+						$('[data-popup="edit-offer"]').find('input[name="endTime"]').val(  endTime )
+						$('[data-popup="edit-offer"]').find('input[name="type"]').each(function() {
+							if ($(this).val() == offerData.type ) {
+								$(this).prop('checked', true)
+							}
+						})
+
+						SwapBoard.triggerPopup(e, 'open', popType);
+					}
+				} )
+				break
+
+			case 'update-offer':
+				processFormData(formData).then( resp => resp.type === 'success' ? location.reload() : '')
+				break
+
+			case 'offer-visibility':
+				processFormData(formData).then( resp => {
+					if ( resp.type === 'success' ) {
+						if ( $this.siblings('input[name=status]').val() == '2' ) {
+							$this.closest('tr').addClass('is-hidden')
+							$this.html('<i class="fa fa-eye"></i> Show')
+							$this.siblings('input[name=status]').val('0')
+						} else {
+							$this.closest('tr').removeClass('is-hidden')
+							$this.html('<i class="fa fa-eye-slash"></i> Hide')
+							$this.siblings('input[name=status]').val('2')
+						}
+					}
+				} )
 				break
 
 			case 'invite-members':

@@ -94,6 +94,11 @@ class AppliedOffersController extends BaseController
 		return $this->model->getOpenOffers( $offerID );
 	}
 
+	public function getUsersOffers( int $userID )
+	{
+		return $this->model->getUsersOffers( $userID );
+	}
+
 	public function isOfferActive( int $offerID )
 	{
 		$activeOffers = $this->model->offerStatus( $offerID );

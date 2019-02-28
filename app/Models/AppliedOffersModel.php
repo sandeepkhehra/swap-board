@@ -22,6 +22,11 @@ class AppliedOffersModel extends BaseModel
 		return $this->dbDriver->get_results( "SELECT * FROM {$this->table} WHERE offerID='{$offerID}' AND status=0" );
 	}
 
+	public function getUsersOffers( $userID )
+	{
+		return $this->dbDriver->get_results( "SELECT * FROM {$this->table} WHERE userID='{$userID}'" );
+	}
+
 	public function insert( $data )
 	{
 		$this->create( $data );

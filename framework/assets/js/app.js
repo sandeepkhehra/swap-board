@@ -1,18 +1,9 @@
 jQuery(function($) {
 	$(".drop_dn").dropdown()
-	$(".dropdown-menu").click(function(event) {
-		event.stopPropagation()
-	})
 
 	$(".chat-notc").dropdown()
-	$(".dropdown-menu").click(function(event) {
-		event.stopPropagation()
-	})
 
 	$(".message-chat").dropdown()
-	$(".dropdown-menu").click(function(event) {
-		event.stopPropagation()
-	})
 
 	$(".sidebarCollapse").on("click", function() {
 		$(".sidebar").toggleClass("active")

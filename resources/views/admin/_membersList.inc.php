@@ -15,24 +15,20 @@
 					</thead>
 					<tbody>
 						<?php if ( ! empty( $membersData ) ) :
-							foreach ( $membersData as $member ) : ?>
+							foreach ( $membersData as $member ) :
+							?>
 							<tr>
 								<td><?php echo $member->firstName; ?></td>
 								<td><?php echo $member->lastName; ?></td>
 								<td><?php echo $member->createdAt; ?></td>
 								<td>
+									<?php if ( $member->isMember ) : ?>
 									<form style="margin: 0">
 										<?php sboardDefineFormAction('ajax', 'resendInvite', SwapBoard\Controllers\Admin\InviteMembersController::class); ?>
 										<input type="hidden" name="id" value="<?php echo $member->id; ?>">
 										<input type="checkbox" data-swap-button="member-admin" name="check" <?php echo $member->isAdmin ? 'checked' : ''; ?>>
 									</form>
-								</td>
-								<td>
-									<form style="margin: 0">
-										<?php sboardDefineFormAction('ajax', 'userDetails', SwapBoard\Controllers\UsersController::class); ?>
-										<input type="hidden" name="id" value="<?php echo $member->userID; ?>">
-										<span class="sb-row-action sb-row-action--small" data-swap-button="user-details"><i class="fa fa-list"></i> Details</span>
-									</form>
+									<?php endif; ?>
 								</td>
 								<td>
 									<?php if ( ! $member->isMember ) : ?>
@@ -40,6 +36,12 @@
 										<?php sboardDefineFormAction('ajax', 'resendInvite', SwapBoard\Controllers\Admin\InviteMembersController::class); ?>
 										<input type="hidden" name="id" value="<?php echo $member->id; ?>">
 										<span class="sb-row-action sb-row-action--small" data-swap-button="resend-invite"><i class="fa fa-paper-plane-o"></i> Resend Invitation</span>
+									</form>
+									<?php else: ?>
+									<form style="margin: 0">
+										<?php sboardDefineFormAction('ajax', 'userDetails', SwapBoard\Controllers\UsersController::class); ?>
+										<input type="hidden" name="id" value="<?php echo $member->userID; ?>">
+										<span class="sb-row-action sb-row-action--small" data-swap-button="user-details"><i class="fa fa-list"></i> Details</span>
 									</form>
 									<?php endif; ?>
 								</td>

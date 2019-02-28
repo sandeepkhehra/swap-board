@@ -1,0 +1,65 @@
+/**
+=================
+My Offers Section
+=================
+**/
+
+/** Offer action popup **/
+.tooltip-text {
+	visibility: hidden;
+	width: 700px;
+	background-color: #fff;
+	border-radius: 3px;
+	position: absolute;
+	z-index: 1;
+	top: 52px;
+	left: 50%;
+	margin-left: -67px;
+	opacity: 0;
+	transition: opacity 0.3s;
+	max-width: 750px;
+	display: inline-block;
+	padding: 20px;
+	text-align: left;
+	box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.22);
+}
+.tooltip-text h3 {
+	font-weight: 600;
+	margin-top: 10px ;
+	margin-bottom: 20px ;
+}
+.tooltip-text p {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.tooltip-text::after {
+	content: "";
+	position: absolute;
+	top: -12px;
+	left: 27px;
+	margin-left: -5px;
+	width: 0;
+	height: 0;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
+	border-bottom: 12px solid #fff;
+}
+
+[data-swap-has-offer] {
+	position: relative;
+}
+.table-data-provider tr:not(.is-hidden) [data-swap-has-offer]:hover .tooltip-text {
+	visibility: visible;
+	opacity: 1;
+}
+
+.table-data-provider .is-hidden {
+	color: #A4A5A6;
+}
+.table-data-provider .is-hidden .sb-row-action {
+	color: rgba(0, 180, 203, 0.55);
+}
+.table-data-provider .is-hidden .sb-row-action:hover {
+	color: rgba(0, 180, 203, 1);
+}

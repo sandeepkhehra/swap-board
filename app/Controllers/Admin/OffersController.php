@@ -59,12 +59,20 @@ class OffersController extends BaseController
 			$offer->type = self::SHIFT_TYPES[ $offer->type ];
 		}, $offers );
 
+		$appliedTo = (new AppliedOffersController)->getUsersOffers( $postData['userID'] );
+		$appliedToIDs = [];
+
+		foreach ( $appliedTo as $applied ) :
+			$appliedToIDs[] = $applied->offerID;
+		endforeach;
+
 		if ( ! empty( $this->hasErrors() ) ) {
 			$return['type'] = 'error';
 			$return['msg'] = $this->hasErrors();
 		} else {
 			$return['type'] = 'success';
 			$return['data'] = $offers;
+			$return['appliedTo'] = $appliedToIDs;
 		}
 
 		echo json_encode($return);
@@ -73,6 +81,28 @@ class OffersController extends BaseController
 	public function updateOfferStatus( $data )
 	{
 		return $this->model->update( $data );
+	}
+
+	public function update()
+	{
+		$postData = sboardFilterPostData( $_POST );
+
+		$startDateTime = date(  'Y-m-d H:i:s', strtotime( $postData['date']. ' ' .$postData['startTime'] ) );
+		$endDateTime = date( 'Y-m-d H:i:s', strtotime( $postData['date']. ' ' .$postData['endTime'] ) );
+		$postData['startDatetime'] = $startDateTime;
+		$postData['endDatetime'] = $endDateTime;
+		unset( $postData['date'], $postData['startTime'], $postData['endTime'] );
+
+		$this->model->update( $postData );
+
+		if ( ! empty( $this->hasErrors() ) ) {
+			$return['type'] = 'error';
+			$return['msg'] = $this->hasErrors();
+		} else {
+			$return['type'] = 'success';
+		}
+
+		echo json_encode($return);
 	}
 
 	public function delete()
@@ -91,6 +121,30 @@ class OffersController extends BaseController
 			$return['msg'] = 'Member deleted successfully!';
 		}
 
+		echo json_encode( $return );
+	}
+
+	public function edit()
+	{
+		$postData = sboardFilterPostData( $_POST );
+
+		if ( ! $data = $this->dataExists( $postData['id'] ) ) return;
+
+		$return['type'] = 'success';
+		$return['data'] = $data;
+
+		echo json_encode( $return );
+	}
+
+	public function toggleOfferVisibility()
+	{
+		$postData = sboardFilterPostData( $_POST );
+
+		if ( ! $this->dataExists( $postData['id'] ) ) return;
+
+		$this->model->toggleOfferVisibility( $postData );
+
+		$return['type'] = 'success';
 		echo json_encode( $return );
 	}
 }

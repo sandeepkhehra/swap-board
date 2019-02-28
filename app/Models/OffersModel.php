@@ -35,7 +35,7 @@ class OffersModel extends BaseModel
 		if ( ! empty( $data['location'] ) ) $where .= " AND location='$data[location]'";
 		if ( ! empty( $startDateTime ) ) $where .= " AND startDatetime BETWEEN '$startDateTime' AND '$endDateTime'";
 		if ( ! empty( $data['type'] ) ) $where .= " AND type='$data[type]'";
-		$where .= " AND status != 1";
+		$where .= " AND status = 0";
 
 		// echo "SELECT location, position, type, startDatetime, endDatetime FROM {$this->table} WHERE $where";
 		return $this->dbDriver->get_results("SELECT id,location,description,position,type,startDatetime,endDatetime FROM {$this->table} WHERE $where");
@@ -44,5 +44,10 @@ class OffersModel extends BaseModel
 	public function delete( int $id)
 	{
 		parent::delete( $id );
+	}
+
+	public function toggleOfferVisibility( array $data )
+	{
+		$this->update( $data );
 	}
 }

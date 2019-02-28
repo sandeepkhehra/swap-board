@@ -26,6 +26,18 @@ endif;
 $positions = isset( $companyData->positions ) ? unserialize($companyData->positions) : [];
 $locations = isset( $companyData->positions ) ? unserialize($companyData->locations) : [];
 
+if ( $companyData->name === 'testing' ) :
+	$locations = array_unique( array_merge( $locations, [
+		'Atlanta',
+		'Detroit',
+		'Los Angeles',
+		'Minneapolis',
+		'New York (JFK and LaGuardia)',
+		'Salt Lake City',
+		'Seattle',
+	] ) );
+endif;
+
 $membersData = $this->template->model->with('sboard_members', 'companyID', $companyData->id)->sboard_members;
 
 /** Remove self from Member's list. */
@@ -51,7 +63,7 @@ sboardInclude('admin._header', compact('title', 'companyData', 'userMeta', 'chat
                         </div>
 
                         <div id="content">
-							<?php sboardInclude('admin._companyProfile', compact('companyData')); ?>
+							<?php sboardInclude('admin._companyProfile', compact('companyData', 'locations')); ?>
 
 							<?php sboardInclude('admin._membersList', compact('user_ID', 'companyData' ,'membersData')); ?>
 

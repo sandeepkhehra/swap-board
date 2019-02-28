@@ -1,7 +1,6 @@
 <?php
 $details = unserialize($companyData->details);
 $positions = unserialize($companyData->positions);
-$locations = unserialize($companyData->locations);
 
 ?>
 <div class="show-div" id="profile">
